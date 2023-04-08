@@ -1,0 +1,786 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="想躺在云上">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="携程一面介绍项目Redux的实现原理？Redux 的实现原理可以概括为：单一数据源、状态不可变、纯函数更新状态。 具体来说，Redux 将应用程序的状态存储在一个单一的对象中，称为store。这个store对象是只读的，应用程序的状态只能通过派发“action”来改变。每个“action”描述了应用程序中发生的某个事件，它包含一个类型和一些数据。当派发一个action时，Redux 会将当前的状态">
+<meta property="og:type" content="article">
+<meta property="og:title" content="总结(4.1)">
+<meta property="og:url" content="https://ustinians.github.io/2023/04/08/%E6%80%BB%E7%BB%93-4-1/index.html">
+<meta property="og:site_name" content="想躺在云上">
+<meta property="og:description" content="携程一面介绍项目Redux的实现原理？Redux 的实现原理可以概括为：单一数据源、状态不可变、纯函数更新状态。 具体来说，Redux 将应用程序的状态存储在一个单一的对象中，称为store。这个store对象是只读的，应用程序的状态只能通过派发“action”来改变。每个“action”描述了应用程序中发生的某个事件，它包含一个类型和一些数据。当派发一个action时，Redux 会将当前的状态">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-08T12:43:38.000Z">
+<meta property="article:modified_time" content="2023-04-08T12:44:04.182Z">
+<meta property="article:author" content="想躺在云上">
+<meta property="article:tag" content="前端学习">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>总结(4.1) - 想躺在云上</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ustinians.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>想躺在云上</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="总结(4.1)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-08 20:43" pubdate>
+          2023年4月8日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          56 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">总结(4.1)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="携程一面"><a href="#携程一面" class="headerlink" title="携程一面"></a>携程一面</h1><h2 id="介绍项目"><a href="#介绍项目" class="headerlink" title="介绍项目"></a>介绍项目</h2><h2 id="Redux的实现原理？"><a href="#Redux的实现原理？" class="headerlink" title="Redux的实现原理？"></a>Redux的实现原理？</h2><p><code>Redux</code> 的实现原理可以概括为：单一数据源、状态不可变、纯函数更新状态。</p>
+<p>具体来说，<code>Redux</code> 将应用程序的状态存储在一个单一的对象中，称为<code>store</code>。这个<code>store</code>对象是只读的，应用程序的状态只能通过派发“action”来改变。每个“action”描述了应用程序中发生的某个事件，它包含一个类型和一些数据。当派发一个<code>action</code>时，<code>Redux</code> 会将当前的状态和“action”一起传递给一个“reducer”函数，这个函数根据“action”的类型来更新状态，并返回一个新的状态对象。<code>Redux</code> 的状态更新是纯函数式的，它不会直接修改原来的状态，而是返回一个新的状态对象，从而保证了状态的不可变性。</p>
+<p><code>Redux</code> 还提供了一些辅助函数，如<code>connect</code>和<code>mapStateToProps</code>，用于将<code>store</code>中的状态映射到组件的属性中，并在状态变化时自动更新组件。这些函数也是基于纯函数的原理实现的。</p>
+<h2 id="React-Hooks是什么？"><a href="#React-Hooks是什么？" class="headerlink" title="React Hooks是什么？"></a>React Hooks是什么？</h2><p>React Hooks 是 React 16.8 引入的新特性，它可以让函数组件拥有类组件的一些特性，如状态管理、副作用处理等。</p>
+<p>在 React 16.7 之前，函数组件只能通过 props 传递数据和方法，无法保存状态，也无法使用类组件的生命周期方法和其他特性。但是，函数组件具有代码简洁、易于测试和重构的优势，因此在实际开发中使用较多。React Hooks 的出现，使得函数组件也能够方便地管理状态、访问上下文和处理副作用。</p>
+<h2 id="React官方为什么推荐使用Hooks？"><a href="#React官方为什么推荐使用Hooks？" class="headerlink" title="React官方为什么推荐使用Hooks？"></a>React官方为什么推荐使用Hooks？</h2><p>React 官方推荐使用 Hooks 的原因主要有以下几点：</p>
+<ol>
+<li>更好的代码复用：使用 Hooks 可以将组件之间的状态和逻辑进行复用，避免了 HOC 和 render props 带来的嵌套和重复。</li>
+<li>更好的组件结构：使用 Hooks 可以将组件的状态和逻辑进行拆分，使组件的结构更加清晰和简洁。</li>
+<li>更好的性能优化：使用 Hooks 可以避免不必要的渲染，从而提高组件的性能。</li>
+<li>更好的测试性：使用 Hooks 可以更方便地进行单元测试，避免了类组件中需要使用 Enzyme 等工具进行测试的情况。</li>
+<li>更好的开发体验：使用 Hooks 可以减少代码量，提高开发效率，使代码更加易读、易懂。</li>
+</ol>
+<h2 id="为什么React-Hooks对代码的可维护性更强？"><a href="#为什么React-Hooks对代码的可维护性更强？" class="headerlink" title="为什么React Hooks对代码的可维护性更强？"></a>为什么React Hooks对代码的可维护性更强？</h2><p>React Hooks 可以提高代码的可读性、可维护性、可测试性和性能优化，从而使得项目的可维护性更强。</p>
+<h2 id="常见的React-Hooks"><a href="#常见的React-Hooks" class="headerlink" title="常见的React Hooks?"></a>常见的React Hooks?</h2><ul>
+<li>useState</li>
+<li>useEffect</li>
+<li>useRef</li>
+<li>useContext</li>
+<li>useReducer</li>
+<li>useCallback</li>
+<li>useMemo</li>
+</ul>
+<h2 id="为什么要在项目中使用useMemo？"><a href="#为什么要在项目中使用useMemo？" class="headerlink" title="为什么要在项目中使用useMemo？"></a>为什么要在项目中使用useMemo？</h2><p>在项目中使用 useMemo 的主要原因是优化组件的性能，避免不必要的计算和渲染，从而提高项目性能和用户体验。</p>
+<p>useMemo 是一个 Hooks API，它可以缓存计算结果，只有在依赖项发生变化时才重新计算。这样可以避免在每次渲染时都进行昂贵的计算，从而提高组件的性能。</p>
+<p>在项目中，使用 useMemo 可以优化以下情况：</p>
+<ol>
+<li>计算昂贵的函数结果：如果一个函数的计算结果很昂贵，但是这个结果只在某些依赖项发生变化时才需要重新计算，这时就可以使用 useMemo 缓存计算结果，避免不必要的计算。</li>
+<li>避免不必要的渲染：如果一个组件的某个属性是通过复杂计算得到的，但是这个属性并不是组件状态的一部分，这时可以使用 useMemo 缓存属性值，避免不必要的渲染。</li>
+<li>优化子组件的渲染：如果一个组件的某个属性是一个函数，这个函数返回一个组件，但是这个函数并不是组件状态的一部分，这时可以使用 useMemo 缓存函数结果，避免不必要的子组件渲染。</li>
+</ol>
+<h2 id="useMemo相当于是对状态进行了一次缓存吗？"><a href="#useMemo相当于是对状态进行了一次缓存吗？" class="headerlink" title="useMemo相当于是对状态进行了一次缓存吗？"></a>useMemo相当于是对状态进行了一次缓存吗？</h2><p>是的，useMemo 可以看作是对计算结果进行缓存，仅在依赖项发生变化时才会重新计算。</p>
+<p>useMemo 接收两个参数：一个是计算函数，另一个是依赖项数组。当依赖项数组中的任意一个依赖项发生变化时，useMemo 会重新计算计算函数的结果。如果依赖项数组中的依赖项没有发生变化，则 useMemo 返回上一次缓存的结果。</p>
+<p>通过使用 useMemo，可以避免在每次渲染时都进行昂贵的计算，提高组件的性能。在某些情况下，如果没有使用 useMemo，组件可能会进行大量的重复计算，导致性能下降。</p>
+<p>此外，虽然 useMemo 可以优化组件的性能，但是过度使用 useMemo 也会带来一些问题，如增加内存占用和代码复杂度等。因此，在使用 useMemo 时需要根据实际情况进行权衡和调整。</p>
+<h2 id="useEffect和useLayoutEffect的区别？"><a href="#useEffect和useLayoutEffect的区别？" class="headerlink" title="useEffect和useLayoutEffect的区别？"></a>useEffect和useLayoutEffect的区别？</h2><p>useEffect 和 useLayoutEffect 都是 React 的 Hooks API，它们的主要区别在于执行的时机和是否会阻塞浏览器渲染。</p>
+<ol>
+<li>执行时机：useEffect 是在组件渲染完成后异步执行的，而 useLayoutEffect 是在组件渲染完成后同步执行的。因此，useLayoutEffect 的执行优先级更高。</li>
+<li>是否阻塞浏览器渲染：useEffect 不会阻塞浏览器渲染，而 useLayoutEffect 会阻塞浏览器渲染。因此，在使用 useLayoutEffect 时要注意避免长时间的计算和操作，以免影响用户体验。</li>
+<li>使用场景：useEffect 适合处理副作用，如数据获取、订阅事件等。而 useLayoutEffect 适合处理需要同步更新 DOM 的操作，如计算 DOM 元素的大小和位置等。</li>
+</ol>
+<p>综上所述，useEffect 和 useLayoutEffect 在执行时机和是否阻塞浏览器渲染方面有所不同，需要根据实际情况选择使用。一般来说，如果需要同步更新 DOM，可以使用 useLayoutEffect，否则可以使用 useEffect。</p>
+<h2 id="Node-js在搭建服务器的时候起了哪些作用？"><a href="#Node-js在搭建服务器的时候起了哪些作用？" class="headerlink" title="Node.js在搭建服务器的时候起了哪些作用？"></a>Node.js在搭建服务器的时候起了哪些作用？</h2><p>在搭建服务端时，Node.js 起到了以下几个作用：</p>
+<ol>
+<li>提供 Web 服务器：Node.js 提供了内置的 HTTP 模块，可以用来创建 Web 服务器。开发者可以使用该模块创建 HTTP 服务器，接收和处理客户端请求，并返回响应。</li>
+<li>处理请求和响应：Node.js 可以用来处理客户端请求，解析请求头和请求体，提取参数和数据等。同时，Node.js 也可以用来构建响应，设置响应头和响应体，返回数据给客户端。</li>
+<li>实现业务逻辑：Node.js 可以用来实现业务逻辑，如处理数据、验证用户信息、调用其他服务等。同时，Node.js 也可以用来调用第三方库和 API，实现更丰富的业务功能。</li>
+<li>数据库交互：Node.js 可以用来与数据库进行交互，执行查询、插入、更新和删除操作等。Node.js 支持多种数据库，如 MongoDB、MySQL、PostgreSQL 等，可以根据实际需求选择合适的数据库。</li>
+<li>处理并发请求：Node.js 的事件驱动和非阻塞 I&#x2F;O 特性，可以处理大量并发请求，提高服务器的性能和吞吐量。</li>
+</ol>
+<h2 id="JS的基本数据类型有哪些？"><a href="#JS的基本数据类型有哪些？" class="headerlink" title="JS的基本数据类型有哪些？"></a>JS的基本数据类型有哪些？</h2><p>Null、Undefined、Number、String、Boolean、Symbol、BigInt、Object。</p>
+<h2 id="判断数据类型的方式有哪些？"><a href="#判断数据类型的方式有哪些？" class="headerlink" title="判断数据类型的方式有哪些？"></a>判断数据类型的方式有哪些？</h2><ul>
+<li>typeof</li>
+<li>constructor</li>
+<li>instanceof</li>
+<li>Object.prototype.toString.call</li>
+</ul>
+<h2 id="什么是原型？"><a href="#什么是原型？" class="headerlink" title="什么是原型？"></a>什么是原型？</h2><p>在JavaScript中，每个对象都有一个原型。原型是一个对象，它包含着对象的属性和方法。当我们访问一个对象的属性或方法时，如果该对象本身没有该属性或方法，JavaScript引擎会沿着对象的原型链查找，直到找到该属性或方法为止。原型是JavaScript实现继承的基础，可以通过原型链实现属性和方法的继承。</p>
+<h2 id="new一个对象发生了什么？"><a href="#new一个对象发生了什么？" class="headerlink" title="new一个对象发生了什么？"></a>new一个对象发生了什么？</h2><ol>
+<li>首先创建一个空的对象</li>
+<li>将该对象的原型指向构造函数的prototype属性</li>
+<li>将构造函数的this指向该对象并执行构造函数</li>
+<li>如果构造函数返回一个基本数据类型，则返回这个对象，否则返回构造函数返回的引用数据类型对象。</li>
+</ol>
+<h2 id="引入模块的两种方式？"><a href="#引入模块的两种方式？" class="headerlink" title="引入模块的两种方式？"></a>引入模块的两种方式？</h2><ul>
+<li><p>ES6导入导出模块方式：<code>import</code>和<code>export</code>。</p>
+<ul>
+<li><p><code>import</code>：在一个模块中引入另一个模块的内容。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> defaultExport <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;module-name&quot;</span>;<br><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> name <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;module-name&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; export1 &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;module-name&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; export1 <span class="hljs-keyword">as</span> alias1 &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;module-name&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; export1 , export2 &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;module-name&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; export1 , export2 <span class="hljs-keyword">as</span> alias2 , [...] &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;module-name&quot;</span>;<br><span class="hljs-keyword">import</span> defaultExport, &#123; export1 [ , [...] ] &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;module-name&quot;</span>;<br><span class="hljs-keyword">import</span> defaultExport, * <span class="hljs-keyword">as</span> name <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;module-name&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>defaultExport</code>表示模块的默认输出</li>
+<li><code>name</code>表示模块的命名输出</li>
+<li><code>export1</code>表示模块的具名输出</li>
+</ul>
+</li>
+<li><p><code>export</code>：用于在一个模块中导出内容，让其他模块可以引用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> expression;<br><span class="hljs-keyword">export</span> &#123; name1, name2, …, nameN &#125;;<br><span class="hljs-keyword">export</span> &#123; variable1 <span class="hljs-keyword">as</span> name1, variable2 <span class="hljs-keyword">as</span> name2, …, nameN &#125;;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> name1, name2, …, nameN; <span class="hljs-comment">// also var</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> name1 = value1, name2 = value2, …, nameN = valueN;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ClassName</span> &#123;...&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">FunctionName</span>(<span class="hljs-params"></span>)&#123;...&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>defalut</code>表示模块的默认输出</li>
+<li><code>name</code>等表示模块的具名输出</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>CommonJS主要用于服务端的JS编程，<code>require()</code>导入模块，<code>module.exports</code>或<code>exports</code>导出模块。</p>
+<ul>
+<li><p><code>require()</code>导入模块</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-variable language_">module</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;module-name&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><code>module-name</code>为要导出的模块名</p>
+</li>
+<li><p><code>module.exports</code>或<code>exports</code>导出模块</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = value;<br><span class="hljs-built_in">exports</span>.<span class="hljs-property">name</span> = values;<br></code></pre></td></tr></table></figure>
+
+<p>其中<code>value</code>为要导出的值，可以是任意类型的值，包括对象、函数、字符串、数字等。</p>
+</li>
+</ul>
+<p>需要注意的是，<code>module.exports</code>是直接将一个对象赋值给<code>exports</code>，而<code>exports</code>只是对<code>module.exports</code>的一个引用，因此可以使用<code>exports</code>导出多个属性，但不能使用<code>exports</code>直接覆盖<code>module.exports</code>。</p>
+</li>
+</ul>
+<h2 id="ES6和CommonJS引入模块的区别？"><a href="#ES6和CommonJS引入模块的区别？" class="headerlink" title="ES6和CommonJS引入模块的区别？"></a>ES6和CommonJS引入模块的区别？</h2><ol>
+<li><p>语法不同：</p>
+<p>ES6使用<code>import</code>和<code>export</code>来导入和导出模块，而CommonJS使用<code>require()</code>和<code>module.exports</code>或<code>exports</code>来导入和导出模块。</p>
+</li>
+<li><p>加载方式不同：</p>
+<p>ES6采用静态编译方式，在编译时就确定模块的依赖关系，然后再进行模块的加载。而CommonJS采用动态加载方式，在运行时根据代码需要动态加载模块。</p>
+</li>
+<li><p>可以导出的内容不同：</p>
+<p>ES6中可以导出的内容包括变量、函数、类等，而CommonJS中只能导出对象。</p>
+</li>
+<li><p>作用域不同：</p>
+<p>ES6中的模块是静态的，每个模块都有自己的作用域，不会污染全局作用域，而CommonJS中的模块是动态的，导出的对象是引用类型，会污染全局作用域。</p>
+</li>
+</ol>
+<h2 id="ES6有哪些新特性？"><a href="#ES6有哪些新特性？" class="headerlink" title="ES6有哪些新特性？"></a>ES6有哪些新特性？</h2><ul>
+<li><p>块级作用域：let和const</p>
+</li>
+<li><p>箭头函数</p>
+</li>
+<li><p>模板字符串</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> name = <span class="hljs-string">&quot;XiaoMing&quot;</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`My name is <span class="hljs-subst">$&#123;name&#125;</span>`</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>拓展运算符</p>
+</li>
+<li><p>类和继承 (<code>class</code>)</p>
+</li>
+<li><p>模块化：<code>import</code>和<code>export</code></p>
+</li>
+<li><p>Promise和async&#x2F;await</p>
+</li>
+<li><p>Symbol、BigInt</p>
+</li>
+<li><p>数组新增方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">Array</span>.<span class="hljs-title function_">from</span>() <span class="hljs-comment">// 将类数组对象or可迭代对象转换为数组</span><br><span class="hljs-title class_">Array</span>.<span class="hljs-title function_">of</span>() <span class="hljs-comment">// 根据传入的参数创建一个数组</span><br><span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">find</span>()<br><span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">findIndex</span>()<br><span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">fill</span>()<br><span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">keys</span>()<br><span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">values</span>()<br><span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">includes</span>()<br><span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">copyWithin</span>() <span class="hljs-comment">// 将数组的一部分复制到另一部分</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>对象新增方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>()<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>()<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">values</span>()<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entires</span>() <span class="hljs-comment">// 返回一个数组，包含自身所有可枚举属性的键值对</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyDescriptors</span>() <span class="hljs-comment">// 返回一个对象，包含指定对象所有属性的描述符</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">freeze</span>() <span class="hljs-comment">// 冻结对象，使其属性不可修改、添加或删除</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">seal</span>() <span class="hljs-comment">// 封闭对象，使其属性不可添加或删除，但是可以修改</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">is</span>() <span class="hljs-comment">// 用于比较两个值是否完全相同</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="移动端epx-移动端适配-问题如何解决？"><a href="#移动端epx-移动端适配-问题如何解决？" class="headerlink" title="移动端epx(移动端适配)问题如何解决？"></a>移动端epx(移动端适配)问题如何解决？</h2><ul>
+<li>使用em&#x2F;rem等单位设置元素尺寸</li>
+<li>使用vw和vh单位</li>
+<li>第三方库(lib-flexible、amfe-fiexible等)进行解决，这些库会根据屏幕像素密度和屏幕尺寸等信息自动计算出合适的rem值，从而解决移动端epx问题。</li>
+</ul>
+<h2 id="HTTP和HTTPS的区别？"><a href="#HTTP和HTTPS的区别？" class="headerlink" title="HTTP和HTTPS的区别？"></a>HTTP和HTTPS的区别？</h2><ul>
+<li>HTTP是超文本传输协议，采用明文传输，而HTTPS采用SSL进行了数据加密，保证了数据的安全性</li>
+<li>HTTP使用的是80端口，HTTPS是443端口</li>
+<li>HTTPS需要数字证书，用于验证服务器身份和保证通信安全性</li>
+<li>HTTPS加密和解密过程需要消耗更多计算资源，更加消耗性能</li>
+<li>HTTPS的数据不容易被存储，因为每个请求和响应都需要加密和解密，而HTTP的数据易于被存储，可以提高访问速度。</li>
+</ul>
+<h2 id="302状态码是什么意思？和301有什么区别？"><a href="#302状态码是什么意思？和301有什么区别？" class="headerlink" title="302状态码是什么意思？和301有什么区别？"></a>302状态码是什么意思？和301有什么区别？</h2><p>302表示临时重定向，表示所请求的资源临时转移到了另一个URL上面。</p>
+<p>301状态码表示永久重定向，告诉客户端所请求的资源已经被永久移动到了新的位置，以后应该使用新的URL访问，它会在响应头的Location字段中存储新的URL，浏览器收到后会对新的URL进行缓存，在以后的请求中会自动使用新的URL而不是旧的URL。</p>
+<p>302状态码表示临时重定向，告诉客户端所请求的资源已经被临时移动到了新的位置，但以后还是应该使用原来的URL访问，浏览器在以后的请求中仍然会使用原来的URL，需要再次请求服务器获取新的URL。</p>
+<h2 id="什么是防抖和节流？"><a href="#什么是防抖和节流？" class="headerlink" title="什么是防抖和节流？"></a>什么是防抖和节流？</h2><p>防抖：一个事件在触发n秒之后再进行执行，如果重复进行请求则重新进行计时。</p>
+<p>节流：一个事件在一段时间内只能执行一次，如果多次触发也只会执行一次。</p>
+<h2 id="手写防抖"><a href="#手写防抖" class="headerlink" title="手写防抖"></a>手写防抖</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">debounce</span>(<span class="hljs-params">fn, wait</span>) &#123;<br>    <span class="hljs-keyword">let</span> timer = <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">const</span> args = [...<span class="hljs-variable language_">arguments</span>], context = <span class="hljs-variable language_">this</span>;<br>        <span class="hljs-keyword">if</span>(timer) &#123;<br>            <span class="hljs-built_in">clearTimeout</span>(timer);<br>            timer = <span class="hljs-literal">null</span>;<br>        &#125;<br>        timer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>            fn.<span class="hljs-title function_">apply</span>(context, args);<br>        &#125;, wait);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">uniqueArr</span>(<span class="hljs-params">arr</span>) &#123;<br>    <span class="hljs-keyword">const</span> newArr = arr.<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">if</span>(arr.<span class="hljs-title function_">findIndex</span>(<span class="hljs-function"><span class="hljs-params">item1</span> =&gt;</span> item1 === item) === index) &#123;<br>            <span class="hljs-keyword">return</span> item;<br>        &#125;<br>    &#125;)<br>    <span class="hljs-keyword">return</span> newArr;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">#前端学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>总结(4.1)</div>
+      <div>https://ustinians.github.io/2023/04/08/总结-4-1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>想躺在云上</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/04/08/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" title="位运算及其应用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">位运算及其应用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/08/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" title="排序算法总结">
+                        <span class="hidden-mobile">排序算法总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
