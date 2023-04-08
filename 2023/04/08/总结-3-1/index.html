@@ -1,0 +1,761 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="CSS常见的行内元素和块级元素？它们有什么区别？行内元素：行内元素与其他行内元素并排，不能设置宽高，宽度默认为文字的宽度。 块级元素：块级元素霸占一行，不能与其他任何元素并列，能接受宽高，如果不设置宽度，那么宽度将默认变为父级的100%。 常见的行内元素有：button、input、label、select、textarea、a、img、span、script等。 常见的块级元素有：div、sec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="总结(3.1)">
+<meta property="og:url" content="https://ustinians.github.io/2023/04/08/%E6%80%BB%E7%BB%93-3-1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="CSS常见的行内元素和块级元素？它们有什么区别？行内元素：行内元素与其他行内元素并排，不能设置宽高，宽度默认为文字的宽度。 块级元素：块级元素霸占一行，不能与其他任何元素并列，能接受宽高，如果不设置宽度，那么宽度将默认变为父级的100%。 常见的行内元素有：button、input、label、select、textarea、a、img、span、script等。 常见的块级元素有：div、sec">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-08T07:09:57.000Z">
+<meta property="article:modified_time" content="2023-04-08T07:10:20.911Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="前端学习">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>总结(3.1) - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ustinians.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="总结(3.1)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-08 15:09" pubdate>
+          2023年4月8日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          77 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">总结(3.1)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="CSS常见的行内元素和块级元素？它们有什么区别？"><a href="#CSS常见的行内元素和块级元素？它们有什么区别？" class="headerlink" title="CSS常见的行内元素和块级元素？它们有什么区别？"></a>CSS常见的行内元素和块级元素？它们有什么区别？</h2><p><strong>行内元素：</strong>行内元素与其他行内元素并排，不能设置宽高，宽度默认为文字的宽度。</p>
+<p><strong>块级元素：</strong>块级元素霸占一行，不能与其他任何元素并列，能接受宽高，如果不设置宽度，那么宽度将默认变为父级的100%。</p>
+<p>常见的行内元素有：button、input、label、select、textarea、a、img、span、script等。</p>
+<p>常见的块级元素有：div、section、p、table、form、header、footer、h1~h6、aside、canvas、ol、ul等。</p>
+<p>CSS中，块级元素和行内元素的区别在于：</p>
+<ul>
+<li>块级元素独占一行，不能与其他任何元素并列；行内元素可以与其他行内元素并排。</li>
+<li>块级元素可以设置宽高，而行内元素不能设置宽高，宽度由内容撑开。</li>
+</ul>
+<h2 id="什么是回流和重绘？"><a href="#什么是回流和重绘？" class="headerlink" title="什么是回流和重绘？"></a>什么是回流和重绘？</h2><p>回流：当DOM节点中的部分或全部元素的尺寸、结构、布局等发生变化的时候，浏览器就会重新渲染部分或全部文档，这个过程称为回流。</p>
+<p>重绘：页面中元素的样式发生变化，但是不影响其在文档流中的位置，浏览器就会对该元素进行重绘。</p>
+<p>发生回流一定会引起重绘，但是重绘不一定会引起回流。</p>
+<h2 id="在什么情况下会触发回流？"><a href="#在什么情况下会触发回流？" class="headerlink" title="在什么情况下会触发回流？"></a>在什么情况下会触发回流？</h2><ul>
+<li>添加或删除可见的DOM元素</li>
+<li>元素位置、尺寸(包括外边距、内边距、边框大小、高度和宽度等)发生变化</li>
+<li>内容发生变化(例如文本变化或图片被另一个不同尺寸的图片取代)</li>
+<li>页面一开始渲染</li>
+<li>浏览器窗口尺寸变化(因为回流是根据视口的大小来计算元素的位置和大小的)</li>
+</ul>
+<h2 id="获取元素的offsetHeight等会触发回流吗？"><a href="#获取元素的offsetHeight等会触发回流吗？" class="headerlink" title="获取元素的offsetHeight等会触发回流吗？"></a>获取元素的offsetHeight等会触发回流吗？</h2><p>会。</p>
+<p><code>offsetHeight</code> 是一个元素的实时高度，必须重排重绘以后才能得到，如果不提前进行重排重绘，<code>offsetHeight</code> 有可能拿到的是浏览器缓存队列没执行完的时候的值。</p>
+<h2 id="什么是flex布局？"><a href="#什么是flex布局？" class="headerlink" title="什么是flex布局？"></a>什么是flex布局？</h2><p>flex为”弹性布局”，可以简便、完整、响应式的实现各种页面布局。它的所有子元素自动成为容器成员，称为flex项目的item。</p>
+<p>容器中默认存在两条轴，主轴和交叉轴，呈90°的关系。项目默认沿主轴排列，通过<code>flelx-direction</code>来决定主轴方向。</p>
+<h2 id="flex-1具体指的是什么？"><a href="#flex-1具体指的是什么？" class="headerlink" title="flex: 1具体指的是什么？"></a>flex: 1具体指的是什么？</h2><ul>
+<li><code>flex-grow: 1</code> (默认为0) ：表示元素的放大比例</li>
+<li><code>flex-shrink: 1</code> (默认为1) ：表示元素的缩小比例</li>
+<li><code>flex-basis: 0%</code> (默认为auto) ：元素本身的大小，这个属性定义了在分配多余空间之前，元素占据的主轴空间。浏览器根据这个属性计算是否有多余空间。</li>
+</ul>
+<h2 id="如何进行移动端适配？"><a href="#如何进行移动端适配？" class="headerlink" title="如何进行移动端适配？"></a>如何进行移动端适配？</h2><ul>
+<li>rem布局</li>
+<li>vw&#x2F;vh布局</li>
+<li>百分比布局</li>
+<li>响应式布局</li>
+</ul>
+<h2 id="em和rem的区别？"><a href="#em和rem的区别？" class="headerlink" title="em和rem的区别？"></a>em和rem的区别？</h2><p>em和rem都是相对单位长度</p>
+<p>em是相对于父元素的字体大小来计算元素的大小</p>
+<p>rem是相对于根元素的字体大小来计算元素的大小</p>
+<h2 id="什么是vw和vh"><a href="#什么是vw和vh" class="headerlink" title="什么是vw和vh?"></a>什么是vw和vh?</h2><p>vw和vh是CSS3引入的视口单位，是相对于视口的宽度和高度来计算元素的大小。</p>
+<p>1vw等于视口宽度的1%，1vh等于视口高度的1%。除了vw和vh，还有vmin和vmax两个单位，vmin是vw和vh中较小的那个，vmax是vw和vh中较大的那个。</p>
+<h2 id="什么是JS的事件机制？"><a href="#什么是JS的事件机制？" class="headerlink" title="什么是JS的事件机制？"></a>什么是JS的事件机制？</h2><p>JavaScript 事件机制描述的是事件在 DOM 里面的传递顺序，以及我们可以对这些事件做出如何的响应。</p>
+<p>DOM事件流（event flow ）存在三个阶段：事件捕获阶段、处于目标阶段、事件冒泡阶段。</p>
+<p>事件捕获（event capturing）： 通俗的理解就是，当鼠标点击或者触发dom事件时，浏览器会从根节点开始<strong>由外到内</strong>进行事件传播，即点击了子元素，如果父元素通过事件捕获方式注册了对应的事件的话，会先触发父元素绑定的事件。</p>
+<p>事件冒泡（dubbed bubbling）： 与事件捕获恰恰相反，事件冒泡顺序是<strong>由内到外</strong>进行事件传播，直到根节点。无论是事件捕获还是事件冒泡，它们都有一个共同的行为，就是事件传播，它就像一跟引线，只有通过引线才能将绑在引线上的鞭炮（事件监听器）引爆。</p>
+<p>DOM标准事件流的触发的先后顺序为 ：<strong>先捕获再冒泡，即当触发dom事件时，会先进行事件捕获，捕获到事件源之后通过事件传播进行事件冒泡</strong>。</p>
+<h2 id="代码输出"><a href="#代码输出" class="headerlink" title="代码输出"></a>代码输出</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">fun1</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">await</span> <span class="hljs-title function_">fun2</span>();<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">2</span>);<br>&#125;<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">fun2</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">3</span>);<br>&#125;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">4</span>);<br><br><span class="hljs-title function_">fun1</span>(<span class="hljs-number">1</span>);<br><br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">5</span>);<br>&#125;, <span class="hljs-number">0</span>)<br><br><span class="hljs-keyword">const</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">6</span>);<br>    <span class="hljs-title function_">resolve</span>(<span class="hljs-number">7</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">8</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">9</span>;<br>&#125;).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res);<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">4 </span><span class="hljs-number">1</span> <span class="hljs-number">3</span> <span class="hljs-number">6</span> <span class="hljs-number">8</span> <span class="hljs-number">2</span> <span class="hljs-number">7</span> <span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Promise常用的API？"><a href="#Promise常用的API？" class="headerlink" title="Promise常用的API？"></a>Promise常用的API？</h2><p>Promise.then、Promise.catch、Promise.finally、Promise.all、Promise.race</p>
+<h2 id="Promise-all和Promise-race的区别？"><a href="#Promise-all和Promise-race的区别？" class="headerlink" title="Promise.all和Promise.race的区别？"></a>Promise.all和Promise.race的区别？</h2><p>Promise.all()和Promise.race()都是Promise的静态方法，用于处理多个Promise对象。它们的区别在于：</p>
+<ul>
+<li>Promise.all()会在多个promise全部resolve之后执行.then，而Promise.race()会在任何一个promise resolve后就会执行.then。</li>
+<li>Promise.all()会等待所有的promise对象都resolve或有一个reject后才会执行.then，而Promise.race()只要有一个promise对象resolve或reject就会执行.then。</li>
+<li>Promise.all()会返回所有Promise resolved后的结果数组或第一个rejected的Promise对象的报错信息。</li>
+</ul>
+<h2 id="Promise的错误在哪里进行捕捉"><a href="#Promise的错误在哪里进行捕捉" class="headerlink" title="Promise的错误在哪里进行捕捉?"></a>Promise的错误在哪里进行捕捉?</h2><p>Promise发生的错误可以在try…catch中捕获，也可以在.catch()中捕获。如果在try…catch中捕获，需要在Promise对象前加await关键字，否则无法捕获异步错误。如果在.catch()中捕获，需要在Promise对象后加.catch()方法。</p>
+<h2 id="假设一个function中有多个Promise任务，然后有某个Promise发生了异常，如何准确判断是哪个Promise发生了异常？"><a href="#假设一个function中有多个Promise任务，然后有某个Promise发生了异常，如何准确判断是哪个Promise发生了异常？" class="headerlink" title="假设一个function中有多个Promise任务，然后有某个Promise发生了异常，如何准确判断是哪个Promise发生了异常？"></a>假设一个function中有多个Promise任务，然后有某个Promise发生了异常，如何准确判断是哪个Promise发生了异常？</h2><p>在reject()中进行处理</p>
+<h2 id="bind、call和apply的区别？"><a href="#bind、call和apply的区别？" class="headerlink" title="bind、call和apply的区别？"></a>bind、call和apply的区别？</h2><ul>
+<li><code>apply</code>接受两个参数，第一个参数是<code>this</code>的指向，第二个参数是函数接受的参数，以数组的形式传入，改变<code>this</code>指向后原函数会立即执行，且此方法只是临时改变<code>this</code>指向一次。</li>
+<li><code>call</code>方法的第一个参数也是<code>this</code>的指向，后面传入的是一个参数列表，跟<code>apply</code>一样，改变<code>this</code>指向后原函数会立即执行，且此方法只是临时改变<code>this</code>指向一次。</li>
+<li>bind方法和call很相似，第一参数也是<code>this</code>的指向，后面传入的也是一个参数列表(但是这个参数列表可以分多次传入)，改变<code>this</code>指向后不会立即执行，而是返回一个永久改变<code>this</code>指向的函数。</li>
+</ul>
+<h2 id="箭头函数和普通函数的区别？"><a href="#箭头函数和普通函数的区别？" class="headerlink" title="箭头函数和普通函数的区别？"></a>箭头函数和普通函数的区别？</h2><ul>
+<li>箭头函数不绑定this，会捕获其所在上下文的this作为自己的this。</li>
+<li>箭头函数没有arguments对象，只能通过rest参数获取参数。</li>
+<li>箭头函数不能使用yield命令，不能用作Generator函数。</li>
+<li>箭头函数是匿名函数，不能用作构造函数，不可以使用new命令。</li>
+</ul>
+<h2 id="React函数组件和类组件的区别？"><a href="#React函数组件和类组件的区别？" class="headerlink" title="React函数组件和类组件的区别？"></a>React函数组件和类组件的区别？</h2><ul>
+<li>类组件有生命周期，函数组件无生命周期</li>
+<li>类组件调用setStatet管理state状态，函数组件使用useState</li>
+<li>函数组件调用即是执行函数，类组件需要先将组件实例化，再调用实例对象的render方法</li>
+<li>函数组件更加简洁易懂，容易被开发、理解和测试。</li>
+</ul>
+<h2 id="函数式组件用哪个hook模拟声明周期"><a href="#函数式组件用哪个hook模拟声明周期" class="headerlink" title="函数式组件用哪个hook模拟声明周期"></a>函数式组件用哪个hook模拟声明周期</h2><p>useEffect</p>
+<h2 id="React-state更新机制"><a href="#React-state更新机制" class="headerlink" title="React state更新机制"></a>React state更新机制</h2><p>React中类组件的state是通过setState()方法来更新的。当执行setState()时，会将需要更新的state合并后放入状态队列，不会立即更新。React也正是通过状态队列实现了setState的异步更新，避免频繁的重复更新state。当React需要更新组件时，会将状态队列中的state合并后一次性更新组件，这样可以提高性能。</p>
+<p>React函数组件中的state是通过useState()方法来更新的。useState()方法返回一个数组，第一个元素是当前state的值，第二个元素是更新state的函数。当执行更新state的函数时，会将需要更新的state合并后放入状态队列，不会立即更新。React也正是通过状态队列实现了useState的异步更新，避免频繁的重复更新state。当React需要更新组件时，会将状态队列中的state合并后一次性更新组件，这样可以提高性能。</p>
+<p>在React18优化了批处理之后，state的更新都表现为异步的。</p>
+<h2 id="React虚拟DOM的Diff算法？"><a href="#React虚拟DOM的Diff算法？" class="headerlink" title="React虚拟DOM的Diff算法？"></a>React虚拟DOM的Diff算法？</h2><p>React中的虚拟DOM和diff算法是为了提高渲染效率而设计的。虚拟DOM是一种编程概念，UI以一种理想化的、或者说“虚拟的”表现形式存在于内存中，而不是真实的DOM树。当状态发生变化时，React会通过diff算法比较新旧虚拟DOM树的差异，然后只更新需要更新的部分，从而避免了全量渲染，提高了渲染效率。</p>
+<p>React中的diff算法是通过比较新旧虚拟DOM树的差异来确定需要更新的节点。diff算法会遍历新旧虚拟DOM树，对比它们的节点，然后根据节点的变化情况来更新真实DOM。React中的diff算法是基于两个假设：同一层级的两个节点可以通过唯一的id进行区分；同一层级的节点可以通过位置进行区分。React中的diff算法是一个递归算法，它会递归遍历新旧虚拟DOM树，对比它们的节点，然后根据节点的变化情况来更新真实DOM。如果两个节点不同，则会直接替换掉旧节点，如果两个节点相同，则会更新该节点。</p>
+<p><strong>查找需要更新的节点是从尾节点找还是头节点找还是中间二分择半？</strong></p>
+<p>React的Diff算法进行虚拟节点比较是从头部开始，然后依次向后比较，直到找到不同的节点位置。如果新旧虚拟节点的数量不同，则从尾部开始比较，直到找到不同的节点为止。</p>
+<h2 id="useMemo和useCallback的区别？"><a href="#useMemo和useCallback的区别？" class="headerlink" title="useMemo和useCallback的区别？"></a>useMemo和useCallback的区别？</h2><p>二者都是用于缓存数据，优化性能的，它们接受到的参数是一样的，第一个参数表示回调函数，第二个参数表示依赖的数据。</p>
+<p>共同作用：在依赖数据发生变化的时候，才会调用传进去的回调函数去重新计算结果，起到缓冲的作用。</p>
+<p>区别：</p>
+<ul>
+<li><code>useMemo</code>缓存的结果是回调函数中return回来的值，主要用于缓存计算结果的值，应用场景如需要计算的状态。</li>
+<li><code>useCallback</code>缓存的结果是函数，主要用于缓存函数，应用场景如需要缓存的函数，因为函数式组件每次任何一个state发生变化都会触发整个组件更新，一些函数是没有必要更新的，此时就应该缓存起来，提高性能，减少对资源的浪费。<code>useCallback</code>应该和<code>React.memo</code>配套使用，缺少一个可能会导致性能不升反降。</li>
+</ul>
+<h3 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123;useState, useMemo&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Info</span>(<span class="hljs-params">props</span>) &#123;<br>    <span class="hljs-keyword">const</span> [info, setInfo] = <span class="hljs-title function_">useState</span>(&#123;<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;LiHua&quot;</span>,<br>        <span class="hljs-attr">gender</span>: <span class="hljs-string">&quot;male&quot;</span><br>    &#125;);<br>    <span class="hljs-comment">// 翻译性别的函数</span><br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">formatGender</span> = (<span class="hljs-params">gender</span>) =&gt; &#123;<br>        <span class="hljs-keyword">return</span> gender === <span class="hljs-string">&quot;male&quot;</span> ? <span class="hljs-string">&quot;男&quot;</span> : <span class="hljs-string">&quot;女&quot;</span>;<br>    &#125;<br>    <span class="hljs-comment">// 如果不使用useMemo,修改其他属性，也会导致formatGender方法的调用，浪费计算资源</span><br>    <span class="hljs-comment">// const gender = formatGender(info.gender);</span><br>    <span class="hljs-comment">// 仅当info.gender发生变化的时候才调用formatGender</span><br>    <span class="hljs-keyword">const</span> gender = <span class="hljs-title function_">useMemo</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-title function_">formatGender</span>(info.<span class="hljs-property">gender</span>);<br>    &#125;, [info.<span class="hljs-property">gender</span>]);<br>    <span class="hljs-keyword">return</span> (<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        姓名：&#123;info.name&#125; - 性别：&#123;gender&#125;</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">button</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">onClick</span> = <span class="hljs-string">&#123;()</span> =&gt;</span> setInfo(...info, name: &quot;XiaoMing&quot;)&#125;</span><br><span class="language-xml">        &gt;点击修改姓名<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="useCallback"><a href="#useCallback" class="headerlink" title="useCallback"></a>useCallback</h3><p>useCallback是设计初衷是为了<strong>减少子组件的不必要重读渲染</strong>，优化思路主要有以下两种：</p>
+<ul>
+<li>减少render的次数</li>
+<li>减少计算量</li>
+</ul>
+<p>在如下场景中</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-comment">// 不使用useCallback和memo的时候</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Comp</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> [dataA, setDataA] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">const</span> [dataB, setDataB] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">onClickA</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>        <span class="hljs-title function_">setDataA</span>(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> o+<span class="hljs-number">1</span>);<br>    &#125;<br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">onClickB</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>        <span class="hljs-title function_">setDataB</span>(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> o+<span class="hljs-number">1</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> (<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Cheap</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onClickA&#125;</span>&gt;</span>组件Cheap: &#123;dataA&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">Cheap</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Expensive</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onClickB&#125;</span>&gt;</span>组件Expensive: &#123;dataB&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">Expensive</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对于上述组件中，每当点击Cheap组件的时候，Expensive组件也会重新渲染，即使dataB没有发生变化，原因就是onClickB被重新定义，导致React在diff新旧组件的时候判定了组件发生了变化。</p>
+<p>此时，useCallback和memo就发挥作用了。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123;useCallback, useState, memo&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Expensive</span>(<span class="hljs-params">&#123;onClick, name&#125;</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Expensive渲染&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onClick&#125;</span>&gt;</span>&#123;name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br><span class="hljs-keyword">const</span> memoExpensive = <span class="hljs-title function_">memo</span>(<span class="hljs-title class_">Expensive</span>);<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Cheap</span>(<span class="hljs-params">&#123;onClick, name&#125;</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Cheap渲染&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onClick&#125;</span>&gt;</span>&#123;name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Comp</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> [dataA, setDataA] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">const</span> [dataB, setDataB] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">onClickA</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>        <span class="hljs-title function_">setDataA</span>(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> o+<span class="hljs-number">1</span>);<br>    &#125;<br>    <span class="hljs-keyword">const</span> onClickB = <span class="hljs-title function_">useCallback</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-title function_">setDataB</span>(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> o+<span class="hljs-number">1</span>);<br>    &#125;, [])<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">    	<span class="hljs-tag">&lt;<span class="hljs-name">Cheap</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onClickA&#125;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&#123;</span>`<span class="hljs-attr">组件Cheap:</span> $&#123;<span class="hljs-attr">dataA</span>&#125;`&#125; /&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Expensive</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onClickB&#125;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&#123;</span>`<span class="hljs-attr">组件Expensive:</span> $&#123;<span class="hljs-attr">data</span>&#125;`&#125; /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>memo与PureComponent类似，对传入组件的新旧数据进行浅比较，如果相同则不会触发渲染。</p>
+<p>useCallback保证onClickB不会发生变化，此时点击Cheap组件不会触发Expensive组件的刷新，只有点击Expensive组件才会触发。在实现减少不必要渲染的优化过程中，useCallback和memo是一对利器。</p>
+<h2 id="自定义hook"><a href="#自定义hook" class="headerlink" title="自定义hook"></a>自定义hook</h2><p>要求：使用React的hook实现一个useRequest</p>
+<ul>
+<li>展示loading效果后告诉用户后台正在处理请求</li>
+<li>接口异常时要进行错误处理</li>
+<li>缓存同一请求(非结果)</li>
+</ul>
+<h2 id="Redux使用流程及场景？"><a href="#Redux使用流程及场景？" class="headerlink" title="Redux使用流程及场景？"></a>Redux使用流程及场景？</h2><ol>
+<li>安装Redux。</li>
+<li>创建一个store，store是一个对象，它有四个方法：dispatch、subscribe、getState和replaceReducer。</li>
+<li>定义action，action是一个普通的JavaScript对象，用来描述发生了什么。</li>
+<li>定义reducer，reducer是一个纯函数，接收旧的state和action，返回新的state。</li>
+<li>使用combineReducers将多个reducer合并成一个根reducer。</li>
+<li>使用Provider组件将store传递给子组件。</li>
+<li>在组件中使用connect函数连接store和组件。</li>
+</ol>
+<h2 id="有没有了解Mobx"><a href="#有没有了解Mobx" class="headerlink" title="有没有了解Mobx?"></a>有没有了解Mobx?</h2><h2 id="Webpack如何进行配置？"><a href="#Webpack如何进行配置？" class="headerlink" title="Webpack如何进行配置？"></a>Webpack如何进行配置？</h2><p>主要配置过相关loader</p>
+<h2 id="Webpack中loader和plugin的区别？"><a href="#Webpack中loader和plugin的区别？" class="headerlink" title="Webpack中loader和plugin的区别？"></a>Webpack中loader和plugin的区别？</h2><ul>
+<li>loader是一种打包方案，对于某一种类型文件它知道如何打包，帮助Webpack完成打包工作。loader就是一个单纯的文件转化过程。</li>
+<li>plugin是一个扩展器，丰富Webpack本身，增强功能，针对的是在loader结束之后，Webpack打包的整个过程。plugin并不直接操作文件，而是基于事件机制工作，会监听Webpack打包过程中的某些事件钩子，执行任务。</li>
+</ul>
+<h2 id="浏览器缓存机制？"><a href="#浏览器缓存机制？" class="headerlink" title="浏览器缓存机制？"></a>浏览器缓存机制？</h2><h3 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h3><p>Cache-Control &#x2F; Expires</p>
+<p> expires <code>http1.0</code>控制网页缓存的字段，其值为服务器返回该请求结果的到期时间，即再次发送请求，如果客户端的时间小于expires的值时，直接使用缓存结果</p>
+<p> cache-control(优先级更大) http1.1中控制网页缓存，是最重要的规则</p>
+<h3 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h3><p>Etag If-None-Match &#x2F; Last-Midified If-Midified-Since</p>
+<p> <code>Last-Modified / If-Modified-Since</code> 和 <code>Etag / If-None-Match</code> (后者优先级更高)</p>
+<p> Last-Modified 服务器响应请求时，返回该文件资源在服务器内最后被修改的时间</p>
+<p> If-Modified-Since 客户端再次发起请求时，携带上次请求返回的Last-Modified值，通过此字段告诉服务器该资源上次请求返回的最后被修改时间。服务器收到该请求，发现请求头含有If-Modified-Since字段，则会根据此字段值与该资源在服务器的最后被修改的时间做对比，若服务器的资源最后被修改的时间大于If-Modified-Since字段值，则重新返回资源，状态码为200；否则返回304，代表资源无更新，可继续使用缓存文件</p>
+<p> Etag 是服务区响应请求时，返回当前资源文件的一个唯一标识(由服务器生成)</p>
+<p> If-None-Match 服务器再次发起请求时，携带上次请求返回的唯一标识Etag，通过此字段告诉服务器该资源上次请求返回的唯一标识，服务器收到该请求后，发现请求头中含有If-None-Match的字段与该资源在服务器的Etag值进行比对，一致则返回304，代表资源无更新，继续使用缓存文件；不一致则重新返回资源文件，状态码200</p>
+<h2 id="前端常见的优化手段？"><a href="#前端常见的优化手段？" class="headerlink" title="前端常见的优化手段？"></a>前端常见的优化手段？</h2><p>常见的前端性能优化手段包括：减少请求数量、减小资源大小、优化网络连接、优化资源加载、减少重绘回流、使用性能更好的API和构建优化等。</p>
+<p>其中，减少请求数量可以通过合并CSS和JS文件、使用CSS Sprites技术、使用字体图标等方式来实现；减小资源大小可以通过压缩CSS、JS和图片等方式来实现；优化网络连接可以通过使用CDN、开启Gzip压缩等方式来实现；优化资源加载可以通过使用预加载、懒加载等方式来实现；减少重绘回流可以通过避免频繁操作DOM、使用CSS3动画等方式来实现；使用性能更好的API可以通过使用requestAnimationFrame代替setTimeout、使用Web Workers等方式来实现；构建优化可以通过使用Webpack等打包工具进行代码分割、按需加载等方式来实现。</p>
+<p>七大优化手段：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7016868803069886471">https://juejin.cn/post/7016868803069886471</a></p>
+<h2 id="什么是闭包？"><a href="#什么是闭包？" class="headerlink" title="什么是闭包？"></a>什么是闭包？</h2><p>闭包是指一个函数能够访问其他函数内部变量的函数。在JavaScript中，只有函数内部的子函数才能读取局部变量，所以闭包可以理解成“定义在一个函数内部的函数”。</p>
+<p>闭包的优点是可以保护变量不被污染，同时也可以实现数据私有化。缺点是会占用更多的内存空间，同时也会增加代码的复杂度。</p>
+<h2 id="React过期闭包了解过吗？"><a href="#React过期闭包了解过吗？" class="headerlink" title="React过期闭包了解过吗？"></a>React过期闭包了解过吗？</h2><p>React过期闭包是指在使用React Hook时，由于函数组件多次render之间，函数的闭包可能会包住过期的上下文，也就是之前render时的上下文。这个问题在应用Hooks更突出。</p>
+<p>React解决过期闭包问题的方法是依赖数组。针对过期state，可以使用函数的方法更新值。React确保通过更新函数可以得到最新的state值。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">#前端学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>总结(3.1)</div>
+      <div>https://ustinians.github.io/2023/04/08/总结-3-1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/08/%E6%80%BB%E7%BB%93-2-1/" title="总结(2.1)">
+                        <span class="hidden-mobile">总结(2.1)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
