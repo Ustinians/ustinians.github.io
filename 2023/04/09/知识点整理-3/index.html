@@ -1,0 +1,720 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="想躺在云上">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="知识点整理(3)原生JS实现图片拖拽 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061&lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;en&quot;&gt;&lt;head&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识点整理(3)">
+<meta property="og:url" content="https://ustinians.github.io/2023/04/09/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86-3/index.html">
+<meta property="og:site_name" content="想躺在云上 - In doing we learn.">
+<meta property="og:description" content="知识点整理(3)原生JS实现图片拖拽 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061&lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;en&quot;&gt;&lt;head&gt;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:\Users\HP\Pictures\Typora\image-20230409150136435.png">
+<meta property="og:image" content="d:\Users\HP\Pictures\Typora\promise-states.png">
+<meta property="og:image" content="http://liubin.org/promises-book/Ch2_HowToWrite/img/then_catch.png">
+<meta property="article:published_time" content="2023-04-09T12:11:17.000Z">
+<meta property="article:modified_time" content="2023-04-09T12:12:33.417Z">
+<meta property="article:author" content="想躺在云上">
+<meta property="article:tag" content="前端|面经 Promise 异步">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="d:\Users\HP\Pictures\Typora\image-20230409150136435.png">
+  
+  
+  
+  <title>知识点整理(3) - 想躺在云上 - In doing we learn.</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ustinians.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>想躺在云上</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="知识点整理(3)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-09 20:11" pubdate>
+          2023年4月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          57 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">知识点整理(3)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="知识点整理-3"><a href="#知识点整理-3" class="headerlink" title="知识点整理(3)"></a>知识点整理(3)</h1><h2 id="原生JS实现图片拖拽"><a href="#原生JS实现图片拖拽" class="headerlink" title="原生JS实现图片拖拽"></a>原生JS实现图片拖拽</h2><p><img src="D:\Users\HP\Pictures\Typora\image-20230409150136435.png" srcset="/img/loading.gif" lazyload alt="image-20230409150136435"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;IE=edge&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css"></span><br><span class="language-css">        <span class="hljs-selector-id">#box</span> &#123;</span><br><span class="language-css">            <span class="hljs-attribute">position</span>: absolute;</span><br><span class="language-css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;</span><br><span class="language-css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;</span><br><span class="language-css">            <span class="hljs-attribute">background-color</span>: red;</span><br><span class="language-css">        &#125;</span><br><span class="language-css">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;position: relative;overflow: hidden;&quot;</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- 将要被拖拽的元素, 设置为绝对定位 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- &lt;img src=&quot;https://pic.imgdb.cn/item/64326d120d2dde57772c4eab.png&quot; alt=&quot;&quot; id=&quot;box&quot; /&gt; --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">        <span class="hljs-variable language_">window</span>.<span class="hljs-property">onload</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">            <span class="hljs-keyword">let</span> box = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;box&quot;</span>); <span class="hljs-comment">// 获取目标元素</span></span><br><span class="language-javascript">            <span class="hljs-comment">// 鼠标按下事件</span></span><br><span class="language-javascript">            box.<span class="hljs-property">onmousedown</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">ev</span>) &#123;</span><br><span class="language-javascript">                <span class="hljs-keyword">let</span> e = ev || event;</span><br><span class="language-javascript">                <span class="hljs-comment">// 鼠标到元素左边缘距离 = 鼠标到屏幕左边缘距离 - 元素到屏幕左边缘距离</span></span><br><span class="language-javascript">                <span class="hljs-keyword">let</span> x = e.<span class="hljs-property">clientX</span> - box.<span class="hljs-property">offsetLeft</span>;</span><br><span class="language-javascript">                <span class="hljs-comment">// 鼠标到元素上边缘距离 = 鼠标到屏幕上边缘距离 - 元素到屏幕上边缘距离</span></span><br><span class="language-javascript">                <span class="hljs-keyword">let</span> y = e.<span class="hljs-property">clientY</span> - box.<span class="hljs-property">offsetTop</span>;</span><br><span class="language-javascript">                <span class="hljs-comment">// 鼠标移动事件</span></span><br><span class="language-javascript">                <span class="hljs-variable language_">document</span>.<span class="hljs-property">onmousemove</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">ev</span>) &#123;</span><br><span class="language-javascript">                    <span class="hljs-keyword">let</span> e = ev || event;</span><br><span class="language-javascript">                    box.<span class="hljs-property">style</span>.<span class="hljs-property">left</span> = ev.<span class="hljs-property">clientX</span> - x + <span class="hljs-string">&quot;px&quot;</span>;</span><br><span class="language-javascript">                    box.<span class="hljs-property">style</span>.<span class="hljs-property">top</span> = ev.<span class="hljs-property">clientY</span> - y + <span class="hljs-string">&quot;px&quot;</span>;</span><br><span class="language-javascript">                    <span class="hljs-comment">// 鼠标距离浏览器窗口左边缘和上边缘的距离</span></span><br><span class="language-javascript">                    <span class="hljs-keyword">let</span> bodyScreenX = ev.<span class="hljs-property">screenX</span>, bodyScreenY = ev.<span class="hljs-property">screenY</span>;</span><br><span class="language-javascript">                    <span class="hljs-comment">// 屏幕的宽度和高度</span></span><br><span class="language-javascript">                    <span class="hljs-keyword">let</span> bodyClientWidth = <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-property">clientWidth</span>,</span><br><span class="language-javascript">                        bodyClientHeight = <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-property">clientHeight</span>;</span><br><span class="language-javascript">                    <span class="hljs-comment">// 鼠标松开事件</span></span><br><span class="language-javascript">                    <span class="hljs-variable language_">document</span>.<span class="hljs-property">onmouseup</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">ev</span>) &#123;</span><br><span class="language-javascript">                        <span class="hljs-comment">// 判断松开的时候元素是否在屏幕中</span></span><br><span class="language-javascript">                        <span class="hljs-keyword">if</span>(ev.<span class="hljs-property">clientX</span> - x &lt; <span class="hljs-number">0</span>) &#123;</span><br><span class="language-javascript">                            <span class="hljs-comment">// 如果超出屏幕左边缘, 将元素放回屏幕最左边</span></span><br><span class="language-javascript">                            box.<span class="hljs-property">style</span>.<span class="hljs-property">left</span> = <span class="hljs-number">0</span>;</span><br><span class="language-javascript">                        &#125;</span><br><span class="language-javascript">                        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(bodyScreenX &gt; bodyClientWidth) &#123;</span><br><span class="language-javascript">                            <span class="hljs-comment">// 如果超出屏幕右边缘, 将元素放回屏幕最右边</span></span><br><span class="language-javascript">                            box.<span class="hljs-property">style</span>.<span class="hljs-property">right</span> = <span class="hljs-number">0</span>;</span><br><span class="language-javascript">                            box.<span class="hljs-property">style</span>.<span class="hljs-property">left</span> = bodyClientWidth - <span class="hljs-number">100</span> + <span class="hljs-string">&quot;px&quot;</span>;</span><br><span class="language-javascript">                        &#125;</span><br><span class="language-javascript">                        <span class="hljs-variable language_">document</span>.<span class="hljs-property">onmousemove</span> = <span class="hljs-literal">null</span>;</span><br><span class="language-javascript">                        <span class="hljs-variable language_">document</span>.<span class="hljs-property">onmouseup</span> = <span class="hljs-literal">null</span>;</span><br><span class="language-javascript">                    &#125;</span><br><span class="language-javascript">                &#125;</span><br><span class="language-javascript">            &#125;</span><br><span class="language-javascript">        &#125;</span><br><span class="language-javascript">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="z-index在什么情况下会失效？"><a href="#z-index在什么情况下会失效？" class="headerlink" title="z-index在什么情况下会失效？"></a>z-index在什么情况下会失效？</h2><ul>
+<li><p>元素设置了浮动</p>
+</li>
+<li><p>父元素的<code>position</code>为<code>relative</code>时，子元素的<code>z-index</code>会失效。</p>
+</li>
+<li><p>元素的<code>position</code>不是<code>relative</code>、<code>absolute</code>或者<code>fixed</code>时。</p>
+</li>
+</ul>
+<h2 id="npm包会自己发送请求吗？"><a href="#npm包会自己发送请求吗？" class="headerlink" title="npm包会自己发送请求吗？"></a>npm包会自己发送请求吗？</h2><p>一般而言，npm包本身并不会发送请求。npm包只是一些代码和资源的打包，用于在项目中引用和使用。然而，<u>一些npm包可能会包含与第三方服务进行交互的代码，这些代码可能会发送请求</u>。</p>
+<p>例如，一些npm包可能会包含用于访问API的代码，或包含用于从CDN加载资源的代码。</p>
+<h2 id="如何使用原生JS发送HTTP请求？"><a href="#如何使用原生JS发送HTTP请求？" class="headerlink" title="如何使用原生JS发送HTTP请求？"></a>如何使用原生JS发送HTTP请求？</h2><p>使用JS内置的<code>XMLHttpRequest</code>发送请求：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 创建一个xhr对象</span><br><span class="hljs-keyword">let</span> xhr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">XMLHttpRequest</span>();<br><span class="hljs-comment">// 使用open方法设置请求方法、url和是否异步</span><br>xhr.<span class="hljs-title function_">open</span>(<span class="hljs-string">&quot;GET&quot;</span>, <span class="hljs-string">&quot;http://test.com&quot;</span>, <span class="hljs-literal">true</span>);<br><span class="hljs-comment">// 设置请求头(可选)</span><br>xhr.<span class="hljs-title function_">setRequestHeader</span>(<span class="hljs-string">&quot;Content-Type&quot;</span>: <span class="hljs-string">&quot;application/json&quot;</span>);<br><span class="hljs-comment">// 状态监听函数</span><br>xhr.<span class="hljs-property">onreadystatechange</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">readyState</span> !== <span class="hljs-number">4</span>) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-comment">// 请求成功</span><br>    <span class="hljs-keyword">if</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> === <span class="hljs-number">200</span>) &#123;<br>        <span class="hljs-title function_">handle</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">response</span>);<br>    &#125;<br>    <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">statusText</span>);<br>    &#125;<br>&#125;<br><span class="hljs-comment">// 请求失败时的监听函数</span><br>xhr.<span class="hljs-property">onerror</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">statusText</span>);<br>&#125;<br><span class="hljs-comment">// 发送请求</span><br>xhr.<span class="hljs-title function_">send</span>();<br></code></pre></td></tr></table></figure>
+
+<h2 id="JS的引用数据类型有哪些？"><a href="#JS的引用数据类型有哪些？" class="headerlink" title="JS的引用数据类型有哪些？"></a>JS的引用数据类型有哪些？</h2><p>对象(Object)、数组(Array)和函数(Function)</p>
+<h2 id="在给DOM元素做事件委托的时候，如何判断要对哪个子元素进行操作处理？"><a href="#在给DOM元素做事件委托的时候，如何判断要对哪个子元素进行操作处理？" class="headerlink" title="在给DOM元素做事件委托的时候，如何判断要对哪个子元素进行操作处理？"></a>在给DOM元素做事件委托的时候，如何判断要对哪个子元素进行操作处理？</h2><p>通过event.target实时获取到用户点击的子元素，并对该子元素进行操作处理。</p>
+<h2 id="如何实现进入页面同时发送两个请求？"><a href="#如何实现进入页面同时发送两个请求？" class="headerlink" title="如何实现进入页面同时发送两个请求？"></a>如何实现进入页面同时发送两个请求？</h2><p><code>Promise.all()</code>进行实现，对传入的数组进行<code>map</code>处理。</p>
+<p>核心内容是<code>map</code>方法，<code>map</code>的每一项都是<code>promise</code>，**<code>catch</code>方法返回值会被<code>promise.resolve()</code>包裹**，这样传进<code>promise.all</code>的数据都是<code>resolved</code>状态的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> p1 = <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-number">1</span>);<br><span class="hljs-keyword">let</span> p2 = <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-number">2</span>);<br><span class="hljs-keyword">let</span> p3 = <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-number">3</span>);<br><span class="hljs-keyword">let</span> p4 = <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-number">4</span>);<br><span class="hljs-keyword">let</span> p5 = <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(<span class="hljs-string">&quot;error&quot;</span>);<br><br><span class="hljs-keyword">let</span> arr = [p1, p2, p3, p4, p5];<br><br><span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>(arr.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> e))) <span class="hljs-comment">// rejected的Promise会被处理并用resolve包裹成一个新的Promise</span><br>.<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;请求成功: &quot;</span>, res);<br>&#125;)<br>.<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;请求失败: &quot;</span>, err);<br>&#125;)<br><br><span class="hljs-comment">// 请求成功:  [ 1, 2, 3, 4, &#x27;error&#x27; ]</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Promise内部是如何实现的？"><a href="#Promise内部是如何实现的？" class="headerlink" title="Promise内部是如何实现的？"></a>Promise内部是如何实现的？</h2><p><code>Promise</code> 是基于 <strong>观察者的设计模式</strong> 实现的，<code>then</code> 函数要执行的函数会被塞入观察者数组中，当 <code>Promise</code> 状态变化的时候，就去执行观察组数组中的所有函数。</p>
+<blockquote>
+<p>观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个目标对象，当这个目标对象的状态发生变化时，会通知所有观察者对象，使它们能够自动更新。</p>
+</blockquote>
+<p><code>Promise</code> 有三个状态：</p>
+<ul>
+<li><code>pending</code>：等待中</li>
+<li><code>resolved</code>：已成功</li>
+<li><code>rejected</code>：已失败</li>
+</ul>
+<p>在 <code>Promise</code> 的状态改变只有两种可能：从 <code>pending</code> 变为 <code>resolved</code> 或者从 <code>pending</code> 变为 <code>rejected</code>。</p>
+<p><img src="D:\Users\HP\Pictures\Typora\promise-states.png" srcset="/img/loading.gif" lazyload alt="promise-states"></p>
+<p>每一个 <code>promise</code> 都一个 <code>then</code> 方法，这个是当 <code>promise</code> 返回结果之后，需要执行的回调函数，他有两个可选参数：</p>
+<ul>
+<li><code>onFulfilled</code>：成功的回调；</li>
+<li><code>onRejected</code>：失败的回调；</li>
+</ul>
+<p><img src="http://liubin.org/promises-book/Ch2_HowToWrite/img/then_catch.png" srcset="/img/loading.gif" lazyload alt="Then Catch flow"></p>
+<h2 id="Async如何进行错误捕获？原理是什么？"><a href="#Async如何进行错误捕获？原理是什么？" class="headerlink" title="Async如何进行错误捕获？原理是什么？"></a>Async如何进行错误捕获？原理是什么？</h2><p>在<code>async</code>函数中可以使用<code>try...catch</code>捕获错误，如果在<code>async</code>函数中发生了错误，它将会被抛出并将被<code>catch</code>捕获。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">example</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">doSomething</span>();<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result);<br>    &#125;<br>    <span class="hljs-keyword">catch</span>(error) &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(error);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>async/await</code>是基于Promise的语法糖，它背后的原理与Promise类似。在<code>async</code>函数中，如果发生错误，它将返回一个被拒绝的Promise对象，其错误原因就是抛出的错误。我们可以使用<code>try...catch</code>来捕获这个错误，就像捕获普通的Promise一样。在<code>catch</code>块中，我们可以处理这个错误，或者将它重新抛出，以便于在async函数的代码中继续处理它。</p>
+<h2 id="try…catch是如何捕获异常的？"><a href="#try…catch是如何捕获异常的？" class="headerlink" title="try…catch是如何捕获异常的？"></a>try…catch是如何捕获异常的？</h2><p>首先执行<code>try</code>代码块中的代码。</p>
+<p>如果<code>try</code>代码块中的代码没有发生任何异常，那么<code>catch</code>块中的代码不会被执行，程序将继续执行<code>try...catch</code>块后面的代码。</p>
+<p>如果<code>try</code>块中发生了异常，那么程序将立即跳转到<code>catch</code>块中，并执行其中的代码。<code>catch</code>块中的代码将处理异常，并且可以使用异常对象来获取异常的详细信息。</p>
+<p>如果<code>catch</code>中的代码成功处理了异常，那么程序将继续执行<code>try...catch</code>后面的代码。</p>
+<p>如果<code>catch</code>中的代码没有成功处理异常，或抛出了新的异常，那么程序将被终止，并将新的异常抛出到调用栈中，直到被捕获或导致程序崩溃。</p>
+<h2 id="异常是如何被抛出的？"><a href="#异常是如何被抛出的？" class="headerlink" title="异常是如何被抛出的？"></a>异常是如何被抛出的？</h2><p>当程序发生错误或意外情况的时候，将创建一个异常对象。</p>
+<p>异常对象将被抛出到当前函数的调用栈中，直到被捕获或导致程序崩溃。</p>
+<p>当异常现象被抛出的时候，当前函数的执行将立即停止，并且将控制权传递给调用栈中的上一级函数。</p>
+<p>如果异常对象没有被捕获，将继续向上传递，直到到达程序的顶层，或者导致程序崩溃。</p>
+<p>如果异常对象被捕获了，那么它将被传递给相应的catch块，直到catch块中的代码被执行。</p>
+<h2 id="如何定义错误对象？"><a href="#如何定义错误对象？" class="headerlink" title="如何定义错误对象？"></a>如何定义错误对象？</h2><p>使用Error对象来定义错误对象。Error是JS内置对象，它包含一些属性和方法，用于描述和处理错误。我们可以通过创建一个新的Error对象来定义一个错误。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">consr error = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;This is a error message.&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们创建了一个新的Error对象，并传递了一个错误消息作为参数。这个错误消息将被包含在Error对象中，并且可以在抛出错误时被输出到控制台或日志中。</p>
+<p>除了Error对象之外，JavaScript还提供了其他一些内置的错误类型，例如SyntaxError、TypeError和ReferenceError等，它们都继承自Error对象，并且具有不同的属性和方法，用于描述和处理特定类型的错误。</p>
+<p>我们还可以自定义对象类型，继承自Error对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Error</span> &#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">message</span>) &#123;<br>        <span class="hljs-variable language_">super</span>(message);<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = <span class="hljs-string">&quot;MyError&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们定义了一个名为MyError的错误类型，它继承自Error对象。我们重写了构造函数，以便在创建MyError对象时设置错误消息和错误名称。我们可以像使用内置的Error对象一样使用MyError对象来抛出和处理错误。</p>
+<h2 id="HTTPS的加密过程？"><a href="#HTTPS的加密过程？" class="headerlink" title="HTTPS的加密过程？"></a>HTTPS的加密过程？</h2><ol>
+<li>客户端向服务器发送HTTPS请求。请求中包含了客户端支持的加密算法列表和随机数（ClientHello）。</li>
+<li>服务器从客户端发送的加密算法列表中选择一种加密算法，并向客户端发送服务器的证书，证书中包含了服务器的公钥和证书的签名（ServerHello）。</li>
+<li>客户端验证服务器的证书是否有效，包括证书是否过期、证书是否被吊销、证书中的域名是否和服务器的域名匹配等。如果验证通过，客户端生成一个随机数，并使用服务器的公钥加密这个随机数（ClientKeyExchange）。</li>
+<li>服务器使用自己的私钥解密客户端发送的随机数，并使用这个随机数生成对称密钥（ServerKeyExchange）。</li>
+<li>客户端和服务器使用这个对称密钥进行通信，将通信内容加密后发送给对方。</li>
+</ol>
+<p>在这个过程中，客户端和服务器使用非对称加密算法（如RSA）来完成证书的验证和随机数的加密，使用对称加密算法（如AES）来加密通信内容。这样可以保证通信过程中传输的数据是加密的，同时也保证了通信双方的身份和数据的完整性，防止数据被篡改或窃取。</p>
+<h2 id="CSS常用的垂直对齐方式属性？"><a href="#CSS常用的垂直对齐方式属性？" class="headerlink" title="CSS常用的垂直对齐方式属性？"></a>CSS常用的垂直对齐方式属性？</h2><ol>
+<li><code>vertical-align</code>：用于控制元素的垂直对齐方式。该属性可以应用于行内元素和表格单元格元素。取值可以是基线（baseline）、顶部（top）、底部（bottom）、中间（middle）等。</li>
+<li><code>line-height</code>：用于设置行高。行高决定了行内元素在垂直方向上的位置和间距。可以使用具体的像素值或百分比值来设置行高。</li>
+</ol>
+<h2 id="如何设置rem单位等于窗口高度？"><a href="#如何设置rem单位等于窗口高度？" class="headerlink" title="如何设置rem单位等于窗口高度？"></a>如何设置rem单位等于窗口高度？</h2><p>要将<code>rem</code>单位设置为等于窗口高度，可以使用JavaScript计算窗口高度，并将其值设置为<code>html</code>元素的<code>font-size</code>属性值。这样，<code>rem</code>单位的大小就会随着窗口高度的变化而变化。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 获取窗口高区 </span><br><span class="hljs-comment">// const windowHeight = window.innerHeight; 包含滚动条高度</span><br><span class="hljs-keyword">const</span> windowHeight = <span class="hljs-variable language_">document</span>.<span class="hljs-property">documentElement</span>.<span class="hljs-property">clientHeight</span>;<br><span class="hljs-comment">// 将窗口高度设置为html元素的fonr-size属性值</span><br><span class="hljs-variable language_">document</span>.<span class="hljs-property">documentElement</span>.<span class="hljs-property">style</span>.<span class="hljs-property">fontSize</span> = windowHeight + <span class="hljs-string">&quot;px&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="如何将ES6转为ES5？"><a href="#如何将ES6转为ES5？" class="headerlink" title="如何将ES6转为ES5？"></a>如何将ES6转为ES5？</h2><p>babel-loader</p>
+<h2 id="手写数组扁平化"><a href="#手写数组扁平化" class="headerlink" title="手写数组扁平化"></a>手写数组扁平化</h2><p>递归实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">flat</span> = (<span class="hljs-params">arr</span>) =&gt; &#123;<br>    <span class="hljs-keyword">let</span> newArr = [];<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">const</span> item <span class="hljs-keyword">of</span> arr) &#123;<br>        <span class="hljs-keyword">if</span>(item <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Array</span>) &#123;<br>            newArr = newArr.<span class="hljs-title function_">concat</span>(<span class="hljs-title function_">flat</span>(item));<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            newArr.<span class="hljs-title function_">push</span>(item);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> newArr;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>reduce迭代实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">flat</span> = (<span class="hljs-params">arr</span>) =&gt; &#123;<br>    <span class="hljs-keyword">return</span> arr.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">prev, item</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">return</span> prev.<span class="hljs-title function_">concat</span>(<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(item) ? <span class="hljs-title function_">flat</span>(item) : item);<br>    &#125;, [])<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>split和toString</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">flat</span> = (<span class="hljs-params">arr</span>) =&gt; &#123;<br>    <span class="hljs-keyword">return</span> arr.<span class="hljs-title function_">toString</span>().<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot;,&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>JSON.stringify和JSON.parse</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">flat</span> = (<span class="hljs-params">arr</span>) =&gt; &#123;<br>    <span class="hljs-keyword">let</span> str = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(arr);<br>    str = str.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/(\[|\])/g</span>, <span class="hljs-string">&quot;&quot;</span>);<br>    str = <span class="hljs-string">&quot;[&quot;</span> + str + <span class="hljs-string">&quot;]&quot;</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(str);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF-%E9%9D%A2%E7%BB%8F-Promise-%E5%BC%82%E6%AD%A5/">#前端|面经 Promise 异步</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>知识点整理(3)</div>
+      <div>https://ustinians.github.io/2023/04/09/知识点整理-3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>想躺在云上</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/08/%E5%8D%95%E8%B0%83%E6%A0%88%E7%9A%84%E5%BA%94%E7%94%A8/" title="单调栈的应用">
+                        <span class="hidden-mobile">单调栈的应用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
