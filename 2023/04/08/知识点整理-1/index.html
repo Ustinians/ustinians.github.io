@@ -24,7 +24,7 @@
 <meta property="og:description" content="整理总结(1)Vite比Webpack快的原因？Vite比Webpack快的原因的因为Vite在开发阶段使用了浏览器原生ES模块导入，而不是想Wepkack一样使用打包后的文件。这使得Vite在开发阶段的热更新速度更快，因为它不需要重新打包整个应用程序，而只需要更新更改的部分。 前端如何判断内存泄漏？如何处理？检测方法：  使用Chrome的开发者工具profiles来进行快照对比。  打开Chr">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-08T12:55:33.000Z">
-<meta property="article:modified_time" content="2023-04-10T06:37:53.129Z">
+<meta property="article:modified_time" content="2023-04-10T13:55:24.541Z">
 <meta property="article:author" content="想躺在云上">
 <meta property="article:tag" content="前端学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -320,7 +320,7 @@
 <p>响应拦截器可以在接收到响应后先做一层操作，如根据状态码判断登陆状态、授权等。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 响应拦截器</span><br>axios.<span class="hljs-property">interceptors</span>.<span class="hljs-property">response</span>.<span class="hljs-title function_">use</span>(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> &#123;<br>  <span class="hljs-comment">// 如果返回的状态码为200，说明接口请求成功，可以正常拿到数据</span><br>  <span class="hljs-comment">// 否则的话抛出错误</span><br>  <span class="hljs-keyword">if</span> (response.<span class="hljs-property">status</span> === <span class="hljs-number">200</span>) &#123;<br>    <span class="hljs-keyword">if</span> (response.<span class="hljs-property">data</span>.<span class="hljs-property">code</span> === <span class="hljs-number">511</span>) &#123;<br>      <span class="hljs-comment">// 未授权调取授权接口</span><br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (response.<span class="hljs-property">data</span>.<span class="hljs-property">code</span> === <span class="hljs-number">510</span>) &#123;<br>      <span class="hljs-comment">// 未登录跳转登录页</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(response)<br>    &#125;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(response)<br>  &#125;<br>&#125;, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> &#123;<br>  <span class="hljs-comment">// 我们可以在这里对异常状态作统一处理</span><br>  <span class="hljs-keyword">if</span> (error.<span class="hljs-property">response</span>.<span class="hljs-property">status</span>) &#123;<br>    <span class="hljs-comment">// 处理请求失败的情况</span><br>    <span class="hljs-comment">// 对不同返回码对相应处理</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(error.<span class="hljs-property">response</span>)<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
 
-<h2 id="Tree-Shaking的实现原理？"><a href="#Tree-Shaking的实现原理？" class="headerlink" title="Tree-Shaking的实现原理？"></a>Tree-Shaking的实现原理？</h2><p>Tree-Shaking是一种基于ES Module规范的Dead Code Elimination技术，它会在运行过程中金泰分析模块之间的导入导出，确定ESM模块中的哪些导出值未曾被其他模块使用，并将其删除，以此实现打包产物的优化。</p>
+<h2 id="Tree-Shaking的实现原理？"><a href="#Tree-Shaking的实现原理？" class="headerlink" title="Tree-Shaking的实现原理？"></a>Tree-Shaking的实现原理？</h2><p>Tree-Shaking是一种基于ES Module规范的Dead Code Elimination技术，它会在运行过程中静态分析模块之间的导入导出，确定ESM模块中的哪些导出值未曾被其他模块使用，并将其删除，以此实现打包产物的优化。</p>
 <ul>
 <li>Make阶段，收集模块导出变量并记录到模块依赖关系图ModuleGraph变量中</li>
 <li>Seal阶段，遍历ModuleGraph标记模块导出变量有没有被使用</li>
@@ -343,7 +343,7 @@
 <li>解析配置文件：Webpack会读取并解析配置文件(通常为webpack.config.js文件)。并根据配置生成一个Compiler对象。</li>
 <li>读取入口文件：Webpack会根据配置中的入口文件，读取这些文件及其依赖的模块，并将它们组成一个依赖图。</li>
 <li>解析模块依赖：Webpack会根据模块之间的依赖关系，递归的解析它们的依赖。直到所有的依赖都被解析完毕。</li>
-<li>加载模块：Webpack会根据模块的路径，使用响应的Loader加载模块的源代码，并将其转换成Webpack可以处理的形式。</li>
+<li>加载模块：Webpack会根据模块的路径，使用相应的Loader加载模块的源代码，并将其转换成Webpack可以处理的形式。</li>
 <li>转换代码：Webpack会根据配置中的插件，对加载的模块进行一系列的转换操作，比如压缩，优化等。</li>
 <li>生成代码：Webpack会将所有模块转换后的代码都合并到一个或多个文件中并输出到指定目录中。</li>
 </ol>

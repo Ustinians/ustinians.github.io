@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/5/27/1725635059c3e804~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp">
 <meta property="article:published_time" content="2023-04-08T12:56:30.000Z">
-<meta property="article:modified_time" content="2023-04-10T06:37:45.875Z">
+<meta property="article:modified_time" content="2023-04-10T13:31:37.803Z">
 <meta property="article:author" content="想躺在云上">
 <meta property="article:tag" content="前端学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -385,7 +385,7 @@
 <h2 id="如何实现CSS的渐变？"><a href="#如何实现CSS的渐变？" class="headerlink" title="如何实现CSS的渐变？"></a>如何实现CSS的渐变？</h2><p>CSS渐变可以让你在两个或多个指定的颜色之间显示平稳的过渡。CSS定义了两种渐变类型：线性渐变和径向渐变。线性渐变是从一个方向到另一个方向的颜色过渡，而径向渐变是从一个中心点到另一个中心点的颜色过渡。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>(red, yellow); <span class="hljs-comment">/* 从上到下(默认)渐变 */</span><br><span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>(to right, red , yellow); <span class="hljs-comment">/* 从左到右渐变 */</span><br><span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>(to bottom right, red, yellow); <span class="hljs-comment">/* 从坐上到右下线性渐变 */</span><br><span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>(angle, color-stop1, color-stop2); <span class="hljs-comment">/* angle指定水平线与渐变线之间的角度 */</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="forEach和map的区别？"><a href="#forEach和map的区别？" class="headerlink" title="forEach和map的区别？"></a>forEach和map的区别？</h2><p>forEach会针对每个元素执行提供的数组，该方法没有返回值。</p>
+<h2 id="forEach和map的区别？"><a href="#forEach和map的区别？" class="headerlink" title="forEach和map的区别？"></a>forEach和map的区别？</h2><p>forEach会针对每个元素执行提供的操作，该方法没有返回值。</p>
 <p>如果对数据进行操作，如果是基础数据类型，不会有效果：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>];<br>arr.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;<br>    item *= <span class="hljs-number">2</span>;<br>&#125;)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr); <span class="hljs-comment">// [1,2,3,4,5]</span><br></code></pre></td></tr></table></figure>
 
