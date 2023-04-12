@@ -24,7 +24,7 @@
 <meta property="og:description" content="携程一面介绍项目Redux的实现原理？Redux 的实现原理可以概括为：单一数据源、状态不可变、纯函数更新状态。 具体来说，Redux 将应用程序的状态存储在一个单一的对象中，称为store。这个store对象是只读的，应用程序的状态只能通过派发“action”来改变。每个“action”描述了应用程序中发生的某个事件，它包含一个类型和一些数据。当派发一个action时，Redux 会将当前的状态">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-08T12:43:38.000Z">
-<meta property="article:modified_time" content="2023-04-10T06:38:19.876Z">
+<meta property="article:modified_time" content="2023-04-12T09:01:02.448Z">
 <meta property="article:author" content="想躺在云上">
 <meta property="article:tag" content="前端|面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -311,7 +311,7 @@
 <p>此外，虽然 useMemo 可以优化组件的性能，但是过度使用 useMemo 也会带来一些问题，如增加内存占用和代码复杂度等。因此，在使用 useMemo 时需要根据实际情况进行权衡和调整。</p>
 <h2 id="useEffect和useLayoutEffect的区别？"><a href="#useEffect和useLayoutEffect的区别？" class="headerlink" title="useEffect和useLayoutEffect的区别？"></a>useEffect和useLayoutEffect的区别？</h2><p>useEffect 和 useLayoutEffect 都是 React 的 Hooks API，它们的主要区别在于执行的时机和是否会阻塞浏览器渲染。</p>
 <ol>
-<li>执行时机：useEffect 是在组件渲染完成后异步执行的，而 useLayoutEffect 是在组件渲染完成后同步执行的。因此，useLayoutEffect 的执行优先级更高。</li>
+<li>执行时机：useEffect 是在组件渲染完成后、在浏览器完成布局和绘制之后异步执行的，而 useLayoutEffect 是在组件渲染完成后、页面绘制和布局前同步执行的。因此，useLayoutEffect 的执行优先级更高。</li>
 <li>是否阻塞浏览器渲染：useEffect 不会阻塞浏览器渲染，而 useLayoutEffect 会阻塞浏览器渲染。因此，在使用 useLayoutEffect 时要注意避免长时间的计算和操作，以免影响用户体验。</li>
 <li>使用场景：useEffect 适合处理副作用，如数据获取、订阅事件等。而 useLayoutEffect 适合处理需要同步更新 DOM 的操作，如计算 DOM 元素的大小和位置等。</li>
 </ol>

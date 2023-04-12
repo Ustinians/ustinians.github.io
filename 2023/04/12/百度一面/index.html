@@ -1,0 +1,874 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="想躺在云上">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="百度一面介绍项目React如何实现路由缓存的？【项目】React路由权限控制【项目】React Hooks解决了什么问题？有什么优势和限制？React Hooks解决了在函数组件中管理状态和副作用的问题。以前，函数组件是无状态的，不能使用生命周期方法和state，这意味着无法在函数组件中进行复杂的逻辑和状态管理。使用React Hooks，函数组件可以使用状态和生命周期方法，从而使函数组件具有类组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="百度一面">
+<meta property="og:url" content="https://ustinians.github.io/2023/04/12/%E7%99%BE%E5%BA%A6%E4%B8%80%E9%9D%A2/index.html">
+<meta property="og:site_name" content="想躺在云上 - In doing we learn.">
+<meta property="og:description" content="百度一面介绍项目React如何实现路由缓存的？【项目】React路由权限控制【项目】React Hooks解决了什么问题？有什么优势和限制？React Hooks解决了在函数组件中管理状态和副作用的问题。以前，函数组件是无状态的，不能使用生命周期方法和state，这意味着无法在函数组件中进行复杂的逻辑和状态管理。使用React Hooks，函数组件可以使用状态和生命周期方法，从而使函数组件具有类组">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-12T15:55:31.000Z">
+<meta property="article:modified_time" content="2023-04-12T15:56:30.689Z">
+<meta property="article:author" content="想躺在云上">
+<meta property="article:tag" content="前端|面经">
+<meta property="article:tag" content="性能优化">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>百度一面 - 想躺在云上 - In doing we learn.</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ustinians.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>想躺在云上</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="百度一面"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-12 23:55" pubdate>
+          2023年4月12日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          94 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">百度一面</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="百度一面"><a href="#百度一面" class="headerlink" title="百度一面"></a>百度一面</h1><h2 id="介绍项目"><a href="#介绍项目" class="headerlink" title="介绍项目"></a>介绍项目</h2><h2 id="React如何实现路由缓存的？【项目】"><a href="#React如何实现路由缓存的？【项目】" class="headerlink" title="React如何实现路由缓存的？【项目】"></a><code>React</code>如何实现路由缓存的？【项目】</h2><h2 id="React路由权限控制【项目】"><a href="#React路由权限控制【项目】" class="headerlink" title="React路由权限控制【项目】"></a><code>React</code>路由权限控制【项目】</h2><h2 id="React-Hooks解决了什么问题？有什么优势和限制？"><a href="#React-Hooks解决了什么问题？有什么优势和限制？" class="headerlink" title="React Hooks解决了什么问题？有什么优势和限制？"></a><code>React Hooks</code>解决了什么问题？有什么优势和限制？</h2><p><code>React Hooks</code>解决了在函数组件中管理状态和副作用的问题。以前，函数组件是无状态的，不能使用生命周期方法和<code>state</code>，这意味着无法在函数组件中进行复杂的逻辑和状态管理。使用<code>React Hooks</code>，函数组件可以使用状态和生命周期方法，从而使函数组件具有类组件的能力。</p>
+<p>优势：</p>
+<ol>
+<li>更简洁的代码：使用<code>React Hooks</code>可以减少代码量，使代码更易读。</li>
+<li>更易于测试：使用<code>React Hooks</code>可以减少副作用和状态的耦合，使测试更容易。</li>
+<li>更灵活的逻辑：使用<code>React Hooks</code>可以在函数组件中使用状态和生命周期方法，使逻辑更加灵活。</li>
+<li>更好的性能：使用<code>React Hooks</code>可以减少组件的重新渲染，提高性能。</li>
+</ol>
+<p>限制：</p>
+<ol>
+<li>可能存在性能问题：使用<code>React Hooks</code>可能会导致某些性能问题，需要注意优化。</li>
+<li>可能存在兼容性问题：使用<code>React Hooks</code>可能会存在兼容性问题，需要注意浏览器和React版本的兼容性。</li>
+</ol>
+<h2 id="React-Hooks在使用上有什么限制？"><a href="#React-Hooks在使用上有什么限制？" class="headerlink" title="React Hooks在使用上有什么限制？"></a>React Hooks在使用上有什么限制？</h2><ol>
+<li>只能在函数组件中使用：React Hooks 只能在函数组件中使用，无法在类组件中使用。</li>
+<li>不能在循环、条件语句中使用：React Hooks 必须按照固定的顺序调用，不能在循环、条件语句中使用。</li>
+<li>使用时必须按照约定命名：使用 useState、useEffect 等 React Hooks 时必须按照约定命名，否则会导致无法正常使用。</li>
+<li>不能在普通函数中使用：React Hooks 只能在函数组件中使用，不能在普通函数中使用。</li>
+<li>不能在嵌套组件中使用：React Hooks 只能在最顶层的函数组件中使用，不能在嵌套组件中使用。</li>
+<li>不能在条件渲染的分支中使用：React Hooks 必须在每次渲染时都按照相同的顺序调用，不能在条件渲染的分支中使用。</li>
+<li>不能在 useEffect 中使用 async&#x2F;await：在 useEffect 中使用 async&#x2F;await 会导致一些问题，应该使用 Promise.then()。</li>
+</ol>
+<h2 id="为什么要使用类似React这种MVVM框架？为什么不直接使用原生前端开发？"><a href="#为什么要使用类似React这种MVVM框架？为什么不直接使用原生前端开发？" class="headerlink" title="为什么要使用类似React这种MVVM框架？为什么不直接使用原生前端开发？"></a>为什么要使用类似<code>React</code>这种<code>MVVM</code>框架？为什么不直接使用原生前端开发？</h2><p>使用类似 <code>React</code> 这种 <code>MVVM</code> 框架的主要原因是可以提高前端开发的效率和可维护性。以下是具体的原因：</p>
+<ol>
+<li>组件化开发：<code>React</code> 将页面拆分成多个组件，每个组件负责一部分功能，通过组合和嵌套组件来实现整个页面的功能。这样可以使代码更加模块化和可复用，提高开发效率和代码质量。</li>
+<li>虚拟 DOM：<code>React</code> 使用虚拟 DOM 来代替直接操作 DOM，这样可以避免频繁的 DOM 操作，提高页面性能。</li>
+<li>单向数据流：<code>React</code> 的数据流是单向的，从父组件传递到子组件，这样可以避免数据混乱和难以维护的问题。</li>
+<li>模板语法：<code>React</code> 使用 JSX 语法，可以将组件和数据混合在一起，提高代码可读性和可维护性。</li>
+<li>多平台支持：<code>React</code> 可以用于 Web 开发、移动端开发和桌面端开发，可以实现多平台的代码复用。</li>
+</ol>
+<h2 id="前端直接引入地图SDK会导致页面体积非常大，引起性能问题，如何解决？【项目】"><a href="#前端直接引入地图SDK会导致页面体积非常大，引起性能问题，如何解决？【项目】" class="headerlink" title="前端直接引入地图SDK会导致页面体积非常大，引起性能问题，如何解决？【项目】"></a>前端直接引入地图<code>SDK</code>会导致页面体积非常大，引起性能问题，如何解决？【项目】</h2><ol>
+<li>懒加载：将地图 SDK 的引入延迟到需要使用地图的页面或组件中，这样可以减少页面初始加载时的体积，提高页面加载速度。</li>
+<li>分包加载：将地图 SDK 的引入分离成一个单独的包，只有当用户需要使用地图时才会加载该包，这样可以减小页面的初始加载体积，并且可以使地图相关的代码更容易维护。</li>
+<li>使用第三方库：使用第三方地图库，例如 <code>Mapbox</code>、<code>Leaflet</code> 等，这些库通常提供了更小的文件大小和更高效的加载方式，可以帮助减少页面体积和提高性能。</li>
+<li>服务端渲染：使用服务端渲染技术，将地图相关的代码在服务端生成并输出 HTML，减少客户端的代码量和加载时间。</li>
+<li>CDN 加速：使用 CDN 加速地图 SDK 的加载，可以减少服务器的负担和提高地图 SDK 的加载速度。</li>
+</ol>
+<h2 id="项目开发中遇到过哪些性能问题？如何解决？"><a href="#项目开发中遇到过哪些性能问题？如何解决？" class="headerlink" title="项目开发中遇到过哪些性能问题？如何解决？"></a>项目开发中遇到过哪些性能问题？如何解决？</h2><ol>
+<li><p>首屏加载慢：当用户打开页面时，需要等待很长时间才能看到页面的内容。</p>
+<p>解决方法：使用懒加载技术、减少 HTTP 请求、优化图片大小和格式、合理使用缓存等。</p>
+</li>
+<li><p>页面响应慢：当用户与页面进行交互时，页面响应时间很长，影响用户体验。</p>
+<p>解决方法：使用异步加载技术、优化 JavaScript 代码、减少 DOM 操作、避免频繁的重排和重绘等。</p>
+</li>
+<li><p>大量的 HTTP 请求：当页面需要加载大量的资源时，会产生大量的 HTTP 请求，影响页面的加载速度。</p>
+<p>解决方法：使用合并和压缩技术、使用 CDN 加速、使用 HTTP2 协议等。</p>
+</li>
+<li><p>大量的 JavaScript 和 CSS 文件：当页面需要加载大量的 JavaScript 和 CSS 文件时，也会影响页面的加载速度。</p>
+<p>解决方法：使用合并和压缩技术、使用模块化开发、使用 CSS 预处理器等。</p>
+</li>
+<li><p>内存泄漏：当页面长时间运行时，可能会出现内存泄漏问题，导致页面变得越来越慢。</p>
+<p>解决方法：使用垃圾回收机制、避免循环引用、及时释放不需要的资源等。</p>
+</li>
+</ol>
+<h2 id="项目上线部署流程？"><a href="#项目上线部署流程？" class="headerlink" title="项目上线部署流程？"></a>项目上线部署流程？</h2><ol>
+<li>打包：将前端项目打包成静态资源文件，例如 HTML、CSS、JavaScript、图片等。可以使用 Webpack、Gulp、Grunt 等工具进行打包。</li>
+<li>上传到服务器：将打包好的静态资源文件上传到服务器上，可以使用 FTP、SFTP、SCP、rsync 等工具进行上传。</li>
+<li>配置服务器：根据项目需要，对服务器进行配置，例如安装 Web 服务器、配置域名、SSL 证书、反向代理等。</li>
+<li>启动服务：启动 Web 服务器并将静态资源文件部署到 Web 服务器上，例如使用 Nginx、Apache 等 Web 服务器。</li>
+<li>测试和验证：测试和验证部署的 Web 服务器是否正常工作，例如访问网站、检查日志、排除错误等。</li>
+<li>监控和维护：监控部署的 Web 服务器，确保其稳定运行，并及时处理出现的异常问题。</li>
+</ol>
+<h2 id="是否了解Node-js的EventEmitter事件机制-实现I-x2F-O非阻塞的基础-？"><a href="#是否了解Node-js的EventEmitter事件机制-实现I-x2F-O非阻塞的基础-？" class="headerlink" title="是否了解Node.js的EventEmitter事件机制(实现I&#x2F;O非阻塞的基础)？"></a>是否了解<code>Node.js</code>的<code>EventEmitter</code>事件机制(实现I&#x2F;O非阻塞的基础)？</h2><p><code>EventEmitter</code>是Node.js中一个重要的模块，它提供了一种事件机制，用于实现基于观察者模式的事件处理。它的主要作用是在对象之间建立一种松耦合的联系，使得一个对象在发生某个动作时，可以通知多个对象进行相应的处理。</p>
+<p>在Node.js中，<code>EventEmitter</code>模块是一个核心模块，可以直接使用。使用<code>EventEmitter</code>模块，需要先创建一个事件对象，然后在需要的时候触发事件，并绑定相应的事件处理函数。</p>
+<p>下面是一个简单的例子：</p>
+<p>Copy</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title class_">EventEmitter</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;events&#x27;</span>);<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyEmitter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">EventEmitter</span> &#123;&#125;<br><br><span class="hljs-keyword">const</span> myEmitter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyEmitter</span>();<br>myEmitter.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;event&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;触发了事件&#x27;</span>);<br>&#125;);<br>myEmitter.<span class="hljs-title function_">emit</span>(<span class="hljs-string">&#x27;event&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>上述代码中，我们首先引入<code>events</code>模块，然后创建了一个自定义的事件类<code>MyEmitter</code>，并实例化它为<code>myEmitter</code>。接着，我们在<code>myEmitter</code>上绑定了一个<code>event</code>事件的处理函数，当事件被触发时，会输出<strong>触发了事件</strong>这个字符串。</p>
+<p>在实际使用中，我们可以利用<code>EventEmitter</code>实现很多功能，例如实现自定义事件、异步处理、流处理等。在Node.js中，很多核心模块都是基于事件机制实现的，例如<code>http</code>模块、<code>fs</code>模块等。因此，熟练掌握<code>EventEmitter</code>机制对于Node.js开发非常重要。</p>
+<h2 id="富文本编辑器的选取？"><a href="#富文本编辑器的选取？" class="headerlink" title="富文本编辑器的选取？"></a>富文本编辑器的选取？</h2><h2 id="浏览器输入url到页面渲染出来的整个详细流程？"><a href="#浏览器输入url到页面渲染出来的整个详细流程？" class="headerlink" title="浏览器输入url到页面渲染出来的整个详细流程？"></a>浏览器输入<code>url</code>到页面渲染出来的整个详细流程？</h2><ol>
+<li>首先判断输入的内容是否为合法的域名，如果不是则作为关键字交给搜索引擎进行处理；如果域名中有非法字符则进行转义。</li>
+<li>首先判断浏览器中是否有所需资源的缓存，如果有则直接使用，否则进行DNS查询获取域名对应的IP地址。</li>
+<li>DNS查询<ol>
+<li>判断本地的DNS缓存中是否有该IP地址，如果命中则返回</li>
+<li>如果还是没有命中，则将域名发送到本地域名服务器，本地域名服务器采用递归查询自己的DNS服务器，查找成功则返回。</li>
+<li>如果本地域名服务器的DNS缓存没有命中，则向上级域名服务器进行迭代查询<ul>
+<li>首先本地域名服务器向根域名服务器进行请求，获取顶级域名服务器的地址给本地服务器。</li>
+<li>本地域名服务器拿到这个顶级域名服务器后就想起发送请求，获取权威域名服务器的地址。</li>
+<li>本地域名服务器向权威域名服务器发送请求，获取域名对应的IP地址。</li>
+</ul>
+</li>
+<li>本地域名服务器将得到的IP地址发送给操作系统，同时自己将IP地址缓存起来。</li>
+<li>操作系统将IP地址返回给浏览器，同时自己也将IP地址缓存起来。</li>
+<li>至此，浏览器得到了域名对应的IP地址，并将IP地址缓存起来。</li>
+</ol>
+</li>
+<li>通过IP地址与本地的子网掩码相与，判断是否与请求主机在一个子网中，如果在一个子网中，则使用ARP协议获取目标主机的MAC地址，如果不在一个子网中，那么请求应该转发给网关，由它代为转发，此时同样可以通过ARP协议获取网关MAC地址，此时目的主机的MAC地址应该为网关地址。</li>
+<li>进行TCP的三次握手</li>
+<li>进行HTTPS握手</li>
+<li><strong>返回数据</strong>：将网页请求发送至服务器端，服务器端返回一个html文件作为响应。浏览器接受响应后，开始对html文件进行解析并开始页面的渲染过程。</li>
+<li><strong>页面渲染</strong>：根据html文件构建DOM树，根据解析到的css构建CSSOM树，如果遇到script标签，则判断有无async和defer属性，否则script的加载和执行会造成页面渲染的阻塞。当DOM树和CSSOM树建立好后，根据他们构建渲染树。渲染树构建好后，根据渲染树进行布局，然后使用浏览器的UI接口对页面进行绘制。此时整个页面就显示出来了。</li>
+<li>TCP四次挥手</li>
+</ol>
+<h2 id="https加密的详细过程？在协商过程中使用的是什么加密？"><a href="#https加密的详细过程？在协商过程中使用的是什么加密？" class="headerlink" title="https加密的详细过程？在协商过程中使用的是什么加密？"></a><code>https</code>加密的详细过程？在协商过程中使用的是什么加密？</h2><ol>
+<li>客户端发送请求：客户端向服务器发送一个HTTPS请求，请求中包含了协议版本、加密算法、随机数等信息。</li>
+<li>服务器证书：服务器向客户端发送自己的证书，证书中包含了服务器公钥、证书颁发机构、证书有效期等信息。</li>
+<li>客户端验证证书：客户端验证服务器证书的合法性，包括验证证书是否过期、证书颁发机构是否受信任、证书中的域名是否与服务器匹配等。</li>
+<li>生成共享密钥：如果服务器证书验证通过，客户端会生成一个随机数作为共享密钥，并使用服务器的公钥加密该密钥，然后发送给服务器。</li>
+<li>服务器解密共享密钥：服务器使用自己的私钥对客户端发送的共享密钥进行解密，得到共享密钥。</li>
+<li>加密通信：客户端和服务器使用共享密钥进行加密通信，通信过程中的数据全部使用共享密钥进行加密和解密。</li>
+</ol>
+<h2 id="数据-HTML、CSS和JS等资源-返回到浏览器后的详细渲染过程？"><a href="#数据-HTML、CSS和JS等资源-返回到浏览器后的详细渲染过程？" class="headerlink" title="数据(HTML、CSS和JS等资源)返回到浏览器后的详细渲染过程？"></a>数据(<code>HTML</code>、<code>CSS</code>和<code>JS</code>等资源)返回到浏览器后的详细渲染过程？</h2><p>当浏览器收到HTML、CSS和JS等资源后，会进行以下渲染过程：</p>
+<ol>
+<li>解析HTML：浏览器会根据HTML文档的结构解析出文档树（DOM树），同时也会解析出CSS文档的样式规则（CSSOM树）。</li>
+<li>构建渲染树：浏览器会将DOM树和CSSOM树结合起来构建渲染树（Render Tree），渲染树只包含需要显示的节点和样式信息。</li>
+<li>布局：浏览器会根据渲染树中每个节点的布局信息（包括位置、大小等）计算出每个节点在屏幕上的位置。</li>
+<li>绘制：浏览器会将渲染树中的每个节点绘制到屏幕上，形成最终的页面展示效果。</li>
+<li>JS执行：如果HTML中包含了JS代码，浏览器会执行这些代码，可能会修改DOM树、CSSOM树以及渲染树等。</li>
+</ol>
+<h2 id="CSS中可以将元素建立单独渲染层，这是什么机制？-CSS中可以为一个元素提供GPU加速，是什么机制？"><a href="#CSS中可以将元素建立单独渲染层，这是什么机制？-CSS中可以为一个元素提供GPU加速，是什么机制？" class="headerlink" title="CSS中可以将元素建立单独渲染层，这是什么机制？(CSS中可以为一个元素提供GPU加速，是什么机制？)"></a><code>CSS</code>中可以将元素建立单独渲染层，这是什么机制？(<code>CSS</code>中可以为一个元素提供<code>GPU</code>加速，是什么机制？)</h2><p>在<code>CSS</code>中，可以通过设置某些属性，将元素建立单独的渲染层，这个机制被称为<strong>GPU加速</strong>或<strong>硬件加速</strong>。</p>
+<p>GPU加速的原理是利用了现代计算机的硬件加速能力，将一些常规的<code>CPU</code>计算任务转移到<code>GPU</code>上进行处理。因为<code>GPU</code>的并行计算能力比<code>CPU</code>强大，所以可以加速页面的渲染速度，提高用户体验。</p>
+<p>在<code>CSS</code>中，可以通过以下属性将元素建立单独的渲染层：</p>
+<ol>
+<li><code>transform</code>属性：通过<code>transform</code>属性对元素进行2D或3D变换，可以触发硬件加速。</li>
+<li><code>opacity</code>属性：通过<code>opacity</code>属性设置元素的透明度，也可以触发硬件加速。</li>
+<li><code>filter</code>属性：通过<code>filter</code>属性对元素进行滤镜效果，也可以触发硬件加速。</li>
+<li><code>will-change</code>属性：通过<code>will-change</code>属性预先告知浏览器哪些属性将会被修改，可以让浏览器提前将元素建立单独的渲染层，从而加速页面渲染。</li>
+</ol>
+<p>需要注意的是，过度使用GPU加速可能会导致性能问题，因为GPU的资源也是有限的。在使用GPU加速时，需要根据实际情况进行优化，避免过度使用。</p>
+<h2 id="有没有了解过TailWindCSS？"><a href="#有没有了解过TailWindCSS？" class="headerlink" title="有没有了解过TailWindCSS？"></a>有没有了解过<code>TailWindCSS</code>？</h2><p>Tailwind CSS是一个“实用优先”的CSS框架，它提供了一系列的样式类，可以用来快速地构建现代化的网站和应用程序。Tailwind CSS的设计理念是遵循“高度可定制”的原则，它提供了一组基础样式类，可以通过组合这些样式类来创建任意复杂度的布局和设计。</p>
+<p>Tailwind CSS的核心思想是使用短小的、可重复使用的样式类来构建UI组件，而不是使用自定义样式表或者内联样式。这种方式可以大大减少代码的重复，并使得样式更易于维护和重构。</p>
+<p>Tailwind CSS提供了一系列的样式类，覆盖了常见的UI组件和布局需求，例如：排版、背景、边框、文本、表格、按钮、表单、响应式布局等。此外，它还提供了一些实用的工具类，例如：间距、宽度、高度、颜色、字体等，可以帮助开发者快速地实现常用的样式效果。</p>
+<p>使用Tailwind CSS可以大大提高开发效率，减少代码量，并且可以快速地构建出具有现代化风格的网站和应用程序。</p>
+<h2 id="ES6有哪些新特性？"><a href="#ES6有哪些新特性？" class="headerlink" title="ES6有哪些新特性？"></a><code>ES6</code>有哪些新特性？</h2><h2 id="Map和WeakMap是基础数据类型吗？"><a href="#Map和WeakMap是基础数据类型吗？" class="headerlink" title="Map和WeakMap是基础数据类型吗？"></a><code>Map</code>和<code>WeakMap</code>是基础数据类型吗？</h2><p>不是，是引用数据类型。</p>
+<h2 id="Map和WeakMap的区别？"><a href="#Map和WeakMap的区别？" class="headerlink" title="Map和WeakMap的区别？"></a><code>Map</code>和<code>WeakMap</code>的区别？</h2><p><code>Map</code>和<code>WeakMap</code>的主要区别在于键的引用类型和引用方式、键值对的垃圾回收机制、以及性能特点方面。</p>
+<ol>
+<li><p>键的引用类型和引用方式</p>
+<p><code>Map</code>的键可以是任意类型的数据，包括基础数据类型和对象。而<code>WeakMap</code>的键必须是对象类型。由于<code>Map</code>的键是强引用的，所以即使键所对应的对象被删除，键值对依然存在。而<code>WeakMap</code>的键是弱引用的，当键所对应的对象被垃圾回收时，键值对也会自动被删除。</p>
+</li>
+<li><p>键值对的垃圾回收机制</p>
+<p><code>Map</code>中的键值对不会被自动删除，只有在手动删除或<code>Map</code>对象被销毁时才会被清空。而<code>WeakMap</code>中的键值对会在键所对应的对象被垃圾回收时自动删除。</p>
+</li>
+<li><p>性能特点</p>
+<p>由于<code>Map</code>的键是强引用的，所以<code>Map</code>的性能相对较高，但是在大量数据存储时，可能会占用较多的内存。而<code>WeakMap</code>的键是弱引用的，所以<code>WeakMap</code>的性能相对较低，但是可以更有效地管理内存，避免内存泄漏。</p>
+</li>
+</ol>
+<p>综上所述，<code>Map</code>适用于需要长期存储大量数据的场景，而<code>WeakMap</code>适用于临时存储数据或需要更有效地管理内存的场景。</p>
+<h2 id="weakMap使用场景？"><a href="#weakMap使用场景？" class="headerlink" title="weakMap使用场景？"></a>weakMap使用场景？</h2><ol>
+<li><p>保护私有属性</p>
+<p>在JavaScript中，对象的属性都是公开的，可以被其他代码访问和修改。但有时我们需要保护一些属性，使其不被外界访问和修改。使用WeakMap可以实现这个目的，因为WeakMap中的数据只能通过键访问，而且键是弱引用，不能被外界访问。</p>
+</li>
+<li><p>避免内存泄漏</p>
+<p>使用WeakMap可以避免内存泄漏，因为WeakMap中的键是弱引用，当键所引用的对象被垃圾回收时，键也会被自动删除，从而避免内存泄漏。</p>
+</li>
+</ol>
+<h2 id="弱引用的好处？使用场景？"><a href="#弱引用的好处？使用场景？" class="headerlink" title="弱引用的好处？使用场景？"></a>弱引用的好处？使用场景？</h2><h3 id="弱引用的优点"><a href="#弱引用的优点" class="headerlink" title="弱引用的优点"></a>弱引用的优点</h3><ol>
+<li><p>避免内存泄漏</p>
+<p>使用弱引用可以避免因为对象之间的循环引用而导致的内存泄漏。当一个对象不再被其他对象引用时，它会被垃圾回收器回收。如果一个对象被其他对象循环引用，即使它们都不再被程序使用，也不会被垃圾回收器回收，从而导致内存泄漏。使用弱引用可以避免这种情况。</p>
+</li>
+<li><p>优化性能</p>
+<p>使用弱引用可以避免过度缓存，优化程序的性能。如果一个对象被缓存起来，但是在程序执行过程中很少被使用，却一直占用内存，会影响程序的性能。使用弱引用可以让缓存的对象在不使用时被垃圾回收器回收，避免浪费内存。</p>
+</li>
+<li><p>简化代码</p>
+<p>使用弱引用可以简化代码，避免手动管理对象的生命周期。弱引用可以让程序自动管理对象的生命周期，减少代码的复杂度和出错的可能性。</p>
+</li>
+</ol>
+<p>总之，弱引用是一种优化程序性能和避免内存泄漏的有效手段，它可以让程序更加健壮、高效和易于维护。</p>
+<h3 id="弱引用使用场景"><a href="#弱引用使用场景" class="headerlink" title="弱引用使用场景"></a>弱引用使用场景</h3><ol>
+<li><p>缓存</p>
+<p>使用弱引用可以避免过度缓存，优化程序的性能。如果一个对象被缓存起来，但是在程序执行过程中很少被使用，却一直占用内存，会影响程序的性能。使用弱引用可以让缓存的对象在不使用时被垃圾回收器回收，避免浪费内存。</p>
+</li>
+<li><p>监听事件</p>
+<p>使用弱引用可以避免因为监听事件而导致的内存泄漏。例如，当一个对象监听了另一个对象的事件，如果不及时取消监听，会导致对象之间的循环引用，从而导致内存泄漏。使用弱引用可以避免这种情况。</p>
+</li>
+<li><p>缓存DOM元素</p>
+<p>在Web开发中，经常需要缓存DOM元素，以避免重复查询。但是，如果缓存的DOM元素不及时释放，会导致内存泄漏。使用弱引用可以避免这种情况，当DOM元素不再被使用时，会被自动释放。</p>
+</li>
+</ol>
+<h2 id="对垃圾回收机制的理解？"><a href="#对垃圾回收机制的理解？" class="headerlink" title="对垃圾回收机制的理解？"></a>对垃圾回收机制的理解？</h2><p>JavaScript的垃圾回收机制是自动的，程序员不需要手动释放内存。垃圾回收机制的主要任务是识别不再使用的内存，然后释放它们，以便让系统可以重复使用这些内存。</p>
+<p>JavaScript中的垃圾回收机制主要有两种方式：标记清除和引用计数。</p>
+<ol>
+<li><p>标记清除</p>
+<p>标记清除是JavaScript中最常用的垃圾回收算法。它的原理是通过标记对象是否可达来判断对象是否还在使用中。当一个对象不再被使用时，垃圾回收器会将其标记为可回收对象，然后在下一次垃圾回收时将其回收。</p>
+<p>标记清除算法的缺点是，当存在循环引用时，垃圾回收器无法判断哪些对象是可达的，哪些对象是不可达的，从而导致内存泄漏。</p>
+</li>
+<li><p>引用计数</p>
+<p>引用计数是一种不常用的垃圾回收算法。它的原理是为每个对象维护一个引用计数器，当对象被引用时，计数器加1；当对象不再被引用时，计数器减1。当计数器为0时，垃圾回收器会将其回收。</p>
+<p>引用计数算法的缺点是，它无法处理循环引用的情况，从而导致内存泄漏。</p>
+</li>
+</ol>
+<p>JavaScript中的垃圾回收机制是自动的，程序员不需要手动释放内存。垃圾回收机制的主要任务是识别不再使用的内存，然后释放它们，以便让系统可以重复使用这些内存。在实际开发中，我们应该尽量避免循环引用的情况，以便让垃圾回收器更好地工作。</p>
+<h2 id="写项目的时候有没有用到哪些设计模式使得代码更加利于修改？"><a href="#写项目的时候有没有用到哪些设计模式使得代码更加利于修改？" class="headerlink" title="写项目的时候有没有用到哪些设计模式使得代码更加利于修改？"></a>写项目的时候有没有用到哪些设计模式使得代码更加利于修改？</h2><ol>
+<li><p>MVC（Model-View-Controller）模式</p>
+<p>MVC模式是一种将应用程序分成三个核心部分的设计模式：模型（Model）、视图（View）和控制器（Controller）。这种模式可以使得代码更加清晰、易于维护和修改，也可以提高代码的重用性和可扩展性。</p>
+</li>
+<li><p>MVVM（Model-View-ViewModel）模式</p>
+<p>MVVM模式是一种MVC模式的变体，它将控制器（Controller）替换为视图模型（ViewModel）。视图模型负责将模型数据转换为视图可以使用的数据，并且可以通过双向绑定来实现数据的自动更新，从而减少了手动操作DOM的代码量。</p>
+</li>
+<li><p>单例模式</p>
+<p>单例模式是一种保证一个类只有一个实例的设计模式。在前端开发中，常用于管理全局状态或资源，例如全局配置、全局事件管理等。</p>
+</li>
+<li><p>装饰者模式</p>
+<p>装饰者模式是一种在不改变原有对象的基础上，动态地给对象增加新的功能的设计模式。在前端开发中，常用于对原有组件进行功能扩展或增强。</p>
+</li>
+<li><p>观察者模式</p>
+<p>观察者模式是一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖它的对象都会得到通知并自动更新。在前端开发中，常用于实现事件监听和发布-订阅模式。</p>
+</li>
+</ol>
+<p>使用这些设计模式可以使前端项目的代码更加易于维护和修改，提高代码的重用性和可扩展性。但是，过度使用设计模式也会增加代码的复杂度，所以需要根据实际情况选择合适的设计模式。</p>
+<h2 id="git合并commit有哪几种方式？"><a href="#git合并commit有哪几种方式？" class="headerlink" title="git合并commit有哪几种方式？"></a><code>git</code>合并<code>commit</code>有哪几种方式？</h2><p>git merge</p>
+<p>git merge 会新建一个新的 commit 对象，然后两个分支以前的 commit 记录都指向这个新 commit 记录。这种方法会保留之前每个分支的 commit 历史。</p>
+<p>git rebase</p>
+<p>git rebase 会先找到两个分支的第一个共同的 commit 祖先记录，然后将提取当前分支这之后的所有 commit 记录，然后将这个 commit 记录添加到目标分支的最新提交后面。经过这个合并后，两个分支合并后的 commit 记录就变为了线性的记录了。</p>
+<h2 id="有没有使用过单元测试工具或代码检查？"><a href="#有没有使用过单元测试工具或代码检查？" class="headerlink" title="有没有使用过单元测试工具或代码检查？"></a>有没有使用过单元测试工具或代码检查？</h2><ol>
+<li>Jest：Facebook 开源的 JavaScript 测试框架，支持单元测试、集成测试和快照测试等。</li>
+<li>Mocha：一个功能丰富的 JavaScript 测试框架，支持异步测试、前端和后端测试，以及 BDD 和 TDD 等测试风格。</li>
+<li>Jasmine：一个行为驱动开发（BDD）框架，支持浏览器和 Node.js 等环境，可以进行单元测试、集成测试和端到端测试。</li>
+<li>Karma：一个测试运行器，可以在多个浏览器和平台上运行测试，并支持与其他测试框架集成。</li>
+<li>Enzyme：一个 React 组件测试工具，可以方便地进行组件渲染、事件模拟和快照测试等。</li>
+<li>Ava：一个快速、轻量级的测试框架，支持并行测试和异步测试，可以在浏览器和 Node.js 等环境下运行。</li>
+<li>Puppeteer：一个由 Google 开发的自动化测试工具，可以模拟用户操作和浏览器环境，用于进行端到端测试。</li>
+<li>Cypress：一个端到端测试工具，具有自动重试、实时重载和可视化测试等功能，可以在浏览器中运行测试。</li>
+</ol>
+<h2 id="ESLint代码检查原理？"><a href="#ESLint代码检查原理？" class="headerlink" title="ESLint代码检查原理？"></a>ESLint代码检查原理？</h2><p>ESLint是一个开源的JavaScript代码检查工具，它可以检查代码的语法错误、代码风格、潜在的错误等。ESLint的核心原理是基于抽象语法树（AST）来检查代码。</p>
+<p>ESLint会将代码解析成AST，然后通过遍历AST节点来检查代码，检查的规则由配置文件中的规则集合定义。ESLint的规则集合包括官方规则和第三方规则，可以根据需要自定义规则。</p>
+<p>在检查代码时，ESLint会根据规则集合中的规则来判断代码是否符合规范，如果不符合则输出错误或警告信息。ESLint还支持自动修复代码中的一些问题，可以通过–fix选项来修复代码中的问题。</p>
+<p>ESLint的检查原理可以总结为以下几个步骤：</p>
+<ol>
+<li>将代码解析成AST。</li>
+<li>遍历AST节点，根据规则集合中的规则判断代码是否符合规范。</li>
+<li>如果代码不符合规范，则输出错误或警告信息。</li>
+<li>如果需要，可以通过–fix选项来自动修复代码中的问题。</li>
+</ol>
+<p>总之，ESLint的检查原理基于抽象语法树（AST）来检查代码，可以根据规则集合中的规则来判断代码是否符合规范。</p>
+<h2 id="bebel将ES6转换为ES5的流程？"><a href="#bebel将ES6转换为ES5的流程？" class="headerlink" title="bebel将ES6转换为ES5的流程？"></a><code>bebel</code>将<code>ES6</code>转换为<code>ES5</code>的流程？</h2><ol>
+<li>Babel首先读取ES6代码并将其转换为一个字符串。</li>
+<li>然后，Babel使用解析器将字符串转换为AST。</li>
+<li>Babel会遍历AST并应用配置的插件和预设来转换代码。每个插件都会检查AST节点并决定是否需要修改它。如果需要修改，插件会返回新的AST节点以替换原来的节点。</li>
+<li>转换后，Babel会将AST转换回代码字符串。</li>
+<li>最后，Babel会将ES5代码写入文件或输出到控制台。</li>
+</ol>
+<h2 id="设计一个Button组件，要求点击按钮发起一个POST请求，当请求结束后通知给父组件。"><a href="#设计一个Button组件，要求点击按钮发起一个POST请求，当请求结束后通知给父组件。" class="headerlink" title="设计一个Button组件，要求点击按钮发起一个POST请求，当请求结束后通知给父组件。"></a>设计一个<code>Button</code>组件，要求点击按钮发起一个<code>POST</code>请求，当请求结束后通知给父组件。</h2><ul>
+<li>该请求耗时很长</li>
+<li><code>POST</code>请求非幂等</li>
+</ul>
+<p>以下是一个简单的React <code>Button</code>组件的实现，满足上述要求：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Button</span>(<span class="hljs-params">props</span>) &#123;<br>  <span class="hljs-keyword">const</span> [loading, setLoading] = <span class="hljs-title function_">useState</span>(<span class="hljs-literal">false</span>);<br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">handleClick</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-title function_">setLoading</span>(<span class="hljs-literal">true</span>);<br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(props.<span class="hljs-property">url</span>, &#123;<br>        <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,<br>        <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(props.<span class="hljs-property">data</span>),<br>        <span class="hljs-attr">headers</span>: &#123;<br>          <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span><br>        &#125;<br>      &#125;);<br>      <span class="hljs-keyword">if</span> (response.<span class="hljs-property">ok</span>) &#123;<br>        props.<span class="hljs-title function_">onSuccess</span>();<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        props.<span class="hljs-title function_">onError</span>();<br>      &#125;<br>    &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>      props.<span class="hljs-title function_">onError</span>();<br>    &#125; <span class="hljs-keyword">finally</span> &#123;<br>      <span class="hljs-title function_">setLoading</span>(<span class="hljs-literal">false</span>);<br>    &#125;<br>  &#125;;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;handleClick&#125;</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">&#123;loading&#125;</span>&gt;</span></span><br><span class="language-xml">      &#123;loading ? &#x27;Loading...&#x27; : props.label&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Button</span>;<br></code></pre></td></tr></table></figure>
+
+<p>该组件接受以下属性：</p>
+<ul>
+<li><code>url</code>：<code>POST</code>请求的URL。</li>
+<li><code>data</code>：要发送的数据。</li>
+<li><code>label</code>：按钮上显示的文本。</li>
+<li><code>onSuccess</code>：请求成功后的回调函数。</li>
+<li><code>onError</code>：请求失败后的回调函数。</li>
+</ul>
+<p>该组件使用了React的状态钩子来管理按钮的加载状态，当按钮被点击时，它会设置<code>loading</code>状态为<code>true</code>并发起<code>POST</code>请求。如果请求成功，它会调用<code>props.onSuccess</code>回调函数，否则调用<code>props.onError</code>回调函数。无论请求成功与否，它都会将<code>loading</code>状态设置为<code>false</code>，以使按钮再次可用。</p>
+<p>该组件可以在父组件中使用，如下所示：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Button</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./Button&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">handleSuccess</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;Request succeeded!&#x27;</span>);<br>  &#125;;<br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">handleError</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;Request failed!&#x27;</span>);<br>  &#125;;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">url</span>=<span class="hljs-string">&quot;https://example.com/api&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">data</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">name:</span> &#x27;<span class="hljs-attr">John</span>&#x27; &#125;&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Submit&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">onSuccess</span>=<span class="hljs-string">&#123;handleSuccess&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">onError</span>=<span class="hljs-string">&#123;handleError&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">      /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">App</span>;<br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，当<code>Button</code>被点击时，它会向<code>https://example.com/api</code>发送一个<code>POST</code>请求，并将<code>&#123; name: &#39;John&#39; &#125;</code>作为请求体。如果请求成功，它会弹出一个消息框显示<code>Request succeeded!</code>，否则显示<code>Request failed!</code>。注意，这个例子并没有考虑请求的幂等性和请求耗时较长的情况，这些问题需要根据具体情况进行处理。</p>
+<h2 id="了解过哪些前端新知识？"><a href="#了解过哪些前端新知识？" class="headerlink" title="了解过哪些前端新知识？"></a>了解过哪些前端新知识？</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF-%E9%9D%A2%E7%BB%8F/">#前端|面经</a>
+      
+        <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">#性能优化</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>百度一面</div>
+      <div>https://ustinians.github.io/2023/04/12/百度一面/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>想躺在云上</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/12/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86-6/" title="知识点整理(6)">
+                        <span class="hidden-mobile">知识点整理(6)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
