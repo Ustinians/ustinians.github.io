@@ -24,7 +24,7 @@
 <meta property="og:description" content="知识点整理(5)在多线程的情况下如何保证线程安全？ 加锁：使用锁机制来保护共享资源，确保同一时间只有一个线程可以访问共享资源，其他线程需要等待锁释放后才能访问。 使用原子操作：原子操作是不可被中断的操作，可以保证多线程访问共享资源时的原子性，避免数据不一致的问题。 使用线程安全的数据结构：如ConcurrentHashMap、CopyOnWriteArrayList等，这些数据结构是线程安全的，多">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-11T13:05:37.000Z">
-<meta property="article:modified_time" content="2023-04-12T03:34:52.918Z">
+<meta property="article:modified_time" content="2023-04-12T06:52:59.227Z">
 <meta property="article:author" content="想躺在云上">
 <meta property="article:tag" content="前端学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -443,7 +443,7 @@
 <li>使用混入后的类，即可享受到混入对象中扩展的功能。</li>
 </ol>
 <p>混入可以使代码更加模块化、灵活，可以避免代码冗余和重复。但是，在使用混入时，需要注意命名冲突和属性覆盖等问题，避免出现不必要的错误和bug。</p>
-<h2 id="为什么typeof返回的是Number"><a href="#为什么typeof返回的是Number" class="headerlink" title="为什么typeof返回的是Number?"></a>为什么typeof返回的是Number?</h2><p>因为NaN是一种特殊的数值，它表示一个非数值的数值（Not-a-Number）。虽然NaN不是一个有效的数值，但它仍然属于数值类型，因此typeof NaN返回的是Number。</p>
+<h2 id="为什么typeof-NaN返回的是Number"><a href="#为什么typeof-NaN返回的是Number" class="headerlink" title="为什么typeof NaN返回的是Number?"></a>为什么typeof NaN返回的是Number?</h2><p>因为NaN是一种特殊的数值，它表示一个非数值的数值（Not-a-Number）。虽然NaN不是一个有效的数值，但它仍然属于数值类型，因此typeof NaN返回的是Number。</p>
 <p>需要注意的是，虽然NaN属于数值类型，但它与任何值都不相等，包括它本身。这是因为NaN与任何值都不相等的特殊规定。因此，在比较值是否相等时，需要特别注意NaN的情况。可以使用isNaN函数来判断一个值是否为NaN。</p>
 <h2 id="JS中Number的最大值返回的是什么？"><a href="#JS中Number的最大值返回的是什么？" class="headerlink" title="JS中Number的最大值返回的是什么？"></a>JS中Number的最大值返回的是什么？</h2><p>Number类型的最大值可以通过Number.MAX_VALUE常量获取，该常量的值接近于1.79e+308。超过这个值的数值将被表示为Infinity（正无穷）。</p>
 <p>例如，可以使用以下代码来检查Number类型的最大值：</p>
