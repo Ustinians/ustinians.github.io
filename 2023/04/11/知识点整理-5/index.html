@@ -24,7 +24,7 @@
 <meta property="og:description" content="知识点整理(5)在多线程的情况下如何保证线程安全？ 加锁：使用锁机制来保护共享资源，确保同一时间只有一个线程可以访问共享资源，其他线程需要等待锁释放后才能访问。 使用原子操作：原子操作是不可被中断的操作，可以保证多线程访问共享资源时的原子性，避免数据不一致的问题。 使用线程安全的数据结构：如ConcurrentHashMap、CopyOnWriteArrayList等，这些数据结构是线程安全的，多">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-11T13:05:37.000Z">
-<meta property="article:modified_time" content="2023-04-11T13:06:10.966Z">
+<meta property="article:modified_time" content="2023-04-12T03:34:52.918Z">
 <meta property="article:author" content="想躺在云上">
 <meta property="article:tag" content="前端学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -360,7 +360,7 @@
 </ol>
 <p>在插入子节点的过程中，insertBefore()方法会自动更新父节点、子节点和兄弟节点的引用关系。同时，insertBefore()方法也会自动更新文档的布局和渲染，因此需要谨慎使用，以避免频繁的DOM操作导致性能下降。</p>
 <p>如果要将一个节点插入到一个父节点的子节点列表的末尾，可以使用appendChild()方法。如果要将一个节点插入到指定位置，可以使用insertBefore()方法。</p>
-<h2 id="组件懒加载的实现原理？"><a href="#组件懒加载的实现原理？" class="headerlink" title="组件懒加载的实现原理？"></a>组件懒加载的实现原理？</h2><blockquote>
+<h2 id="代码懒加载的实现原理？"><a href="#代码懒加载的实现原理？" class="headerlink" title="代码懒加载的实现原理？"></a>代码懒加载的实现原理？</h2><blockquote>
 <p>代码懒加载（Code Splitting）是一种优化网页性能的技术，它的原理是将网页的代码分割成多个小块，只在需要时才加载这些小块，从而提高网页的加载速度和性能。</p>
 </blockquote>
 <p>代码懒加载的实现原理如下：</p>
@@ -372,8 +372,7 @@
 </ol>
 <p>代码懒加载可以使用Webpack等工具来实现。Webpack可以将网页的代码分割成多个小块，并使用动态import()语法来实现懒加载。当Webpack打包代码时，会将代码分割成多个小块，并生成多个独立的文件。在网页加载时，只加载必要的代码块，其他代码块暂时不加载。当用户需要访问某个模块或组件时，再动态加载对应的代码块，并将它插入到网页中。</p>
 <p>代码懒加载可以大大提高网页的性能和用户体验，特别是在移动设备等网络环境不佳的情况下。</p>
-<p>git amend命令的作用？</p>
-<p>git amend命令是Git版本控制系统中的一个命令，用于修改最后一次提交的信息或者将缺失的文件添加到最后一次提交中。</p>
+<h2 id="git-amend命令的作用？"><a href="#git-amend命令的作用？" class="headerlink" title="git amend命令的作用？"></a>git amend命令的作用？</h2><p>git amend命令是Git版本控制系统中的一个命令，用于修改最后一次提交的信息或者将缺失的文件添加到最后一次提交中。</p>
 <p>具体来说，git amend命令可以用于以下两种情况：</p>
 <ol>
 <li><p>修改最后一次提交的信息：如果最后一次提交的信息存在错误或者需要进行修改，可以使用git amend命令来修改。具体操作如下：</p>
@@ -540,6 +539,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/04/12/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86-6/" title="知识点整理(6)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">知识点整理(6)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
