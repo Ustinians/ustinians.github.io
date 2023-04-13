@@ -1,0 +1,895 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="想躺在云上">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="美团一面项目中遇到过什么难点？路由权限管理是如何实现的？权限是如何进行存储的？如何实现路由缓存的？原理？TCP和UDP的区别？ 连接方式不同：TCP是面向连接的协议，需要在传输数据之前先建立连接；UDP是无连接的协议，直接发送数据包。 数据传输方式不同：TCP提供可靠的、面向字节流的数据传输，保证数据按照发送顺序到达目标；UDP则提供不可靠的、面向数据包的数据传输，数据包之间没有先后顺序之分，也不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="美团一面">
+<meta property="og:url" content="https://ustinians.github.io/2023/04/13/%E7%BE%8E%E5%9B%A2%E4%B8%80%E9%9D%A2/index.html">
+<meta property="og:site_name" content="想躺在云上 - In doing we learn.">
+<meta property="og:description" content="美团一面项目中遇到过什么难点？路由权限管理是如何实现的？权限是如何进行存储的？如何实现路由缓存的？原理？TCP和UDP的区别？ 连接方式不同：TCP是面向连接的协议，需要在传输数据之前先建立连接；UDP是无连接的协议，直接发送数据包。 数据传输方式不同：TCP提供可靠的、面向字节流的数据传输，保证数据按照发送顺序到达目标；UDP则提供不可靠的、面向数据包的数据传输，数据包之间没有先后顺序之分，也不">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-13T13:03:05.000Z">
+<meta property="article:modified_time" content="2023-04-13T13:03:58.290Z">
+<meta property="article:author" content="想躺在云上">
+<meta property="article:tag" content="前端|面经">
+<meta property="article:tag" content="Node.js">
+<meta property="article:tag" content="进程">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>美团一面 - 想躺在云上 - In doing we learn.</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ustinians.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>想躺在云上</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="美团一面"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-13 21:03" pubdate>
+          2023年4月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          119 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">美团一面</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="美团一面"><a href="#美团一面" class="headerlink" title="美团一面"></a>美团一面</h1><h2 id="项目中遇到过什么难点？"><a href="#项目中遇到过什么难点？" class="headerlink" title="项目中遇到过什么难点？"></a>项目中遇到过什么难点？</h2><h2 id="路由权限管理是如何实现的？"><a href="#路由权限管理是如何实现的？" class="headerlink" title="路由权限管理是如何实现的？"></a>路由权限管理是如何实现的？</h2><h2 id="权限是如何进行存储的？"><a href="#权限是如何进行存储的？" class="headerlink" title="权限是如何进行存储的？"></a>权限是如何进行存储的？</h2><h2 id="如何实现路由缓存的？原理？"><a href="#如何实现路由缓存的？原理？" class="headerlink" title="如何实现路由缓存的？原理？"></a>如何实现路由缓存的？原理？</h2><h2 id="TCP和UDP的区别？"><a href="#TCP和UDP的区别？" class="headerlink" title="TCP和UDP的区别？"></a>TCP和UDP的区别？</h2><ol>
+<li>连接方式不同：TCP是面向连接的协议，需要在传输数据之前先建立连接；UDP是无连接的协议，直接发送数据包。</li>
+<li>数据传输方式不同：TCP提供可靠的、面向字节流的数据传输，保证数据按照发送顺序到达目标；UDP则提供不可靠的、面向数据包的数据传输，数据包之间没有先后顺序之分，也不保证数据能到达目标。</li>
+<li>可靠性不同：TCP在传输数据时提供可靠性保障，通过确认、重传、滑动窗口等机制保证数据的完整性和正确性；UDP则不提供可靠性保障，因此在传输数据时可能会丢失或重复。</li>
+<li>传输效率不同：由于TCP提供较为复杂的可靠性保障机制，因此在传输效率方面相对较低；UDP则不提供可靠性保障机制，因此在传输效率方面较高。</li>
+</ol>
+<h2 id="TCP和UDP的应用场景？"><a href="#TCP和UDP的应用场景？" class="headerlink" title="TCP和UDP的应用场景？"></a>TCP和UDP的应用场景？</h2><p>TCP适用于数据量较大、传输时间较长、数据传输要求可靠性的应用场景，如<strong>文件传输，发送邮件等</strong>；而UDP适用于实时通信、网络广播等要求传输效率高、数据可靠性不高的应用场景，如<strong>视频通信，电话会议等</strong>。</p>
+<h2 id="HTTP和HTTPS的区别？"><a href="#HTTP和HTTPS的区别？" class="headerlink" title="HTTP和HTTPS的区别？"></a>HTTP和HTTPS的区别？</h2><ol>
+<li>安全性：HTTP协议传输的数据不加密，易受到黑客攻击和窃取；而HTTPS协议通过SSL&#x2F;TLS协议对传输的数据进行加密，提高了数据的安全性和防窃听能力。</li>
+<li>端口号：HTTP协议使用的默认端口号是80，HTTPS协议使用的默认端口号是443。</li>
+<li>速度：由于加密和解密过程的存在，HTTPS协议会比HTTP协议慢一些，尤其是在数据传输大文件时的速度会更明显。</li>
+<li>SSL证书：在使用HTTPS协议时，需要经过SSL证书验证，确保访问的网站是真实的，而不是由黑客伪装的虚假网站。</li>
+</ol>
+<h2 id="HTTP2-0更新了哪些内容？"><a href="#HTTP2-0更新了哪些内容？" class="headerlink" title="HTTP2.0更新了哪些内容？"></a>HTTP2.0更新了哪些内容？</h2><ol>
+<li>二进制格式：HTTP&#x2F;2在传输数据时采用二进制格式，而非HTTP&#x2F;1.x的文本格式，这使得解析和传输更加高效。</li>
+<li>多路复用：HTTP&#x2F;2允许客户端和服务器之间同时保持多个请求和响应连接，这使得客户端可以发送多个请求，而无需等待每个响应，从而提高了数据传输的效率。</li>
+<li>头部压缩：HTTP&#x2F;2使用HPACK算法对头部字段进行压缩，减少了头部发送的数据量，提高了传输速度。</li>
+<li>服务器推送：HTTP&#x2F;2允许服务器在客户端请求之前发送额外的响应数据，从而可以提前获取客户端需要的资源并缓存起来，减少了客户端请求的次数和等待时间。</li>
+<li>流量控制：HTTP&#x2F;2允许客户端和服务器之间进行流量控制，可以根据实际情况来分配网络带宽，以避免网络拥塞和延迟。</li>
+</ol>
+<h2 id="HTTP2-0头部压缩的比例是怎样的？"><a href="#HTTP2-0头部压缩的比例是怎样的？" class="headerlink" title="HTTP2.0头部压缩的比例是怎样的？"></a>HTTP2.0头部压缩的比例是怎样的？</h2><p>HTTP&#x2F;2使用HPACK算法进行头部压缩，可以将HTTP头部字段中的冗余数据删除，从而减少传输的数据量，提高传输速度。</p>
+<p>具体来说，HTTP&#x2F;2的头部压缩可以做到80%~90%的压缩比率，这对移动网络等带宽有限的环境来说非常有利。因为HTTP头部中的很多字段是重复的，并且头部压缩只需要在建立连接时进行，减少了后续请求的数据量，同时还减少了数据传输过程中的网络阻塞。</p>
+<p>此外，虽然HTTP&#x2F;2使用了头部压缩技术，在传输效率上得到了极大提高，但是在实际使用时，掌握合适的压缩策略非常重要，否则就会带来安全问题，比如攻击者通过伪造头部字段来欺骗服务器，破坏数据传输的完整性。</p>
+<h2 id="HTTP3-0更新了哪些内容？"><a href="#HTTP3-0更新了哪些内容？" class="headerlink" title="HTTP3.0更新了哪些内容？"></a>HTTP3.0更新了哪些内容？</h2><ol>
+<li>基于QUIC协议：HTTP&#x2F;3不再基于TCP协议，而是基于QUIC协议，这使得HTTP&#x2F;3具有更快的连接和数据传输速度。</li>
+<li>握手和连接建立更快：因为QUIC协议支持0-RTT，在第一次连接时就能够建立连接，减少了握手时间。</li>
+<li>不再需要头部压缩：HTTP&#x2F;3使用了QUIC协议中的“0-RTT”技术，避免了头部压缩带来的安全漏洞问题。</li>
+<li>报文传输加密：HTTP&#x2F;3的报文传输默认使用加密，保护了数据安全性。</li>
+<li>降低网络拥塞：HTTP&#x2F;3可以有效降低网络拥塞，因为它能够充分利用QUIC协议的拥塞控制算法。</li>
+</ol>
+<p>HTTP缓存？</p>
+<ol>
+<li><p>强缓存： 强缓存是指浏览器直接从本地缓存中读取资源，而不发送请求到服务器。强缓存可以通过设置响应头信息实现，如果缓存命中，则直接使用本地缓存，不会发送请求到服务器。常用的设置强缓存的HTTP响应头如下：</p>
+<ul>
+<li>Expires： 过期时间，是一个具体的时间点，在该时间点前可以直接从缓存中获取资源。</li>
+</ul>
+<ul>
+<li>Cache-Control： 缓存控制，可以通过max-age指定时间段，在该时间段内可以直接从缓存中获取资源。</li>
+</ul>
+</li>
+<li><p>协商缓存： 协商缓存是指浏览器会先发送请求到服务器，通过比较请求头信息和服务器端响应头的信息来判断是否需要重新获取资源。如果请求命中缓存，则服务器会返回304状态码，告诉浏览器可以使用缓存。协商缓存包括两种方式：</p>
+<ul>
+<li><p>Last-Modified&#x2F;If-Modified-Since：服务器返回资源最后一次修改的时间，在下一次请求时，客户端会发送If-Modified-Since请求头表示上一次获取资源的最后修改时间，服务器会判断时间是否有变化，如果没有变化则返回304状态码。</p>
+</li>
+<li><p>ETag&#x2F;If-None-Match：服务器返回资源的唯一标识，称作ETag，在下一次请求时，客户端会发送If-None-Match请求头，请求头内容为上一次获取资源的ETag，服务器会判断ETag是否匹配，如果匹配则返回304状态码。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="返回304状态码的时候响应体里的内容？"><a href="#返回304状态码的时候响应体里的内容？" class="headerlink" title="返回304状态码的时候响应体里的内容？"></a>返回304状态码的时候响应体里的内容？</h2><p>返回304状态码时，响应体是没有内容的，因为浏览器可以直接从本地缓存中获取资源。当请求命中缓存，且服务器判断资源没有更新时，就会返回304响应状态码，告知浏览器可以使用本地缓存，而不需要重新下载资源。此时服务器只需在响应头中包含<code>ETag</code>或<code>Last-Modified</code>等响应头字段，告诉浏览器缓存的版本信息。因此，304响应状态码不会包含响应体，只会包含响应头。</p>
+<h2 id="命中本地强缓存的时候状态码是多少？"><a href="#命中本地强缓存的时候状态码是多少？" class="headerlink" title="命中本地强缓存的时候状态码是多少？"></a>命中本地强缓存的时候状态码是多少？</h2><p>当命中本地强缓存时，状态码是<strong>200 OK</strong>。因为浏览器直接从本地缓存中获取了资源，并且确认缓存未过期或者协商缓存未失效，因此服务器不需要再次返回资源，而是直接返回200状态码表示请求成功。此时响应头中会包含相应的缓存控制信息，例如<code>Cache-Control</code>、<code>Expires</code>等字段，用来告诉浏览器如何缓存该资源以及缓存有效期等信息。</p>
+<h2 id="强缓存的资源存储在本地的什么位置？"><a href="#强缓存的资源存储在本地的什么位置？" class="headerlink" title="强缓存的资源存储在本地的什么位置？"></a>强缓存的资源存储在本地的什么位置？</h2><p>浏览器会将强缓存的资源存储在浏览器的缓存中，也就是本地磁盘或内存中。具体来说，对于不同类型的资源，浏览器对其的缓存位置可能有所不同：</p>
+<ol>
+<li>对于HTML文档，通常会被缓存到内存中，因为HTML文档相对较小，频繁的请求也不会导致内存占用过高。</li>
+<li>对于CSS、JavaScript、图片等静态资源，则会被缓存到本地磁盘中，因为这些资源相对较大，频繁加载会占用大量内存，并且缓存在本地磁盘中可以加快下一次访问时的加载速度。</li>
+</ol>
+<p>但无论是缓存到内存还是本地磁盘中，浏览器都会根据缓存策略规则来管理缓存，并在缓存过期或失效时进行更新或重新加载。</p>
+<h2 id="Etag里面的文本结构是怎样的？"><a href="#Etag里面的文本结构是怎样的？" class="headerlink" title="Etag里面的文本结构是怎样的？"></a>Etag里面的文本结构是怎样的？</h2><p>Etag（实体标记）是 HTTP 协议头中的一种机制，用于<strong>标识资源是否被修改过</strong>。Etag 的文本结构通常是<strong>一个由双引号包围的字符串</strong>，如下所示：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">ETag:</span> <span class="hljs-string">&quot;686897696a7c876b7e&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong><code>ETag</code>没有指定生成值的方法。通常，使用内容的散列，最后修改时间戳的散列或仅修订版本号。</strong></p>
+<p>实体标记通常是<strong>由服务器生成的标识符</strong>，而这个标识符可以根据服务器的算法和资源内容计算出来，只有当资源内容发生改变时，Etag 值才会发生变化。</p>
+<p>当客户端请求同一资源时，客户端会向服务器发送 “If-None-Match” 的请求头，这个请求头包含上次请求获得的 Etag 值，如果服务器发现该资源的 Etag 值仍然匹配，则会返回 HTTP 304 Not Modified 状态码，告诉客户端可以直接使用缓存中的资源。如果 Etag 值不匹配，则服务器会返回新的资源给客户端。</p>
+<p>因此 Etag 的作用是<strong>减少了无效的带宽消耗，增加了缓存的命中率</strong>。</p>
+<h2 id="如果HTTP响应头中ETag值改变了，是否意味着文件内容一定已经更改？"><a href="#如果HTTP响应头中ETag值改变了，是否意味着文件内容一定已经更改？" class="headerlink" title="如果HTTP响应头中ETag值改变了，是否意味着文件内容一定已经更改？"></a>如果HTTP响应头中ETag值改变了，是否意味着文件内容一定已经更改？</h2><p>不一定。虽然 ETag 值是用于标识 HTTP 协议中一个特定的资源的版本号，但它不一定是由文件内容决定的，而是由服务器生成的。服务器可以采用不同的算法生成 ETag 值，例如将文件最后修改时间和文件大小作为参数来计算 ETag 值，而并没有考虑文件内容是否有变化。</p>
+<p>因此，如果服务器端修改了 ETag 值，不一定意味着文件内容一定已经更改。在实际应用中，更准确的判断资源是否改变的方法是将 ETag 值与实际文件内容的哈希值比较。只有当 ETag 值与实际哈希值不一致时，才能判断文件内容发生了变更。</p>
+<h2 id="进程通信方式有哪些？"><a href="#进程通信方式有哪些？" class="headerlink" title="进程通信方式有哪些？"></a>进程通信方式有哪些？</h2><ol>
+<li>管道(Pipe)：管道是一种最基本的进程间通信方式，它是一段共享内存区域，一个进程想要往其中写入信息，另一个进程则从中读取信息。</li>
+<li>命名管道(FIFO)：命名管道也是一种管道通信方式，但它是有名字的，可以实现不同进程的通信。</li>
+<li>信号(Signal)：信号是一种异步通信方式，可以在不同进程之间传递信息。当一个进程向另一个进程发送一个信号时，操作系统会中断该进程的正常执行流程，转而处理信号。</li>
+<li>消息队列(Message Queue)：消息队列是一种可存放在操作系统中的消息链表，进程可以将消息发送到队列中，另一个进程则可以从队列中读取消息。</li>
+<li>共享内存(Shared Memory)：共享内存是一种映射到多个进程地址空间的内存区域，多个进程可以同时访问这个内存区域。</li>
+<li>信号量(Semaphore)：信号量是一种计数器，用于同步进程和资源分配。</li>
+<li>网络套接字(Socket)：套接字是一种网络通信方式，可以在不同计算机间传递信息。</li>
+</ol>
+<h2 id="进程共享内存通信具体是怎样实现的？"><a href="#进程共享内存通信具体是怎样实现的？" class="headerlink" title="进程共享内存通信具体是怎样实现的？"></a>进程共享内存通信具体是怎样实现的？</h2><ol>
+<li>创建共享内存：需要调用操作系统提供的函数，例如shmget()，创建一个共享内存区域并返回一个共享内存标识符。</li>
+<li>将共享内存附加到进程地址空间：使用shmat()函数将共享内存附加到进程的地址空间。该函数会返回一个指向共享内存区域的指针。这一步相当于将共享内存映射到进程的地址空间中。</li>
+<li>进程间读写共享内存：多个进程可以直接通过指针操作共享内存区域进行数据的读写。需要注意的是，在读写数据时，需要通过信号量等机制进行进程同步，避免多个进程同时修改同一段内存区域，导致数据冲突。</li>
+<li>分离共享内存：当进程不再需要使用共享内存时，需要调用shmdt()函数将它从进程地址空间中分离，这一步相当于解除共享内存和进程地址空间的映射关系。</li>
+<li>删除共享内存：当所有使用该共享内存的进程都调用了shmdt()进行分离后，需要调用shmctl()函数删除共享内存。</li>
+</ol>
+<p>需要注意的是，在使用共享内存进行进程间通信时，需要保证多个进程对数据的读写操作是原子性的，避免出现数据冲突等问题。因此，通常使用信号量等同步机制进行进程间同步。</p>
+<h2 id="共享内存通信的好处是什么？"><a href="#共享内存通信的好处是什么？" class="headerlink" title="共享内存通信的好处是什么？"></a>共享内存通信的好处是什么？</h2><ol>
+<li>高效性：共享内存通信是一种高效的进程间通信机制。由于多个进程可以直接访问同一块物理内存，因此数据的传递速度很快，可以实现高速的数据交换。</li>
+<li>灵活性：共享内存通信可以传递任意类型的数据，包括结构体、数组、指针等多种数据类型。而其他进程间通信机制（如管道、消息队列等）则往往需要数据进行序列化和反序列化，传递数据时需要额外的处理，增加了通信的复杂度。</li>
+<li>容量大：共享内存通信可以很容易地传输大量的数据，因为共享内存区域的容量可以在创建时进行指定，从而满足不同应用的实际需求。</li>
+<li>维护方便：共享内存通信的使用和管理比较简单，只需创建、附加、使用、分离和删除几个步骤，对于多进程间共享数据的应用场景，可以提供简单有效的通信方案。</li>
+</ol>
+<h2 id="为什么管道通信和消息队列通信会存在资源大小的限制？"><a href="#为什么管道通信和消息队列通信会存在资源大小的限制？" class="headerlink" title="为什么管道通信和消息队列通信会存在资源大小的限制？"></a>为什么管道通信和消息队列通信会存在资源大小的限制？</h2><p>管道通信和消息队列通信会存在资源大小的限制，主要是由于它们使用的内核缓冲区大小有限，而且这些内核缓冲区是由操作系统分配的。</p>
+<p>具体来说，管道通信和消息队列通信使用的内核缓冲区大小是固定的，而且通常比较小（例如Linux中管道的缓冲区大小为4KB，消息队列缓冲区默认大小为16KB）。因此，当需要传输的数据量超过内核缓冲区大小时，就会出现资源大小的限制。这时，要么数据无法传输，要么就需要分多次传输或者使用其他进程间通信方式。</p>
+<p>此外，由于管道和消息队列都是一种面向字节流的通信方式，因此在传输结构体、对象、数组等复杂的数据类型时，需要进行序列化和反序列化处理。这种处理会带来额外的开销和复杂性，进一步限制了通信的资源和效率。</p>
+<p>综上所述，管道通信和消息队列通信存在资源大小的限制，这是因为它们使用的内核缓冲区大小有限，并且数据类型限制较多，不能很好地支持大数据量和复杂数据类型的通信。</p>
+<h2 id="如果没有共享内存通信会导致什么问题？"><a href="#如果没有共享内存通信会导致什么问题？" class="headerlink" title="如果没有共享内存通信会导致什么问题？"></a>如果没有共享内存通信会导致什么问题？</h2><ol>
+<li>低效率：使用进程间通信(IPC)方式进行数据交换消耗的时间和资源比较大。常用的IPC方式包括管道、消息队列、信号量等，这些方式都需要用到中间缓冲区、系统调用等，这些操作耗费了很多时间和系统资源。</li>
+<li>程序设计复杂：采用IPC方式进行通信，需要对通信方式的技术细节进行了解和掌握，需要考虑数据格式、传输方式、同步方式、异常处理等问题，程序设计复杂度相对高。</li>
+<li>难以建立复杂数据结构：使用IPC方式进行通信，不同进程需要采用不同的数据结构进行数据交换，相互之间不太容易建立复杂的数据结构，例如链表或树。</li>
+<li>容易出错：使用IPC方式进行通信，需要进行同步操作，否则可能会发生死锁或者忙等等问题，这些问题难以排除。</li>
+</ol>
+<p>如果进程没有共享内存通信，则会导致进程间通信的效率变得低下，设计难度加大，难以建立复杂的数据结构，而且容易出现错误，降低了程序可维护性和可靠性，也使得应用程序性能不尽如人意。</p>
+<h2 id="堆和栈的区别？"><a href="#堆和栈的区别？" class="headerlink" title="堆和栈的区别？"></a>堆和栈的区别？</h2><ol>
+<li>内存分配方式：栈是一种自动分配的数据结构，由编译器自动分配和释放内存，不需要程序员显式地操作；而堆则需要程序员显式地进行分配和释放内存。</li>
+<li>内存大小和使用方式： 栈空间的大小通常是固定的，由操作系统决定，而堆则是动态分配的，可以根据需要随时调整大小；栈空间通常被用来存储程序的局部变量（例如函数中定义的变量），而堆空间通常被用来存储程序的全局变量和动态数据结构（例如对象、数组等）。</li>
+<li>内存访问速度：栈内存的访问速度比堆内存更快，因为栈空间的数据结构更简单，访问时只需要进出栈即可，而堆空间的数据结构比较复杂，访问时需要经过指针跳转等操作，因此比较耗时。</li>
+<li>内存分配的效率：堆的内存分配效率比栈要低，因为堆需要动态分配内存，需要进行堆内存管理，可能存在内存碎片问题；而栈则由编译器负责管理，内存分配和回收都比较快捷，不存在这种问题。</li>
+</ol>
+<h2 id="堆和栈，哪个操作系统处理起来会更快？"><a href="#堆和栈，哪个操作系统处理起来会更快？" class="headerlink" title="堆和栈，哪个操作系统处理起来会更快？"></a>堆和栈，哪个操作系统处理起来会更快？</h2><p>一般来说，栈的处理速度比堆更快，这是因为<strong>栈的内存分配和释放是由编译器自动完成的，不需要进行复杂的内存管理操作，而且它的数据结构相对简单，访问速度更快</strong>。而堆在内存分配和释放时需要进行一些额外的操作，例如寻找可用内存，管理内存分配器等，因此操作系统在处理堆时需要花费更多的时间。</p>
+<p>但是，在实际应用中，我们往往需要使用堆空间来存储动态数据结构，例如动态数组、链表、堆等。这些数据结构使用栈空间无法实现，只能使用堆空间。因此，在程序设计时需要根据实际需求合理使用栈和堆，以取得更好的性能和效率。</p>
+<h2 id="JS常见的定义变量的方式有哪些？"><a href="#JS常见的定义变量的方式有哪些？" class="headerlink" title="JS常见的定义变量的方式有哪些？"></a>JS常见的定义变量的方式有哪些？</h2><ul>
+<li>let</li>
+<li>const </li>
+<li>var</li>
+<li>function</li>
+<li>class</li>
+</ul>
+<h2 id="var、let和const的区别？"><a href="#var、let和const的区别？" class="headerlink" title="var、let和const的区别？"></a>var、let和const的区别？</h2><ol>
+<li><p>变量作用域</p>
+<p>var会有变量提升的问题，即变量可以在代码块之外进行访问。而let和const都是块级作用域的，只能在相应的代码块内部使用。</p>
+</li>
+<li><p>变量的赋值</p>
+<p>var和let都支持对变量进行重新赋值，而const定义的变量是不允许重新赋值的，赋值会导致 SyntaxError 错误。</p>
+</li>
+<li><p>声明的变量是否具有初始值</p>
+<p>var 和 let 可以在声明的时候不赋初值，在需要的时候赋值。而 const 声明的常量必须在声明时赋初值，不然会导致 SyntaxError 错误。</p>
+</li>
+<li><p>作用域提升</p>
+<p>由于变量提升，使用 var 声明的变量可以在声明之前使用。而使用 let 和 const 的变量不会有这种情况，如果在声明之前使用会导致 ReferenceError 错误。</p>
+</li>
+</ol>
+<p>在开发中，建议优先使用 let 和 const 关键字来定义变量，因为它们具备严格的作用域和赋值规则，利于编写可维护和可读性高的代码。只有在需要兼容较老版本的浏览器或在需要变量提升的特殊情况下，才考虑使用 var 关键字。</p>
+<h2 id="代码输出"><a href="#代码输出" class="headerlink" title="代码输出"></a>代码输出</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> a = <span class="hljs-number">10</span>;<br>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>    a = <span class="hljs-number">20</span>;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a);<br>&#125;)()<br></code></pre></td></tr></table></figure>
+
+<p>这段代码会在控制台输出 20。</p>
+<p>因为变量a在全局作用域中被先声明并赋值为10，匿名函数立即被调用，而函数内部对a的赋值操作不使用var或let关键字声明新的变量，因此直接操作的是全局作用域中的变量a，使其值变为20。最终console.log()输出20。</p>
+<p><strong>如果把var改成let呢？</strong></p>
+<p>如果将 <code>var a = 10</code> 改为 <code>let a = 10</code>，则输出依然为20，这是因为立即执行函数表达式中的块级作用域中的 <code>a</code> 变量被改变为20后，在块级作用域外部的全局作用域中，对 <code>a</code> 变量的引用也改变了。而且，在使用 <code>let</code> 声明时，变量 <code>a</code> 的作用域被限制在该块级作用域内，不会在其它作用域中被修改或访问，因此代码块内部修改的是块级作用域中的 <code>a</code> 变量的值。</p>
+<h2 id="JS中数组可以调用的方法有哪些？"><a href="#JS中数组可以调用的方法有哪些？" class="headerlink" title="JS中数组可以调用的方法有哪些？"></a>JS中数组可以调用的方法有哪些？</h2><ol>
+<li>push()：向数组末尾添加一个或多个元素，返回新的数组长度</li>
+<li>pop()：删除数组的最后一个元素并返回该元素</li>
+<li>shift()：删除数组的第一个元素并返回该元素</li>
+<li>unshift()：向数组开头添加一个或多个元素，返回新的数组长度</li>
+<li>splice()：删除或替换数组的某个或某些元素，或向指定位置插入元素</li>
+<li>slice()：截取数组的一部分，不会改变原数组，返回截取的新数组</li>
+<li>concat()：连接两个或多个数组，返回连接后的新数组</li>
+<li>join()：将数组中所有元素转换成字符串，并使用指定的分隔符连接起来</li>
+<li>reverse()：颠倒数组中元素的顺序，改变原数组，返回改变后的数组</li>
+<li>sort()：按照字母表顺序对数组中元素进行排序，改变原数组，返回改变后的数组</li>
+<li>map()：对数组中每个元素执行指定的操作并返回操作后的新数组</li>
+<li>filter()：返回数组中符合指定条件的所有元素组成的新数组</li>
+<li>reduce()：使数组中每个元素执行指定操作，返回最终结果</li>
+<li>forEach()：对数组中每个元素执行指定的操作，没有返回值</li>
+<li>indexOf()：返回指定元素在数组中的位置，如果不存在则返回 -1</li>
+<li>lastIndexOf()：返回指定元素在数组中最后出现的位置，如果不存在则返回 -1</li>
+</ol>
+<h2 id="ES6中有哪些新特性？"><a href="#ES6中有哪些新特性？" class="headerlink" title="ES6中有哪些新特性？"></a>ES6中有哪些新特性？</h2><ol>
+<li>let 和 const：用来声明块级作用域的变量和常量，解决了 var 变量作用域的问题。</li>
+<li>箭头函数：使用箭头 &#x3D;&gt; 定义函数，简化了函数的声明方式。</li>
+<li>模板字符串：使用反引号 &#96;&#96; 来定义字符串，可以在字符串中引用变量和表达式，并且支持多行字符串。</li>
+<li>默认参数：函数的参数可以设置默认值，调用函数时如果没有传递参数则使用默认值。</li>
+<li>扩展运算符：使用 … 来表示剩余参数和展开数组，方便函数的调用和对象的赋值和合并操作。</li>
+<li>解构赋值：可以方便地从数组和对象中提取变量并赋值给新的变量。</li>
+<li>class 和 extends：引入了类和继承的概念，是一种更加面向对象的编程方式。</li>
+<li>Promise：解决了异步编程过程中回调地狱的问题，使得异步编程更加简单。</li>
+<li>模块化：使用 import 和 export 来实现模块化，使得代码组织更加清晰和可维护。</li>
+<li>for…of 循环：用来遍历可迭代对象，比如数组和字符串。</li>
+<li>Map 和 Set：引入了 Map 和 Set 数据结构，用来存储键值对和集合，提供了更好的数据组织和操作方式。</li>
+<li>Proxy 和 Reflect：引入了 Proxy 和 Reflect 对象，可以用来拦截和改变对对象的操作，提供了更加高级的元编程功能。</li>
+<li>Symbol和Symbol.species：引入了 Symbol 数据类型和 Symbol.species属性，用来标识对象的唯一性和改变内置方法中使用的构造函数类型。</li>
+</ol>
+<h2 id="箭头函数的指向？"><a href="#箭头函数的指向？" class="headerlink" title="箭头函数的指向？"></a>箭头函数的指向？</h2><p>箭头函数中的 this 是继承自外层作用域，也就是说箭头函数没有自己的 this，它内部的 this 指向的是定义它时所处的环境中的 this (从所处上下文中捕获的)。</p>
+<h2 id="Set和Map的用法和特点？"><a href="#Set和Map的用法和特点？" class="headerlink" title="Set和Map的用法和特点？"></a>Set和Map的用法和特点？</h2><h3 id="Set-的用法和特点"><a href="#Set-的用法和特点" class="headerlink" title="Set 的用法和特点"></a>Set 的用法和特点</h3><p>Set 是一种类似于数组的数据结构，它可以存储任意类型的唯一值。Set 中不允许出现重复的元素，因此可以用来实现数组去重。</p>
+<p>Set 的常用方法包括：</p>
+<ul>
+<li>add(value)：往 Set 中添加一个值。</li>
+<li>delete(value)：从 Set 中删除一个值。</li>
+<li>has(value)：判断 Set 中是否存在某个值。</li>
+<li>clear()：清空 Set 中的所有元素。</li>
+<li>size：获取 Set 中元素的个数。</li>
+</ul>
+<p>Set 的特点包括：</p>
+<ul>
+<li>Set 中的元素是唯一的，不会出现重复的值。</li>
+<li>Set 中的元素是无序的，即元素排列的顺序不是添加的顺序。</li>
+<li>Set 的性能比数组要好一些，尤其是在大量元素判断是否存在时。</li>
+</ul>
+<h3 id="Map-的用法和特点"><a href="#Map-的用法和特点" class="headerlink" title="Map 的用法和特点"></a>Map 的用法和特点</h3><p>Map 是一种键值对的数据结构，它可以存储任意类型的键和值。Map 中的元素是唯一的，而且键和值可以是任意类型，包括对象和函数。</p>
+<p>Map 的常用方法包括：</p>
+<ul>
+<li>set(key, value)：向 Map 中添加一个键值对。</li>
+<li>get(key)：获取 Map 中指定键对应的值。</li>
+<li>has(key)：判断 Map 中是否存在指定键。</li>
+<li>delete(key)：删除 Map 中指定键的值。</li>
+<li>clear()：清空 Map 中的所有键值对。</li>
+<li>size：获取 Map 中键值对的个数。</li>
+</ul>
+<p>Map 的特点包括：</p>
+<ul>
+<li>Map 中的键是唯一的，且值可以是任意类型。</li>
+<li>Map 中的键值对是有序的，即元素排列的顺序是添加的顺序。</li>
+<li>Map 的性能比对象要好一些，尤其是在大量元素判断是否存在时。</li>
+</ul>
+<p>总的来说，Set 和 Map 都可以用来存储数据，但是应用场景不同。当需要存储唯一值时，可以使用 Set，而当需要存储键值对时，可以使用 Map。</p>
+<h2 id="ES6中的Class是怎样定义的？"><a href="#ES6中的Class是怎样定义的？" class="headerlink" title="ES6中的Class是怎样定义的？"></a>ES6中的Class是怎样定义的？</h2><p>ES6 中的 Class 是一种语法糖，它可以更方便地定义JS中的构造函数，从而实现面向对象编程。Class 的定义方式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br>  <span class="hljs-comment">// 类的构造函数</span><br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">prop</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">prop</span> = prop;<br>  &#125;<br><br>  <span class="hljs-comment">// 类的方法</span><br>  <span class="hljs-title function_">myMethod</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-comment">// ...</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的代码定义了一个名为 MyClass 的类，它的构造函数为 constructor，接收一个参数 prop，将其赋值给实例的属性 this.prop。类中的方法可以直接定义在类体内。</p>
+<p>使用 Class 来创建实例时，需要使用 <code>new</code> 关键字，给构造函数传递参数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> myInstance = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyClass</span>(<span class="hljs-string">&#x27;myProp&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>上述代码创建了一个新的 MyClass 实例，并将 ‘myProp’ 传递给构造函数。</p>
+<p>使用 Class 定义类时，可以继承自其他类，实现类的继承：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">ChildClass</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">ParentClass</span> &#123;<br>  <span class="hljs-comment">// 子类的构造函数</span><br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">prop1, prop2</span>) &#123;<br>    <span class="hljs-variable language_">super</span>(prop1); <span class="hljs-comment">// 调用父类的构造函数</span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">prop2</span> = prop2;<br>  &#125;<br><br>  <span class="hljs-comment">// 子类的方法</span><br>  <span class="hljs-title function_">childMethod</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-comment">// ...</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上述代码定义了一个名为 ChildClass 的类，它继承于 ParentClass，拥有自己的构造函数和方法。在子类的构造函数中，需要调用 <code>super</code> 方法，以调用父类的构造函数。</p>
+<p>Class 的定义使得 JS 中的面向对象编程变得更加易于理解和使用。</p>
+<h2 id="类中的方法是用逗号隔开、分号隔开还是不需要写？"><a href="#类中的方法是用逗号隔开、分号隔开还是不需要写？" class="headerlink" title="类中的方法是用逗号隔开、分号隔开还是不需要写？"></a>类中的方法是用逗号隔开、分号隔开还是不需要写？</h2><p>在类中定义方法的时候，并不需要使用逗号或分号来隔开各个方法。在类的定义中，方法之间使用换行符隔开即可。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Greetings</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">greeting</span> = <span class="hljs-string">&#x27;Hello&#x27;</span>;<br>  &#125;<br><br>  <span class="hljs-title function_">sayHello</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">greeting</span>);<br>  &#125;<br><br>  <span class="hljs-title function_">sayBye</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Goodbye&#x27;</span>);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在类中定义方法的时候，不需要使用 function 关键字。</p>
+<h2 id="for…of和for…in的区别？"><a href="#for…of和for…in的区别？" class="headerlink" title="for…of和for…in的区别？"></a>for…of和for…in的区别？</h2><ol>
+<li><code>for...of</code> 遍历可迭代对象（Iterable），如数组、Set、Map 等，遍历出的是元素的值。</li>
+<li><code>for...in</code> 遍历对象的属性（包括继承下来的属性），遍历出的是属性名或者属性值。</li>
+</ol>
+<h2 id="Node-js实现统计所有接口的响应时间-服务端接到请求到给出内容的间隔时间-怎么实现？"><a href="#Node-js实现统计所有接口的响应时间-服务端接到请求到给出内容的间隔时间-怎么实现？" class="headerlink" title="Node.js实现统计所有接口的响应时间(服务端接到请求到给出内容的间隔时间)怎么实现？"></a>Node.js实现统计所有接口的响应时间(服务端接到请求到给出内容的间隔时间)怎么实现？</h2><p><strong>可以使用 Express 框架和一个自定义的中间件来实现统计所有接口的响应时间。具体的实现步骤如下：</strong></p>
+<p>使用 Express 框架创建应用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);<br><span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();<br></code></pre></td></tr></table></figure>
+
+<p>实现一个自定义的中间件，记录请求开始时间和请求结束时间，并计算出请求响应时间：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">responseTimeLogger</span>(<span class="hljs-params">req, res, next</span>) &#123;<br>  <span class="hljs-keyword">const</span> start = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>  res.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;finish&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> end = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>    <span class="hljs-keyword">const</span> duration = end - start;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<br>      <span class="hljs-string">`<span class="hljs-subst">$&#123;req.method&#125;</span> <span class="hljs-subst">$&#123;req.originalUrl&#125;</span> <span class="hljs-subst">$&#123;duration&#125;</span>ms`</span><br>    );<br>  &#125;);<br>  <span class="hljs-title function_">next</span>();<br>&#125;<br><br>app.<span class="hljs-title function_">use</span>(responseTimeLogger);<br></code></pre></td></tr></table></figure>
+
+<p>在应用中添加路由，以便测试统计响应时间是否正常：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>  res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Hello, World!&#x27;</span>);<br>&#125;);<br><br>app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/api/foo&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    res.<span class="hljs-title function_">send</span>(&#123; <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;bar&#x27;</span> &#125;);<br>  &#125;, <span class="hljs-number">500</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>启动应用并测试：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;App is listening on port 3000.&#x27;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>打开浏览器，访问首页和 &#x2F;api&#x2F;foo 接口，可以在控制台中看到类似于以下的输出：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">GET</span> / 2ms<br><span class="hljs-built_in">GET</span> /api/foo 503ms<br></code></pre></td></tr></table></figure>
+
+<p>其中，<code>GET / 2ms</code> 表示访问首页的响应时间为 2ms，<code>GET /api/foo 503ms</code> 表示访问 &#x2F;api&#x2F;foo 接口的响应时间为 503ms。</p>
+<p>这样，我们就利用自定义的中间件实现了统计所有接口的响应时间的功能。</p>
+<p><strong>还可以使用 Node.js 的原生模块 <code>http</code>、<code>fs</code> 等进行实现。具体步骤如下：</strong></p>
+<p>创建 http 服务器，监听客户端请求：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>);<br><br>http.<span class="hljs-title function_">createServer</span>(<span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>  <span class="hljs-comment">// ...</span><br>&#125;).<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Server is running on port 3000.&#x27;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>创建一个对象用于保存接口响应时间：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> responseTime = &#123;&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>监听客户端请求，并记录请求开始时间：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript">http.<span class="hljs-title function_">createServer</span>(<span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> start = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>  <span class="hljs-comment">// ...</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>在发送请求响应之前，记录请求结束时间，并计算请求响应间隔时间：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs javascript">http.<span class="hljs-title function_">createServer</span>(<span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> start = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br><br>  res.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;finish&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> end = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>    <span class="hljs-keyword">const</span> duration = end - start;<br>    <span class="hljs-keyword">const</span> path = req.<span class="hljs-property">url</span>;<br><br>    <span class="hljs-keyword">if</span> (responseTime[path]) &#123;<br>      responseTime[path].<span class="hljs-property">count</span>++;<br>      responseTime[path].<span class="hljs-property">total</span> += duration;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      responseTime[path] = &#123;<br>        <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-attr">total</span>: duration<br>      &#125;;<br>    &#125;<br><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;req.method&#125;</span> <span class="hljs-subst">$&#123;req.url&#125;</span> <span class="hljs-subst">$&#123;duration&#125;</span>ms`</span>);<br>  &#125;);<br><br>  <span class="hljs-comment">// send response to client</span><br>  res.<span class="hljs-title function_">writeHead</span>(<span class="hljs-number">200</span>, &#123;<span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;text/plain&#x27;</span>&#125;);<br>  res.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;Hello, World!&#x27;</span>);<br>  res.<span class="hljs-title function_">end</span>();<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>在服务器关闭时将统计数据输出到文件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);<br><br>process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;SIGINT&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  fs.<span class="hljs-title function_">writeFileSync</span>(<span class="hljs-string">&#x27;response-time.txt&#x27;</span>, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(responseTime, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));<br>  process.<span class="hljs-title function_">exit</span>();<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>将上述代码片段放入一个独立的模块中，以便在多个文件中使用。最终代码示例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>);<br><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);<br><br><span class="hljs-keyword">const</span> responseTime = &#123;&#125;;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">log</span>(<span class="hljs-params">req, res</span>) &#123;<br>  <span class="hljs-keyword">const</span> start = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br><br>  res.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;finish&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> end = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>    <span class="hljs-keyword">const</span> duration = end - start;<br>    <span class="hljs-keyword">const</span> path = req.<span class="hljs-property">url</span>;<br><br>    <span class="hljs-keyword">if</span> (responseTime[path]) &#123;<br>      responseTime[path].<span class="hljs-property">count</span>++;<br>      responseTime[path].<span class="hljs-property">total</span> += duration;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      responseTime[path] = &#123;<br>        <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-attr">total</span>: duration<br>      &#125;;<br>    &#125;<br><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;req.method&#125;</span> <span class="hljs-subst">$&#123;req.url&#125;</span> <span class="hljs-subst">$&#123;duration&#125;</span>ms`</span>);<br>  &#125;);<br>&#125;<br><br>http.<span class="hljs-title function_">createServer</span>(<span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>  <span class="hljs-title function_">log</span>(req, res);<br><br>  res.<span class="hljs-title function_">writeHead</span>(<span class="hljs-number">200</span>, &#123;<span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;text/plain&#x27;</span>&#125;);<br>  res.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;Hello, World!&#x27;</span>);<br>  res.<span class="hljs-title function_">end</span>();<br>&#125;).<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Server is running on port 3000.&#x27;</span>);<br>&#125;);<br><br>process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;SIGINT&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  fs.<span class="hljs-title function_">writeFileSync</span>(<span class="hljs-string">&#x27;response-time.txt&#x27;</span>, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(responseTime, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));<br>  process.<span class="hljs-title function_">exit</span>();<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>以上代码使用了 Node.js 的原生模块 <code>fs</code> 将统计数据输出到文件中。</p>
+<h2 id="归并排序如何实现？时间复杂度是多少？"><a href="#归并排序如何实现？时间复杂度是多少？" class="headerlink" title="归并排序如何实现？时间复杂度是多少？"></a>归并排序如何实现？时间复杂度是多少？</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">mergeSort</span> = (<span class="hljs-params">arr</span>) =&gt; &#123;<br>    <span class="hljs-keyword">const</span> len = arr.<span class="hljs-property">length</span>;<br>    <span class="hljs-comment">// 如果长度&lt;2, 无需进行排序</span><br>    <span class="hljs-keyword">if</span>(len &lt; <span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> arr; <br>    <span class="hljs-comment">// 将数组从中间进行切割</span><br>    <span class="hljs-keyword">const</span> middle = len &gt;&gt; <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">const</span> left = arr.<span class="hljs-title function_">slice</span>(<span class="hljs-number">0</span>, middle), right = arr.<span class="hljs-title function_">slice</span>(middle);<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_">merge</span>(<span class="hljs-title function_">mergeSort</span>(left), <span class="hljs-title function_">mergeSort</span>(right));<br>&#125;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">merge</span> = (<span class="hljs-params">left, right</span>) =&gt; &#123;<br>    <span class="hljs-comment">// 存储最终结果的数组</span><br>    <span class="hljs-keyword">const</span> result = [];<br>    <span class="hljs-comment">// 比较left和right中的元素并将较小的先存入result中</span><br>    <span class="hljs-keyword">while</span>(left.<span class="hljs-property">length</span> &amp;&amp; right.<span class="hljs-property">length</span>) &#123;<br>        <span class="hljs-keyword">if</span>(left[<span class="hljs-number">0</span>] &lt;= right[<span class="hljs-number">0</span>]) &#123;<br>            result.<span class="hljs-title function_">push</span>(left.<span class="hljs-title function_">shift</span>());<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            result.<span class="hljs-title function_">push</span>(right.<span class="hljs-title function_">shift</span>());<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">while</span>(left.<span class="hljs-property">length</span>) &#123;<br>        result.<span class="hljs-title function_">push</span>(left.<span class="hljs-title function_">shift</span>());<br>    &#125;<br>    <span class="hljs-keyword">while</span>(right.<span class="hljs-property">length</span>) &#123;<br>        result.<span class="hljs-title function_">push</span>(right.<span class="hljs-title function_">shift</span>());<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度O(NlogN)</p>
+<p>最近的前端新技术有哪些？从哪些途径了解的？</p>
+<p>最有成就感的一件事？</p>
+<p>项目协作开发整个项目的流程？</p>
+<p>上大学后思考方式上有哪些改变？</p>
+<p>假如你在一个团队内，让你做一个产品，需求不明确，该怎样去做？</p>
+<p>反问：部门业务(React&#x2F;Vue负责托管公司所有页面、Node方向保证产品稳定性)</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF-%E9%9D%A2%E7%BB%8F/">#前端|面经</a>
+      
+        <a href="/tags/Node-js/">#Node.js</a>
+      
+        <a href="/tags/%E8%BF%9B%E7%A8%8B/">#进程</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>美团一面</div>
+      <div>https://ustinians.github.io/2023/04/13/美团一面/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>想躺在云上</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/13/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86-7/" title="知识点整理(7)">
+                        <span class="hidden-mobile">知识点整理(7)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
