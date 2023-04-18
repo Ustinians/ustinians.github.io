@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://static.vue-js.com/33ae8ef0-c9ba-11eb-85f6-6fac77c0c9b3.png">
 <meta property="og:image" content="https://static.vue-js.com/6a6ed3f0-cce4-11eb-85f6-6fac77c0c9b3.png">
 <meta property="article:published_time" content="2023-04-17T12:58:00.000Z">
-<meta property="article:modified_time" content="2023-04-17T12:58:43.493Z">
+<meta property="article:modified_time" content="2023-04-18T12:29:12.404Z">
 <meta property="article:author" content="想躺在云上">
 <meta property="article:tag" content="前端学习">
 <meta property="article:tag" content="NodeJS">
@@ -237,7 +237,7 @@
         
         
         
-          91 分钟
+          95 分钟
         
       </span>
     
@@ -513,6 +513,13 @@
 <li>代码层面优化</li>
 <li>内存管理优化</li>
 </ul>
+<h2 id="JS中定义函数的function-fun-和var-fun-x3D-function-两种方法有什么区别？"><a href="#JS中定义函数的function-fun-和var-fun-x3D-function-两种方法有什么区别？" class="headerlink" title="JS中定义函数的function fun(){}和var fun &#x3D; function(){}两种方法有什么区别？"></a>JS中定义函数的function fun(){}和var fun &#x3D; function(){}两种方法有什么区别？</h2><ol>
+<li>变量提升的不同。使用function定义的函数会进行变量提升，可以在函数声明之前调用；而使用var定义的函数表达式不会进行变量提升，只有函数表达式赋值后才能调用。</li>
+<li>函数作用域的不同。使用function定义的函数会创建一个自己的作用域，函数内定义的变量和参数只在函数内部可见；而使用var定义函数的函数表达式和其他变量一样，也是定义在当前作用域中。</li>
+<li>函数的可读性不同。使用function定义的函数可读性更强，函数名在定义时就已经存在；而使用var定义的函数表达式需要赋值后才能使用变量名调用，可读性稍差。</li>
+<li>函数的修改和删除不同。使用function定义的函数可以通过重复定义来修改或者重新定义来删除；而使用var定义的函数表达式无法被修改或删除。</li>
+</ol>
+<p>需要注意的是，如果使用var定义函数表达式，因为var会进行变量提升，所以如果在赋值之前调用函数，则该函数值为undefined，而不是一个函数。建议在声明函数表达式时使用let或const来避免这种情况。</p>
 
                 
               </div>
