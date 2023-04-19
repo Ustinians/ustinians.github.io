@@ -1,0 +1,815 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="想躺在云上">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="知识点整理(10)为什么要设计ElementUI、Ant Design等组件库？ 提高开发效率：组件库的设计和开发是为了解决重复工作，使用现有组件能够加快开发速度，减少重复工作量，提高开发效率。  提高代码可维护性：组件库的使用能够使得代码更加规范化，便于维护，同时也避免了代码重复，减轻了开发人员负担。  优化用户体验：设计的组件库对UI、交互、动效等方面进行了深入优化，可以帮助开发人员打造出更好">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识点整理(10)">
+<meta property="og:url" content="https://ustinians.github.io/2023/04/19/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86-10/index.html">
+<meta property="og:site_name" content="想躺在云上 - In doing we learn.">
+<meta property="og:description" content="知识点整理(10)为什么要设计ElementUI、Ant Design等组件库？ 提高开发效率：组件库的设计和开发是为了解决重复工作，使用现有组件能够加快开发速度，减少重复工作量，提高开发效率。  提高代码可维护性：组件库的使用能够使得代码更加规范化，便于维护，同时也避免了代码重复，减轻了开发人员负担。  优化用户体验：设计的组件库对UI、交互、动效等方面进行了深入优化，可以帮助开发人员打造出更好">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-19T12:27:24.000Z">
+<meta property="article:modified_time" content="2023-04-19T13:50:21.434Z">
+<meta property="article:author" content="想躺在云上">
+<meta property="article:tag" content="前端总结">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>知识点整理(10) - 想躺在云上 - In doing we learn.</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ustinians.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>想躺在云上</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="知识点整理(10)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-19 20:27" pubdate>
+          2023年4月19日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          100 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">知识点整理(10)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="知识点整理-10"><a href="#知识点整理-10" class="headerlink" title="知识点整理(10)"></a>知识点整理(10)</h1><h2 id="为什么要设计ElementUI、Ant-Design等组件库？"><a href="#为什么要设计ElementUI、Ant-Design等组件库？" class="headerlink" title="为什么要设计ElementUI、Ant Design等组件库？"></a>为什么要设计ElementUI、Ant Design等组件库？</h2><ol>
+<li><p>提高开发效率：组件库的设计和开发是为了解决重复工作，使用现有组件能够<strong>加快开发速度，减少重复工作量，提高开发效率</strong>。</p>
+</li>
+<li><p>提高代码可维护性：组件库的使用能够<strong>使得代码更加规范化，便于维护</strong>，同时也避免了代码重复，减轻了开发人员负担。</p>
+</li>
+<li><p>优化用户体验：设计的组件库对UI、交互、动效等方面进行了深入优化，可以帮助开发人员打造出<strong>更好的用户体验</strong>。</p>
+</li>
+<li><p>响应式设计：组件库<strong>具有响应式的特性，能够满足不同尺寸和设备的适配需求</strong>，提高网站或应用的可用性。</p>
+</li>
+<li><p>节省开发成本：使用现成组件库可以<strong>节省开发成本和人力成本</strong>，既可以降低开发难度和技术门槛，也可以降低公司的开发成本。</p>
+</li>
+</ol>
+<h2 id="设计组件库有哪些注意事项？"><a href="#设计组件库有哪些注意事项？" class="headerlink" title="设计组件库有哪些注意事项？"></a>设计组件库有哪些注意事项？</h2><ol>
+<li>UI和交互设计：组件库的设计需要遵循良好的UI设计和交互设计原则，提供<strong>良好的用户体验，包括直观的视觉指引、简单易懂的界面、良好的交互反馈</strong>等。</li>
+<li>组件设计：在设计组件时，需要考虑组件的基础特性、定位、使用场景、可扩展性、可定制性等，同时要有充分的用户体验测试。</li>
+<li>兼容性：组件库要考虑到<strong>各种浏览器和设备的兼容性</strong>，建议采用<strong>响应式设计和渐进增强</strong>的设计策略。</li>
+<li>文档和示例：组件库需要完善的文档和示例，<strong>方便开发人员使用和调试</strong>，避免不必要的耗时。</li>
+<li>维护和更新：组件库需要持续的维护和更新，包括bug修复、功能增强、安全性更新等，保证组件库的<strong>稳定性和可靠性</strong>。</li>
+<li>样式管理：组件库的样式需要考虑到<strong>全局样式管理和组件内部样式的优化</strong>，防止出现样式冲突和不必要的CSS代码重复。</li>
+<li>可重用性：组件库的组件应尽可能保持独立性，便于<strong>在不同的应用中重复使用</strong>。</li>
+</ol>
+<h2 id="开发组件库的过程中有什么难点？"><a href="#开发组件库的过程中有什么难点？" class="headerlink" title="开发组件库的过程中有什么难点？"></a>开发组件库的过程中有什么难点？</h2><ol>
+<li>设计阶段：在组件库的设计阶段，需要考虑到组件的<strong>丰富性和可用性</strong>，以及<strong>组件间的协调和统一性</strong>，需要在设计和开发之前进行充分的需求分析和用户调研。</li>
+<li>兼容性：组件库需要考虑到各<strong>种浏览器和设备的兼容性</strong>，包括浏览器的版本不同、设备分辨率不同等，需要进行多个平台的测试。</li>
+<li>在多个项目中使用：组件库的组件需要在多个项目中使用，因此需要满足<strong>通用性</strong>的需求，同时需要保证可维护性，以便在多个项目中进行更新和升级。</li>
+<li>长期维护：组件库需要考虑到长期维护的需求，需要进行<strong>稳定性的测试和更新</strong>。</li>
+<li>性能优化：组件库需要考虑到性能优化的问题，<strong>避免在页面中渲染过多的组件和数据</strong>，同时需要对组件库进行<strong>代码分离和按需加载</strong>等优化。</li>
+<li>API的设计：组件库的API设计需要充分考虑到<strong>不同需求下的定制性和扩展性</strong>，同时需要保证API的易用性和一致性。</li>
+<li>文档和示例：组件库需要考虑到文档和示例的编写和更新，以便开发者能够快速地掌握组件库的使用方法。</li>
+</ol>
+<h2 id="Ant-Design组件库是怎么实现的？"><a href="#Ant-Design组件库是怎么实现的？" class="headerlink" title="Ant Design组件库是怎么实现的？"></a>Ant Design组件库是怎么实现的？</h2><ol>
+<li>核心代码实现：Ant Design的核心代码实现是基于React框架，使用TypeScript语言编写，使用webpack进行打包。代码中主要包含了不同组件的实现，包括表单、按钮、导航、布局等。</li>
+<li>样式实现：Ant Design的样式实现主要是基于Less预处理器进行开发，使用了变量、混入、嵌套等功能。通过变量的定义和使用，实现了全局的样式风格的统一。同时，还使用一些第三方的CSS库，如Normalize.css和iconfont等。</li>
+<li>工具库：Ant Design中有一个封装了常用工具函数的utility库，此库包括类型检测、数据处理、字符串处理、时间处理等常用方法，并对一些方法进行了二次封装，方便调用。</li>
+<li>国际化实现：Ant Design支持多语言和多区域的国际化，其实现基于react-intl库，通过对不同语言的国际化配置，实现组件中文本的切换。</li>
+<li>文档和示例：Ant Design的文档和示例基于dumi库进行生成，同时还有一个在线的交互式示例网站Ant Design Pro，用户可以通过此网站直接预览和体验各个组件。</li>
+</ol>
+<h2 id="ESLint如何进行配置？常见的配置有哪些？"><a href="#ESLint如何进行配置？常见的配置有哪些？" class="headerlink" title="ESLint如何进行配置？常见的配置有哪些？"></a>ESLint如何进行配置？常见的配置有哪些？</h2><p>ESLint的配置文件可以使用JS、JSON、YAML、XML格式的文件进行配置。通常将配置文件命名为<code>.eslintrc.js</code>、<code>.eslintrc.json</code>、<code>.eslintrc.yaml</code>、<code>.eslintrc.yml</code>、<code>.eslintrc.xml</code>中的一种，放置于项目的根目录下。</p>
+<p>ESLint的配置文件可以使用JS、JSON、YAML、XML格式的文件进行配置。通常我们将配置文件命名为<code>.eslintrc.js</code>、<code>.eslintrc.json</code>、<code>.eslintrc.yaml</code>、<code>.eslintrc.yml</code>、<code>.eslintrc.xml</code>中的一种，放置于项目的根目录下。</p>
+<p>常见的ESLint配置有以下几项：</p>
+<ol>
+<li><code>env</code>: 指定应用程序的运行环境，一般是浏览器或Node.js环境</li>
+<li><code>extends</code>: 指定要扩展的 ESLint 配置文件</li>
+<li><code>rules</code>: 配置规则，可以禁用或启用规则，以及覆盖默认规则或扩展规则重载规则、覆盖提示程度等</li>
+<li><code>globals</code>: 在代码中定义全局变量，防止报未定义错误</li>
+<li><code>parserOptions</code>: 配置ESLint的解析器，如支持ECMAScript的版本等</li>
+<li><code>plugins</code>: 通过ESLint插件扩展规则，可以开启或关闭插件</li>
+<li><code>ignore</code>: 跳过某些文件或文件夹</li>
+</ol>
+<p>例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  <span class="hljs-attr">env</span>: &#123;<br>    <span class="hljs-attr">browser</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">es6</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">node</span>: <span class="hljs-literal">true</span>,<br>  &#125;,<br>  <span class="hljs-attr">extends</span>: [<span class="hljs-string">&#x27;eslint:recommended&#x27;</span>, <span class="hljs-string">&#x27;plugin:react/recommended&#x27;</span>],<br>  <span class="hljs-attr">plugins</span>: [<span class="hljs-string">&#x27;react&#x27;</span>],<br>  <span class="hljs-attr">parserOptions</span>: &#123;<br>    <span class="hljs-attr">ecmaVersion</span>: <span class="hljs-number">2018</span>,<br>    <span class="hljs-attr">sourceType</span>: <span class="hljs-string">&#x27;module&#x27;</span>,<br>    <span class="hljs-attr">ecmaFeatures</span>: &#123;<br>      <span class="hljs-attr">jsx</span>: <span class="hljs-literal">true</span>,<br>    &#125;,<br>  &#125;,<br>  <span class="hljs-attr">rules</span>: &#123;<br>    <span class="hljs-string">&#x27;react/prop-types&#x27;</span>: <span class="hljs-string">&#x27;off&#x27;</span>,<br>    <span class="hljs-string">&#x27;no-unused-vars&#x27;</span>: <span class="hljs-string">&#x27;warn&#x27;</span>,<br>  &#125;,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>该配置使用了ESLint默认的<code>recommended</code>规则和<code>react/recommended</code>规则，指定了环境为浏览器、ES6和Node.js环境，启用了React插件，禁用了对于React中props的类型检查，开启了对于未使用变量的警告。</p>
+<p>需要注意的是，ESLint的配置可以进行优先级继承，通常情况下，更具体、具有更小范围的文件配置优先级更高，在不同目录下的配置文件可以进行覆盖和继承。</p>
+<h2 id="CommonJS和ES-Module的区别？"><a href="#CommonJS和ES-Module的区别？" class="headerlink" title="CommonJS和ES Module的区别？"></a>CommonJS和ES Module的区别？</h2><ol>
+<li>导入方式：CommonJS使用require语句导入模块，ES Module使用import语句导入模块。</li>
+<li>导出方式：CommonJS使用module.exports和exports对象导出模块，ES Module使用export语句导出模块。</li>
+<li>运行时加载：CommonJS是同步加载模块，也就是说模块加载完成后再执行后续代码；ES Module是异步加载模块，可以进行静态分析，也就是说可以在编译时就进行加载和分析，提高了应用程序的运行效率。</li>
+<li>执行上下文：CommonJS在导入模块时，会将导出的内容复制一份并保存在内存中，导入的模块内容是一个对象；ES Module在导入模块时，使用链接技术，也就是在外部保存对导出对象的引用，导入的模块直接指向导出对象。</li>
+<li>浏览器支持：CommonJS主要用于服务器端JavaScript编程，而ES Module是由ECMA标准制定的，支持ES6的浏览器都可以使用。</li>
+</ol>
+<h2 id="什么是Promise？"><a href="#什么是Promise？" class="headerlink" title="什么是Promise？"></a>什么是Promise？</h2><p>Promise是一种异步编程的解决方案，它可以将回调函数的嵌套层级降低，使异步操作的代码更易于理解和维护。对于一些需要等待异步操作完成后才能进行接下来的操作的场景，Promise可以帮助我们处理这种异步操作。</p>
+<p>Promise可以理解为一个容器，其中保存了异步操作的结果。在Promise执行过程中，可以分为三种状态：</p>
+<ol>
+<li>Pending状态：Promise对象创建时处于Pending状态，表示异步操作正在执行。</li>
+<li>Resolved状态：异步操作成功时，Promise对象的状态变为Resolved（也称作Fulfilled）状态，并且保存异步操作的结果，可以通过Promise的then方法获取。</li>
+<li>Rejected状态：异步操作失败时，Promise对象的状态变为Rejected状态，并保存异步操作的错误信息，可以通过Promise的catch方法获取错误信息。</li>
+</ol>
+<p>Promise对象一旦进入Resolved或者Rejected状态，就不会再改变状态。所以在Promise对象创建后，可以通过then方法添加回调函数，当异步操作成功时调用该回调函数，如果异步操作失败则可以通过catch方法添加回调函数，当异步操作失败时调用该回调函数，在回调函数中对异步操作的结果进行处理。</p>
+<p>Promise还具有链式调用的特点。当异步操作需要串联多个异步操作时，可以通过then方法将多个异步操作串联起来，然后在最后一个异步操作返回结果时，可以通过resolve方法返回结果，从而触发then方法中的回调函数进行处理。</p>
+<h2 id="手写给对象添加去重方法？"><a href="#手写给对象添加去重方法？" class="headerlink" title="手写给对象添加去重方法？"></a>手写给对象添加去重方法？</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 利用Map方法给对象去重</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">uniqueByKey</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();<br>  <span class="hljs-keyword">const</span> newObj = &#123;&#125;;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> key <span class="hljs-keyword">in</span> <span class="hljs-variable language_">this</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">hasOwnProperty</span>(key)) &#123;<br>      <span class="hljs-keyword">const</span> value = <span class="hljs-variable language_">this</span>[key];<br>      <span class="hljs-keyword">if</span> (!map.<span class="hljs-title function_">has</span>(key)) &#123;<br>        map.<span class="hljs-title function_">set</span>(key, value);<br>        newObj[key] = value;<br>      &#125;<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> newObj;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="手写打点计时器？"><a href="#手写打点计时器？" class="headerlink" title="手写打点计时器？"></a>手写打点计时器？</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Stopwatch</span>(<span class="hljs-params">interval, callback</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">startTime</span> = <span class="hljs-literal">null</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">timerId</span> = <span class="hljs-literal">null</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">interval</span> = interval;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">callback</span> = callback;<br>&#125;<br><br><span class="hljs-title class_">Stopwatch</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">start</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">this</span>.<span class="hljs-property">timerId</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">startTime</span> = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">timerId</span> = <span class="hljs-built_in">setInterval</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">tick</span>.<span class="hljs-title function_">bind</span>(<span class="hljs-variable language_">this</span>), <span class="hljs-variable language_">this</span>.<span class="hljs-property">interval</span>); <span class="hljs-comment">// 注意这里要先绑定this才能正确执行tick方法</span><br>  &#125;<br>&#125;;<br><br><span class="hljs-title class_">Stopwatch</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">tick</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> elapsedTime = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>() - <span class="hljs-variable language_">this</span>.<span class="hljs-property">startTime</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">callback</span>(elapsedTime);<br>&#125;;<br><br><span class="hljs-title class_">Stopwatch</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">stop</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-built_in">clearInterval</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">timerId</span>);<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">timerId</span> = <span class="hljs-literal">null</span>;<br>&#125;;<br><br><span class="hljs-title class_">Stopwatch</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">reset</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">stop</span>();<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">startTime</span> = <span class="hljs-literal">null</span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>首先，我们定义一个 Stopwatch 构造函数，它接受两个参数 interval 和 callback，分别表示计时器的时间间隔和每次执行的任务。</li>
+<li>在构造函数中，我们初始化了一些属性，包括 startTime、timerId、interval 和 callback。</li>
+<li>然后，我们定义了 start、tick、stop 和 reset 方法。</li>
+<li>start 方法用来启动计时器。它首先检查 timerId 是否为 null，如果是的话，就记录当前时间（也就是计时器的起始时间）并创建一个定时器。定时器会在每个时间间隔内调用 tick 方法。</li>
+<li>tick 方法用来执行每次任务。它首先计算已经经过的时间（也就是当前时间减去起始时间），然后调用 callback 函数执行任务，将已经花费的时间作为参数传递给 callback 函数。</li>
+<li>stop 方法用来停止计时器。它清除定时器并设置 timerId 为 null。</li>
+<li>reset 方法用来重置计时器。它调用 stop 方法停止计时器并将 startTime 设置为 null。</li>
+</ol>
+<p>使用该计时器，我们可以像下面这样编写代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> stopwatch = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stopwatch</span>(<span class="hljs-number">1000</span>, <span class="hljs-function"><span class="hljs-params">elapsedTime</span> =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Elapsed time: <span class="hljs-subst">$&#123;elapsedTime&#125;</span> ms`</span>);<br>&#125;);<br><br>stopwatch.<span class="hljs-title function_">start</span>();<br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  stopwatch.<span class="hljs-title function_">stop</span>();<br>&#125;, <span class="hljs-number">5000</span>);<br></code></pre></td></tr></table></figure>
+
+<p>上面的代码创建了一个计时器，每隔 1 秒执行一次任务（输出已经花费的时间），并在 5 秒后停止计时器。运行上面的代码后，你会看到类似如下的输出内容：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">Elapsed</span> <span class="hljs-attr">time</span>: <span class="hljs-number">1009</span> ms<br><span class="hljs-title class_">Elapsed</span> <span class="hljs-attr">time</span>: <span class="hljs-number">2012</span> ms<br><span class="hljs-title class_">Elapsed</span> <span class="hljs-attr">time</span>: <span class="hljs-number">3021</span> ms<br><span class="hljs-title class_">Elapsed</span> <span class="hljs-attr">time</span>: <span class="hljs-number">4028</span> ms<br><span class="hljs-title class_">Elapsed</span> <span class="hljs-attr">time</span>: <span class="hljs-number">5037</span> ms<br></code></pre></td></tr></table></figure>
+
+<p>这表示计时器每隔 1 秒执行一次任务，并输出已经花费的时间。在 5 秒后，计时器被停止。</p>
+<h2 id="Sass预处理器的目的是什么？"><a href="#Sass预处理器的目的是什么？" class="headerlink" title="Sass预处理器的目的是什么？"></a>Sass预处理器的目的是什么？</h2><ol>
+<li><strong>增强 CSS 功能</strong>：Sass 通过引入变量、嵌套、混入、函数、继承等功能，使得 CSS 更加强大、灵活和易于维护。</li>
+<li><strong>提高效率</strong>：Sass 通过嵌套规则和提供复杂样式的简单方法，减少了重复和冗余的代码。同时，Sass 模块化的架构和继承能力简化了代码的编写和维护。</li>
+<li><strong>降低维护成本</strong>：Sass 提供了灵活的代码重用和继承机制，使得样式的修改更加容易，减少了修改代码的时间和成本。</li>
+<li><strong>更好的文档</strong>：Sass 可以帮助团队实现更好的代码文档化。我们可以使用像变量和混入等工具来向代码中添加注释，更容易弄清楚代码的含义。</li>
+</ol>
+<h2 id="Sass的工作原理？"><a href="#Sass的工作原理？" class="headerlink" title="Sass的工作原理？"></a>Sass的工作原理？</h2><ol>
+<li>Sass 文件读取：在 Sass 的编译过程中，首先需要读取 Sass 文件。</li>
+<li>Sass 语法解析：Sass 编译器会解析 Sass 文件中的语法，包括变量、嵌套、混入、函数、继承等功能。解析的结果会被保存在内存中。</li>
+<li>Sass 语法转换：Sass 语法会转换为 CSS 语法。例如，Sass 的变量会被转换成 CSS 的属性值，Sass 的混入会被转换成 CSS 的 @include 指令。</li>
+<li>CSS 文件生成：Sass 编译器将转换后的 CSS 代码生成为一个或多个 CSS 文件。</li>
+<li>CSS 文件输出：生成的 CSS 文件可以直接输出到磁盘或者返回给 Web 服务器，用于被浏览器解析和应用。</li>
+</ol>
+<p>在 Sass 的编译过程中，使用的核心技术是 Sass 引擎和 CSS 解析器。Sass 引擎负责解析 Sass 语法，将其转换为 CSS 代码；CSS 解析器则负责将生成的 CSS 代码解析为浏览器所能识别的样式表。这些技术共同构成了 Sass 的编译过程和原理。</p>
+<h2 id="Vite和Webpack的区别？"><a href="#Vite和Webpack的区别？" class="headerlink" title="Vite和Webpack的区别？"></a>Vite和Webpack的区别？</h2><ol>
+<li>构建过程不同：Webpack 是通过一系列 Loader 和插件对代码进行编译和打包，Vite 则是通过浏览器原生支持的 ES Modules（ESM）导入的方式进行实时编译和构建，避免了打包过程中的耗时和资源浪费。</li>
+<li>开发环境启动速度不同：Vite 开发环境的启动速度比 Webpack 快很多，基本上可以做到开发环境立即响应，因为 Vite 不需要进行打包操作，而 Webpack 则需要在每次启动开发环境时进行较为繁琐的构建。</li>
+<li>支持的文件类型不同：Webpack 支持多种文件类型的打包构建，而 Vite 目前只支持 Javascript 和 Vue 单组件。</li>
+<li>热更新实现不同：Webpack 的热更新实现是通过 HMR（Hot Module Replacement）机制，重新加载模块实现快速更新，而 Vite 利用了浏览器中的 ESM 特性，通过一个 WebSocket 服务器实现了模块的实时编译和热更新。</li>
+</ol>
+<p>总而言之，Vite 相较于 Webpack 有着更快的构建速度和更优秀的开发体验，但它的能力没有 Webpack 强大，不支持多种文件类型的打包构建。Vite 使得前端开发者可以更快地进行开发并且代码构建的过程更加高效。</p>
+<h2 id="Vite打包的产物能直接发布吗？"><a href="#Vite打包的产物能直接发布吗？" class="headerlink" title="Vite打包的产物能直接发布吗？"></a>Vite打包的产物能直接发布吗？</h2><p>Vite 打包的产物的确可以直接发布到线上服务器，但需要注意以下几点：</p>
+<ol>
+<li>Vite 打包出来的文件默认不会压缩，需要自行使用类似 UglifyJS，Terser 等工具进行压缩和混淆，以减小文件体积和提高加载速度。</li>
+<li>由于 Vite 采用的是预处理打包方式，打包出来的代码可能会出现一些奇怪的问题，需要在发布前进行全面测试和校验。</li>
+<li>在打包过程中需要注意依赖的引入方式，是否存在跨域访问的问题等，以保证打包产物能够正常运行。</li>
+</ol>
+<p>总之，Vite 打包的产物可以直接发布，但需要注意以上问题以确保生产环境的稳定运行。对于有更严格需求的项目，最好还是通过 CI&#x2F;CD 工具进行自动化构建和部署。</p>
+<h2 id="TypeScript和JavaScript的区别？"><a href="#TypeScript和JavaScript的区别？" class="headerlink" title="TypeScript和JavaScript的区别？"></a>TypeScript和JavaScript的区别？</h2><ol>
+<li>类型系统：TypeScript 强制规定变量、函数和参数的类型，而 JavaScript 则没有这个限制，可以使用任意类型。TypeScript 的类型系统可以在代码编写过程中提供更加明确的类型提示，减少错误发生的可能。</li>
+<li>面向对象特性：TypeScript 支持面向对象编程的概念，例如：类、接口、命名空间等，而 JavaScript 并不完全支持这些特性。</li>
+<li>扩展性：TypeScript 是 JavaScript 的超集，即 TypeScript 可以使用 JavaScript 中的所有语法，同时还有自己的特性。在掌握 JavaScript 语法的前提下，只需要了解 TypeScript 新增特性即可。</li>
+<li>构建工具和开发环境：因为 TypeScript 有类型检查的特性，需要在编译之前进行类型检查，所以需要使用额外的 TypeScript 编译器来进行编译。此外，集成开发环境如 VS Code、WebStorm 等也提供了强大的 TypeScript 支持。</li>
+</ol>
+<h2 id="Java和NodeJS的区别？"><a href="#Java和NodeJS的区别？" class="headerlink" title="Java和NodeJS的区别？"></a>Java和NodeJS的区别？</h2><ol>
+<li>语言类型：Java 是一种<strong>静态、面向对象、类型安全</strong>的编程语言，而 Node.js 是一种基<strong>于事件驱动、非阻塞 I&#x2F;O</strong> 的服务器端 JavaScript 运行环境。</li>
+<li>并发处理：Java 有线程的概念，线程可以提供<strong>并发执行</strong>能力，可以同时处理多个请求。而 Node.js 使用单线程，采用了<strong>事件轮询和异步 I&#x2F;O</strong> 的方式来处理并发请求，通常使用非阻塞 I&#x2F;O 模型。</li>
+<li>异步编程：Java 提供了<strong>多线程和同步异步两种编程方式</strong>，但是<strong>在面对高并发请求时，使用多线程会带来线程上下文切换和同步锁等开销，降低性能</strong>。而 Node.js 采用事件驱动的编程方式，<strong>使用回调函数实现异步编程，能更好地支持高并发场景</strong>。</li>
+<li>开发效率：Java 属于较庞大的语言，需要编写大量代码，而 Node.js 的代码相对来说更简洁，具有更快的开发效率，但并不意味着其运行效率就低。</li>
+<li>应用场景：Java 适合用于大规模企业级应用的开发，例如电商系统、金融系统等，这些系统的开发通常需要<strong>处理复杂的业务流程和多种数据源</strong>。而 Node.js 适合用于<strong>高并发、I&#x2F;O 密集型</strong>的应用，例如实时聊天、推送消息、数据分析等。</li>
+</ol>
+<h2 id="NodeJS是单线程的，会发生阻塞吗？"><a href="#NodeJS是单线程的，会发生阻塞吗？" class="headerlink" title="NodeJS是单线程的，会发生阻塞吗？"></a>NodeJS是单线程的，会发生阻塞吗？</h2><p>虽然 Node.js 的主线程是单线程运行的，但是 Node.js 底层采用了基于 libuv 库的<strong>事件驱动和非阻塞 I&#x2F;O</strong> 的机制来实现异步非阻塞的编程模型，因此不会导致阻塞。</p>
+<p>在 Node.js 中，<strong>当有异步 I&#x2F;O 操作时，主线程会将该事件交给 libuv（由 C++ 编写）来处理，然后继续处理后面的请求</strong>。在操作完成后，libuv 会<strong>触发相应的回调函数，通过事件循环机制，将数据返回给主线程</strong>。这样，就能在不阻塞主线程的情况下处理多个 I&#x2F;O 操作。</p>
+<p>然而，也需要注意的是，如果在 Node.js 应用程序的代码编写中存在非异步操作（如大量运算、文件读取等），并且这些操作时间过长，将会导致 Node.js 暂停事件循环并终止响应，这种情况被称为事件循环阻塞。所以在编写 Node.js 代码时，还需要注意避免这种情况的发生。</p>
+<h2 id="HTTPS中的数字证书是哪一方发送的？"><a href="#HTTPS中的数字证书是哪一方发送的？" class="headerlink" title="HTTPS中的数字证书是哪一方发送的？"></a>HTTPS中的数字证书是哪一方发送的？</h2><p>在HTTPS通信中，数字证书是由服务器端发送给客户端的。</p>
+<p>当客户端首次访问使用HTTPS协议的网站时，服务器会向客户端发送数字证书。客户端接收到数字证书后，会进行数字证书的验证过程，验证证书是否有效、证书颁发机构是否可信等。如果数字证书验证通过，客户端会生成会话密钥并使用证书中的公钥对该密钥进行加密，然后将加密后的密钥发送给服务器端。服务器端使用自己的私钥对密钥进行解密，然后双方就可以使用该密钥进行加密通信。</p>
+<p>因此，在HTTPS协议中，数字证书是由服务器端发送给客户端的，客户端通过验证数字证书的有效性，并使用其公钥加密会话密钥，从而确保双方的通信是加密的、安全的。</p>
+<h2 id="什么是JS的包装类型？"><a href="#什么是JS的包装类型？" class="headerlink" title="什么是JS的包装类型？"></a>什么是JS的包装类型？</h2><p>JavaScript的包装类型（Wrapping Objects）指的是将基本数据类型（例如字符串、数字、布尔值等）通过包装类（String、Number、Boolean）转换为对象。这样，我们就可以使用对象的方法和属性来操作基本数据类型。</p>
+<p>Number包装类型有哪些方法？</p>
+<ol>
+<li>toExponential(): 将数字转换为指数计数形式的字符串。</li>
+<li>toFixed(): 将数字转换为字符串，保留指定位数的小数。</li>
+<li>toLocaleString(): 将数字转换为指定地区的格式化字符串。</li>
+<li>toPrecision(): 将数字转换为字符串，将字符串中数字的总位数限制为指定的数字。</li>
+<li>toString(): 将数字转换为字符串。</li>
+<li>valueOf(): 返回数字的原始值。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//定义一个数字</span><br><span class="hljs-keyword">var</span> num = <span class="hljs-number">123.456</span>;<br><br><span class="hljs-comment">// toExponential()</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num.<span class="hljs-title function_">toExponential</span>(<span class="hljs-number">2</span>)); <span class="hljs-comment">// &quot;1.23e+2&quot;</span><br><br><span class="hljs-comment">// toFixed()</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num.<span class="hljs-title function_">toFixed</span>(<span class="hljs-number">2</span>)); <span class="hljs-comment">// &quot;123.46&quot;</span><br><br><span class="hljs-comment">// toLocaleString()</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num.<span class="hljs-title function_">toLocaleString</span>(<span class="hljs-string">&#x27;en-US&#x27;</span>)); <span class="hljs-comment">// &quot;123.456&quot;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num.<span class="hljs-title function_">toLocaleString</span>(<span class="hljs-string">&#x27;de-DE&#x27;</span>)); <span class="hljs-comment">// &quot;123,456&quot;</span><br><br><span class="hljs-comment">// toPrecision()</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num.<span class="hljs-title function_">toPrecision</span>(<span class="hljs-number">5</span>)); <span class="hljs-comment">// &quot;123.46&quot;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num.<span class="hljs-title function_">toPrecision</span>(<span class="hljs-number">2</span>)); <span class="hljs-comment">// &quot;1.2e+2&quot;</span><br><br><span class="hljs-comment">// toString()</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num.<span class="hljs-title function_">toString</span>()); <span class="hljs-comment">// &quot;123.456&quot;</span><br><br><span class="hljs-comment">// valueOf()</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num.<span class="hljs-title function_">valueOf</span>()); <span class="hljs-comment">// 123.456</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="闭包有哪些优点？可以做哪些事情？"><a href="#闭包有哪些优点？可以做哪些事情？" class="headerlink" title="闭包有哪些优点？可以做哪些事情？"></a>闭包有哪些优点？可以做哪些事情？</h2><p>闭包是指一个函数可以访问其父作用域的变量，即使父作用域已经结束执行，这些变量仍然可以被访问。闭包有如下优点：</p>
+<ol>
+<li>保护变量：由于闭包的函数可以访问其父作用域的变量，因此可以将一些变量私有化，避免在全局范围内被访问和修改，从而增强程序的安全性。</li>
+<li>延长变量寿命：通过闭包，可以将变量的生命周期延长至其内部函数执行结束之后，这样可以避免变量在外部被提前销毁。</li>
+<li>保存状态：闭包可以记住函数执行时的状态，也就是函数执行环境中的变量值。这使得下次再次访问该函数时，可以使用上次保存的状态继续进行操作。</li>
+<li>可以做柯里化：类似于函数式编程语言中的柯里化，通过闭包，可以将一个函数转化为另一个函数，使得该函数的某些参数被预先设置，并返回一个接受剩余参数的新函数。这个特性可以帮助我们创建更加灵活的函数。</li>
+</ol>
+<p>闭包可以做如下事情：</p>
+<ol>
+<li>实现模块化：通过使用闭包将一些变量、方法封装在模块内，提高代码的可复用性和可维护性。</li>
+<li>实现缓存机制：闭包可以实现一些缓存机制，避免频繁的计算和请求，提高程序的执行效率。</li>
+<li>实现事件绑定：由于闭包可以保存状态，并且可以访问函数外部的变量，因此可以在事件绑定的过程中保存一些状态，比如记录用户的点击次数等。</li>
+<li>传递变量：由于闭包可以将函数内部的变量保留在内存中，因此可以在不同的执行环境中传递变量的值。</li>
+</ol>
+<h2 id="React和Vue有哪些区别？"><a href="#React和Vue有哪些区别？" class="headerlink" title="React和Vue有哪些区别？"></a>React和Vue有哪些区别？</h2><ol>
+<li>语言：React是使用JavaScript语言编写的，而Vue是使用JavaScript和模板语言编写的。</li>
+<li>数据绑定：React通常使用单向数据流（父组件向子组件传递数据，子组件可更改该数据），Vue则提供了双向数据绑定。</li>
+<li>组件通信：React使用props和回调函数来实现组件之间的通信，而Vue使用props，事件总线，Vuex等来实现组件之间的通信。</li>
+<li>模板：React使用JSX语法编写组件，而Vue使用模板语言编写组件。</li>
+<li>性能：React在大型组件和动态数据渲染时性能优于Vue，但是Vue在小型组件和静态数据渲染时性能优于React。</li>
+<li>学习曲线：Vue相比于React有着更低的学习曲线，因为Vue提供了更直观和简洁的API，而React则更加灵活但需要一些额外的学习。</li>
+</ol>
+<h2 id="什么是虚拟DOM？"><a href="#什么是虚拟DOM？" class="headerlink" title="什么是虚拟DOM？"></a>什么是虚拟DOM？</h2><p>虚拟DOM（Virtual DOM）是指一种构建在内存中的、轻量级的虚拟节点树。在React等某些JavaScript框架中，组件经常被定义为一个虚拟的数据结构，它们包含了组件的状态和属性，但是没有DOM元素。当一个组件的状态发生改变时，虚拟DOM会在内存中重新构建一棵树，然后与之前的树进行比较，找出两棵树中不同的部分并更新到实际的DOM上，从而实现了页面内容的更新。</p>
+<p>虚拟DOM的优点在于：</p>
+<ol>
+<li>减少DOM操作次数：通过计算前后两次虚拟DOM树的差异，只更新差异的部分，而不是整个页面都进行重绘，从而避免了一些性能上的浪费。</li>
+<li>提高渲染效率：虚拟DOM可以根据需要进行分类，一个虚拟节点上所包含的真实节点也只会在其附近需要更新的时候才会被添加到真实的DOM树中。</li>
+<li>更好地实现跨平台：虚拟DOM的本质是一个跨平台的数据结构，可以轻松地在不同平台和环境中实现页面的构建和渲染，例如React Native就是利用虚拟DOM实现的。</li>
+</ol>
+<p>虚拟DOM的实现过程一般包括三个步骤：生成虚拟DOM树、对比新旧虚拟DOM树、更新真实DOM树。虽然虚拟DOM有些许性能上的消耗，但是在复杂的应用场景下，它还是展现出了出色的性能优势。</p>
+<h2 id="React-Diff算法的实现细节？"><a href="#React-Diff算法的实现细节？" class="headerlink" title="React Diff算法的实现细节？"></a>React Diff算法的实现细节？</h2><p>React Diff算法是指React通过比较前后两次的虚拟DOM树来计算出真实DOM树中需要更新的节点，从而提高渲染性能的算法。</p>
+<p>React Diff算法的实现细节如下：</p>
+<ol>
+<li>只会在同一个节点（即相同的组件）之间进行比较：React会判断新旧两个节点是否相同，如果不同，则直接暴力删除旧节点，新增一个新节点，重新创建所有子节点，这时会丢失所有DOM节点上的状态。如果相同，则继续下一步比较。</li>
+<li>对属性进行比较：React比较前后两次虚拟DOM节点的属性，只更新有改变的属性，提高渲染效率。</li>
+<li>采用“key”进行优化：在对列表进行Diff算法时，通过给每一个单独的列表项加上唯一的“key”属性，可以更快速精准地找出需要更新的节点。</li>
+<li>对子节点进行递归比较：当两个节点的属性相同且节点类型相同时，React会对它们的子节点进行递归比较，找出需要更新的子节点。</li>
+<li>按顺序更新子节点：React将之前生成的虚拟DOM节点数组与新的虚拟DOM节点数组进行比较，找出需要更新、新增和删除的节点，并按顺序更新节点。</li>
+</ol>
+<h2 id="实现大数相加？"><a href="#实现大数相加？" class="headerlink" title="实现大数相加？"></a>实现大数相加？</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">bigNumberAdd</span>(<span class="hljs-params">num1, num2</span>) &#123;<br>  <span class="hljs-keyword">let</span> i = num1.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">let</span> j = num2.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">let</span> carry = <span class="hljs-number">0</span>; <span class="hljs-comment">// 进位</span><br>  <span class="hljs-keyword">let</span> result = <span class="hljs-string">&#x27;&#x27;</span>; <span class="hljs-comment">// 结果</span><br><br>  <span class="hljs-comment">// 遍历两个数字的每个位数</span><br>  <span class="hljs-keyword">while</span> (i &gt;= <span class="hljs-number">0</span> || j &gt;= <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-keyword">let</span> a = num1[i] ? <span class="hljs-built_in">parseInt</span>(num1[i]) : <span class="hljs-number">0</span>; <span class="hljs-comment">// 取出num1当前位数上的数字</span><br>    <span class="hljs-keyword">let</span> b = num2[j] ? <span class="hljs-built_in">parseInt</span>(num2[j]) : <span class="hljs-number">0</span>; <span class="hljs-comment">// 取出num2当前位数上的数字</span><br>    <span class="hljs-keyword">let</span> sum = a + b + carry; <span class="hljs-comment">// 计算两个数的和，以及上一次的进位</span><br>    carry = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(sum / <span class="hljs-number">10</span>); <span class="hljs-comment">// 更新进位</span><br>    result = (sum % <span class="hljs-number">10</span>) + result; <span class="hljs-comment">// 更新结果</span><br>    i--;<br>    j--;<br>  &#125;<br><br>  <span class="hljs-comment">// 处理最高位的进位</span><br>  <span class="hljs-keyword">if</span> (carry &gt; <span class="hljs-number">0</span>) &#123;<br>    result = carry + result;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF%E6%80%BB%E7%BB%93/">#前端总结</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>知识点整理(10)</div>
+      <div>https://ustinians.github.io/2023/04/19/知识点整理-10/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>想躺在云上</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/04/19/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86-11/" title="知识点整理(11)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">知识点整理(11)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/17/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86-9/" title="知识点整理(9)">
+                        <span class="hidden-mobile">知识点整理(9)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
