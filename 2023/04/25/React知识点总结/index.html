@@ -1,0 +1,1064 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="想躺在云上">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="React为什么要使用类似React这种MVVM框架？为什么不直接使用原生前端开发？使用类似 React 这种 MVVM 框架的主要原因是可以提高前端开发的效率和可维护性。以下是具体的原因：  组件化开发：React 将页面拆分成多个组件，每个组件负责一部分功能，通过组合和嵌套组件来实现整个页面的功能。这样可以使代码更加模块化和可复用，提高开发效率和代码质量。 虚拟 DOM：React 使用虚拟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React知识点总结">
+<meta property="og:url" content="https://ustinians.github.io/2023/04/25/React%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="想躺在云上 - In doing we learn.">
+<meta property="og:description" content="React为什么要使用类似React这种MVVM框架？为什么不直接使用原生前端开发？使用类似 React 这种 MVVM 框架的主要原因是可以提高前端开发的效率和可维护性。以下是具体的原因：  组件化开发：React 将页面拆分成多个组件，每个组件负责一部分功能，通过组合和嵌套组件来实现整个页面的功能。这样可以使代码更加模块化和可复用，提高开发效率和代码质量。 虚拟 DOM：React 使用虚拟">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/11/5/166e20d92aa52108~tplv-t2oaga2asx-zoom-in-crop-mark:4536:0:0:0.image">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fe044edaaf28439c9d4afba753690eb9~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/83a71d590dce4999a0320e7d7ba7bacd~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ce6eb05a24674c51943127fcde856d34~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp">
+<meta property="article:published_time" content="2023-04-25T13:57:20.000Z">
+<meta property="article:modified_time" content="2023-04-25T13:57:45.593Z">
+<meta property="article:author" content="想躺在云上">
+<meta property="article:tag" content="Spring Recruitment">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/11/5/166e20d92aa52108~tplv-t2oaga2asx-zoom-in-crop-mark:4536:0:0:0.image">
+  
+  
+  
+  <title>React知识点总结 - 想躺在云上 - In doing we learn.</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ustinians.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>想躺在云上</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="React知识点总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-25 21:57" pubdate>
+          2023年4月25日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          28k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          233 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">React知识点总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><h2 id="为什么要使用类似React这种MVVM框架？为什么不直接使用原生前端开发？"><a href="#为什么要使用类似React这种MVVM框架？为什么不直接使用原生前端开发？" class="headerlink" title="为什么要使用类似React这种MVVM框架？为什么不直接使用原生前端开发？"></a>为什么要使用类似<code>React</code>这种<code>MVVM</code>框架？为什么不直接使用原生前端开发？</h2><p>使用类似 <code>React</code> 这种 <code>MVVM</code> 框架的主要原因是可以提高前端开发的效率和可维护性。以下是具体的原因：</p>
+<ol>
+<li>组件化开发：<code>React</code> 将页面拆分成多个组件，每个组件负责一部分功能，通过组合和嵌套组件来实现整个页面的功能。这样可以使代码更加模块化和可复用，提高开发效率和代码质量。</li>
+<li>虚拟 DOM：<code>React</code> 使用虚拟 DOM 来代替直接操作 DOM，这样可以避免频繁的 DOM 操作，提高页面性能。</li>
+<li>单向数据流：<code>React</code> 的数据流是单向的，从父组件传递到子组件，这样可以避免数据混乱和难以维护的问题。</li>
+<li>模板语法：<code>React</code> 使用 JSX 语法，可以将组件和数据混合在一起，提高代码可读性和可维护性。</li>
+<li>多平台支持：<code>React</code> 可以用于 Web 开发、移动端开发和桌面端开发，可以实现多平台的代码复用。</li>
+</ol>
+<h2 id="React和Vue有哪些区别？"><a href="#React和Vue有哪些区别？" class="headerlink" title="React和Vue有哪些区别？"></a>React和Vue有哪些区别？</h2><ol>
+<li>语言：React是使用JavaScript语言编写的，而Vue是使用JavaScript和模板语言编写的。</li>
+<li>数据绑定：React通常使用单向数据流（父组件向子组件传递数据，子组件可更改该数据），Vue则提供了双向数据绑定。</li>
+<li>组件通信：React使用props和回调函数来实现组件之间的通信，而Vue使用props，事件总线，Vuex等来实现组件之间的通信。</li>
+<li>模板：React使用JSX语法编写组件，而Vue使用模板语言编写组件。</li>
+<li>性能：React在大型组件和动态数据渲染时性能优于Vue，但是Vue在小型组件和静态数据渲染时性能优于React。</li>
+<li>学习曲线：Vue相比于React有着更低的学习曲线，因为Vue提供了更直观和简洁的API，而React则更加灵活但需要一些额外的学习。</li>
+</ol>
+<h2 id="React函数组件的优势？"><a href="#React函数组件的优势？" class="headerlink" title="React函数组件的优势？"></a>React函数组件的优势？</h2><ul>
+<li>函数式组件没有this困扰且代码简洁</li>
+<li>不涉及到复杂的state和生命周期</li>
+<li>类组件过于冗余不宜拆分</li>
+</ul>
+<h2 id="为什么推荐使用React-Hooks而不是类组件？"><a href="#为什么推荐使用React-Hooks而不是类组件？" class="headerlink" title="为什么推荐使用React Hooks而不是类组件？"></a>为什么推荐使用React Hooks而不是类组件？</h2><p>生命周期不利于逻辑相关的状态的管理。</p>
+<p>side effect相关逻辑被分散到不同的函数中可能会导致bug的出现和产生数据不一致的情况；我们也可能会在组件的同一生命周期中放很多不相关的side effect逻辑。</p>
+<p>使用Hook可以将某个side effect相关的逻辑都放在同一个函数中，方便代码的维护，方便组件的复用。</p>
+<p>使用函数组件的优点如下：</p>
+<ol>
+<li>避免使用类组件繁琐的语法：使用Hooks可以让代码更简洁，并且在进行状态管理时，不需要像类组件一样显式地声明state，我们可以通过useState Hook更方便地管理组件的状态。</li>
+<li>可以更灵活地组织代码：使用Hooks可以让我们更灵活地组织代码，我们可以把逻辑划分到不同的 Hook 中，并根据需要进行复用。这样使得代码更加清晰、简洁和易于维护。</li>
+<li>便于测试：使用Hooks可以更容易地进行单元测试。我们可以通过传递不同的props和状态值来测试组件的逻辑，并且Hooks更加容易使用和测试。</li>
+<li>Hooks 可以减少代码量和提高性能：在 Hooks 之前，我们经常需要使用高阶组件（Higher Order Components）和 Render Props 等技术来进行代码的复用，从而导致代码更加复杂，而且这些方法也会影响性能。而 Hooks 可以帮助我们在一个函数内共享逻辑，从而减少代码量并提高性能。</li>
+</ol>
+<h2 id="React为什么要引入Hooks？Hooks的优势和劣势？⭐"><a href="#React为什么要引入Hooks？Hooks的优势和劣势？⭐" class="headerlink" title="React为什么要引入Hooks？Hooks的优势和劣势？⭐"></a>React为什么要引入Hooks？Hooks的优势和劣势？⭐</h2><p>React引入Hooks的主要原因是为了解决<strong>组件之间复用状态逻辑</strong>的问题。</p>
+<p>在React之前，组件之间复用状态逻辑通常需要使用高阶组件、render props等技术，这些技术增加了组件的复杂性和理解难度，同时也不够直观和自然。而Hooks可以让组件之间复用状态逻辑变得更加简单和直观，同时可以提高代码的重用性和可读性。</p>
+<p>优势：</p>
+<ol>
+<li>更少的代码量：使用Hooks可以<strong>减少组件之间的重复代码，提高代码的重用性</strong>，同时也可以提高代码的可读性和可维护性。</li>
+<li>更好的逻辑复用：使用Hooks可以将状态逻辑从组件中抽离出来，使得逻辑复用更加自然和简单。</li>
+<li>更好的测试性：使用Hooks可以更容易地编写和执行单元测试，以保证代码的质量和稳定性。</li>
+</ol>
+<p>劣势：</p>
+<ol>
+<li>学习曲线：使用Hooks需要掌握一些新的概念和用法，对于初学者来说可能需要一定的学习曲线。</li>
+<li>兼容性问题：Hooks是在React v16.8中引入的，需要React 16.8或更高版本才能使用，如果项目中使用的是旧版本的React，需要升级React版本才能使用Hooks。</li>
+</ol>
+<h2 id="React-Hooks在使用上有什么限制？"><a href="#React-Hooks在使用上有什么限制？" class="headerlink" title="React Hooks在使用上有什么限制？"></a>React Hooks在使用上有什么限制？</h2><ol>
+<li>只能在函数组件中使用：React Hooks 只能在函数组件中使用，无法在类组件中使用。</li>
+<li>不能在循环、条件语句中使用：React Hooks 必须按照固定的顺序调用，不能在循环、条件语句中使用。</li>
+<li>使用时必须按照约定命名：使用 useState、useEffect 等 React Hooks 时必须按照约定命名，否则会导致无法正常使用。</li>
+<li>不能在普通函数中使用：React Hooks 只能在函数组件中使用，不能在普通函数中使用。</li>
+<li>不能在嵌套组件中使用：React Hooks 只能在最顶层的函数组件中使用，不能在嵌套组件中使用。</li>
+<li>不能在条件渲染的分支中使用：React Hooks 必须在每次渲染时都按照相同的顺序调用，不能在条件渲染的分支中使用。</li>
+<li>不能在 useEffect 中使用 async&#x2F;await：在 useEffect 中使用 async&#x2F;await 会导致一些问题，应该使用 Promise.then()。</li>
+</ol>
+<h2 id="为什么不能在-useEffect-中使用-async-x2F-await？"><a href="#为什么不能在-useEffect-中使用-async-x2F-await？" class="headerlink" title="为什么不能在 useEffect 中使用 async&#x2F;await？"></a>为什么不能在 useEffect 中使用 async&#x2F;await？</h2><p>在 <code>useEffect</code> 或 <code>componentDidMount</code> 中使用 <code>async/await</code> 会导致问题。原因是 <code>async</code> 函数返回的是一个 Promise 对象, 而 <code>useEffect</code> 需要的是一个清除函数（cleanup function）或者 <code>undefined</code>。如果你在 <code>useEffect</code> 函数中使用 <code>async</code> 关键字，那么返回的这个Promise对象将被视为 <code>useEffect</code> 的返回值，并且不会执行清除函数。</p>
+<p>换句话说，<code>useEffect</code> 在渲染完成后执行，而 <code>async</code> 函数需要更多的时间来执行，因此它不能直接与 <code>useEffect</code> 一起使用。相反，你可以在 <code>useEffect</code> 函数本地定义异步函数，并在函数中调用 <code>await</code>，以此来避免这个问题：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">fetchData</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> axios.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;https://api.example.com/data&#x27;</span>);<br>    <span class="hljs-title function_">setData</span>(result.<span class="hljs-property">data</span>);<br>  &#125;<br>  <span class="hljs-title function_">fetchData</span>();<br>&#125;, []);<br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们定义了 <code>fetchData</code> 函数，这个函数是异步的，我们在函数中调用了 <code>await</code>。然后我们在 <code>useEffect</code> 中调用 <code>fetchData</code>，并确保它的依赖项数组是一个空数组。这就确保了 <code>fetchData</code> 函数只会在组件挂载时运行一次。</p>
+<h2 id="React函数组件和类组件的区别？"><a href="#React函数组件和类组件的区别？" class="headerlink" title="React函数组件和类组件的区别？"></a>React函数组件和类组件的区别？</h2><ul>
+<li>类组件有生命周期，函数组件无生命周期</li>
+<li>类组件调用setStatet管理state状态，函数组件使用useState</li>
+<li>函数组件调用即是执行函数，类组件需要先将组件实例化，再调用实例对象的render方法</li>
+<li>函数组件更加简洁易懂，容易被开发、理解和测试。</li>
+</ul>
+<h2 id="类组件和函数组件在渲染和性能方面有什么区别？"><a href="#类组件和函数组件在渲染和性能方面有什么区别？" class="headerlink" title="类组件和函数组件在渲染和性能方面有什么区别？"></a>类组件和函数组件在渲染和性能方面有什么区别？</h2><p><strong>渲染方式</strong></p>
+<p>类组件使用 <code>render()</code> 方法来渲染 DOM，需要继承自 <code>React.Component</code> 或 <code>React.PureComponent</code>，并且需要实现一些必要的生命周期方法。</p>
+<p>函数组件是一个简单的 JavaScript 函数，通过返回一个 JSX 元素来表示要渲染的 DOM，不需要继承任何类或实现生命周期方法。</p>
+<p><strong>渲染性能</strong></p>
+<p>由于类组件存在生命周期方法和状态，每次渲染都需要进行完整的生命周期流程，从而使得渲染性能较低。</p>
+<p>函数组件由于不需要进行生命周期的处理和状态的维护，每次渲染只需要简单地执行函数体，从而使得渲染性能较高。此外，React 还引入了 Hooks，使得函数组件在处理状态和副作用时可以与类组件一样方便。</p>
+<p><strong>用法和场景</strong></p>
+<p>类组件通常用于实现比较复杂的交互逻辑和组件状态。例如，当一个组件需要在生命周期中进行一些异步请求，或者需要在组件更新时进行一些状态同步时，类组件就比较合适。</p>
+<p>函数组件通常用于实现简单的 UI 和逻辑，例如展示列表、根据数据渲染不同的组件等。此外，函数组件通常比较易于编写和维护，可以提高开发效率。</p>
+<h2 id="React单向数据流？"><a href="#React单向数据流？" class="headerlink" title="React单向数据流？"></a>React单向数据流？</h2><p>React的单向数据流是指数据的流动方向是单向的，从父组件流向子组件。父组件通过props将数据传递给子组件，子组件不能直接修改父组件传递过来的数据，只能通过触发事件或调用父组件传递过来的回调函数来修改数据。这样做的好处是保证了数据的一致性，<strong>避免了组件之间的相互影响，提高了应用的可维护性</strong>。</p>
+<p>React的单向数据流也是React的核心思想之一，它使得组件之间的数据传递变得简单明了，也方便了组件的重用和组合。在React应用中，每个组件都是一个独立的单元，它只关心自己的数据和UI展示，而不需要考虑其他组件的状态和行为。这种组件化的思想也是React的另一个重要特点。</p>
+<h2 id="React组件通信方式？"><a href="#React组件通信方式？" class="headerlink" title="React组件通信方式？"></a>React组件通信方式？</h2><ol>
+<li>父子组件通过props传递数据: 父组件可以通过props向子组件传递数据和回调函数，子组件则可以通过调用父组件传递的回调函数，将数据传递回父组件；</li>
+<li>Context方式: 通过Context可以在组件树中向多层嵌套的子组件传递数据，避免了props跨层级传递的繁琐过程；</li>
+<li>全局状态管理工具: 如Redux，Mobx等，可以将共享状态提升到全局，通过订阅和发布的方式实现组件间的通信；</li>
+<li>通过组件引用方式： 在某一个组件需要调用另一个组件的方法时，可以通过对该组件的引用，来调用该组件的方法。</li>
+</ol>
+<h2 id="如果需要发送请求，在React生命周期的什么阶段进行发送合适？原因是什么？"><a href="#如果需要发送请求，在React生命周期的什么阶段进行发送合适？原因是什么？" class="headerlink" title="如果需要发送请求，在React生命周期的什么阶段进行发送合适？原因是什么？"></a>如果需要发送请求，在React生命周期的什么阶段进行发送合适？原因是什么？</h2><p>通常，发送请求可以放在React组件的生命周期的某些阶段中，具体要看数据流动的方式和实现需求。</p>
+<p>一般来说，最常见的阶段是componentDidMount。这是因为<strong>在组件渲染完成后，DOM已经被渲染，可以正常地发送请求获取数据，然后更新组件状态，最后重新渲染组件</strong>。</p>
+<p><strong>如果在组件挂载前就发送请求，可能会导致无法获取到需要的DOM元素</strong>，因此不适合在组件其他生命周期中发送请求。另外，如果请求放在组件的渲染方法中，则可能会导致在每次重新渲染组件时都发送多次请求，增加不必要的网络负载，影响性能。</p>
+<p>当然，具体实现还需要考虑更多因素，比如数据流的复杂度、数据的实时性要求、组件的复用性等等。但是，通常情况下，在componentDidMount这个生命周期阶段发送请求是可行的，并且也是较为常见的做法。</p>
+<h2 id="jsx在react中起什么作用？"><a href="#jsx在react中起什么作用？" class="headerlink" title="jsx在react中起什么作用？"></a>jsx在react中起什么作用？</h2><p>React中使用<code>.jsx</code>后缀表示这个文件包含JSX语法。JSX是一种类似于HTML的JS语法扩展，用于描述应用程序的用户界面。在React中，组件的UI通常以JSX的形式定义。</p>
+<p>JSX的目的是提高React组件的代码可读性和易维护性。在React中使用JSX可以将组件的UI模板和JavaScript逻辑代码合在一起，从而提高React应用程序的开发效率。</p>
+<p>同时，<code>.jsx</code>后缀还可以方便代码编辑器和其他工具根据文件类型来识别React组件代码，提供针对性的编辑体验和功能，如语法高亮、代码补全等。</p>
+<p>需要注意的是，虽然React推荐使用JSX来定义组件的UI，但JSX并不是React的必须要求，React同样支持使用纯JavaScript来编写组件的UI。</p>
+<h2 id="常见的React-Hooks？"><a href="#常见的React-Hooks？" class="headerlink" title="常见的React Hooks？"></a>常见的React Hooks？</h2><blockquote>
+<p>Hook 是一些可以让你在函数组件里“钩入” React state 及生命周期等特性的函数</p>
+<p>Hook使用规则：</p>
+<ul>
+<li>只能在<strong>函数最外层</strong>调用Hook。不能在循环、条件判断或子函数中调用。</li>
+<li>只能在React的<strong>函数组件</strong>中调用Hook。不能在其他JavaScript函数中调用。</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>useState</p>
+</li>
+<li><p>useEffect</p>
+</li>
+<li><p>useLayoutEffect</p>
+</li>
+<li><p>useContext</p>
+<p>不使用组件嵌套就可以订阅React的Context</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; createContext, useContext &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-comment">// 创建一个Context对象</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">UserContext</span> = <span class="hljs-title function_">createContext</span>(<span class="hljs-literal">null</span>);<br><br><span class="hljs-comment">// 在App组件中提供用户信息</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> user = &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;张三&quot;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">20</span> &#125;;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">UserContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;user&#125;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Child</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">UserContext.Provider</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-comment">// 在需要使用用户信息的地方调用useContext</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Child</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> user = <span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">UserContext</span>);<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Child组件<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>姓名：&#123;user.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>年龄：&#123;user.age&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">App</span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>useReducer</p>
+<p>useReducer是React提供的一种状态管理方案，可以在组件中使用它来管理复杂的状态逻辑，避免组件过于庞大和难以维护。相对于useState，useReducer更适合用于多个状态之间存在复杂依赖的情况，或者需要执行多个连续状态操作的情况。</p>
+<p>假设我们有一个计数器组件，可以进行加和减计算，并且可以指定增加或减少的值。我们可以使用useReducer来实现它。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useReducer &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-comment">// reducer函数</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">counterReducer</span>(<span class="hljs-params">state, action</span>) &#123;<br>  <span class="hljs-keyword">switch</span> (action.<span class="hljs-property">type</span>) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;INCREMENT&quot;</span>:<br>      <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">count</span>: state.<span class="hljs-property">count</span> + action.<span class="hljs-property">payload</span> &#125;;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;DECREMENT&quot;</span>:<br>      <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">count</span>: state.<span class="hljs-property">count</span> - action.<span class="hljs-property">payload</span> &#125;;<br>    <span class="hljs-attr">default</span>:<br>      <span class="hljs-keyword">return</span> state;<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 计数器组件</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Counter</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [state, dispatch] = <span class="hljs-title function_">useReducer</span>(counterReducer, &#123; <span class="hljs-attr">count</span>: <span class="hljs-number">0</span> &#125;);<br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">onIncrement</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-title function_">dispatch</span>(&#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;INCREMENT&quot;</span>, <span class="hljs-attr">payload</span>: <span class="hljs-number">1</span> &#125;);<br>  &#125;;<br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">onDecrement</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-title function_">dispatch</span>(&#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;DECREMENT&quot;</span>, <span class="hljs-attr">payload</span>: <span class="hljs-number">1</span> &#125;);<br>  &#125;;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>计数器：&#123;state.count&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onIncrement&#125;</span>&gt;</span>加1<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onDecrement&#125;</span>&gt;</span>减1<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Counter</span>;<br></code></pre></td></tr></table></figure>
+
+<p>在上面的代码中，我们首先定义了一个counterReducer函数，用于更新计数器的状态。这个函数接受两个参数：state和action。state表示当前的状态，action是一个对象，其中包括type和payload两个属性。type表示更新状态的行为类型，payload表示更新状态时的附加参数。</p>
+<p>接着，在计数器组件中，我们调用useReducer函数，传入参数counterReducer和当前状态。useReducer会返回一个数组，第一个元素是当前的状态信息，第二个元素是一个dispatch函数，用于触发更新状态的行为。我们在组件中使用dispatch函数，传递一个包含type和payload属性的对象，触发特定的状态更新行为。</p>
+<p>最后，在组件中展示当前状态信息，并提供增加和减少计数的按钮。点击按钮时，触发对应的行为，并通过dispatch函数提交给reducer函数进行操作。</p>
+</li>
+<li><p>useMemo</p>
+</li>
+<li><p>useCallback</p>
+</li>
+<li><p>自定义Hook</p>
+<p>例如：自定义一个订阅好友在线状态的Hook</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useEffect, useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">useFriendStatus</span>(<span class="hljs-params">friendID</span>) &#123;<br>    <span class="hljs-keyword">const</span> [isOnline, setIsOnlone] = <span class="hljs-title function_">useState</span>(<span class="hljs-literal">null</span>);<br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">handleStatusChange</span> = (<span class="hljs-params">status</span>) =&gt; &#123;<br>        <span class="hljs-title function_">setIsOnline</span>(status);<br>    &#125;<br>    <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-title class_">ChatAPI</span>.<span class="hljs-title function_">subscribeToFriendStatus</span>(friendId, handleStatusChange); <span class="hljs-comment">// 订阅好友在线状态</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> &#123;<br>            <span class="hljs-title class_">ChatAPI</span>.<span class="hljs-title function_">unsubscribeToFriend</span>(friendId, handleStatusChange); <span class="hljs-comment">// 解绑对好友在线状态的订阅</span><br>        &#125;<br>    &#125;)<br>    <span class="hljs-keyword">return</span> isOnline;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>现在我们可以在别的组件中使用它</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">FriendStatus</span>(<span class="hljs-params">props</span>) &#123;<br>    <span class="hljs-keyword">const</span> isOnline = <span class="hljs-title function_">useFriendStatus</span>(props.<span class="hljs-property">friend</span>.<span class="hljs-property">id</span>);<br>    <span class="hljs-keyword">if</span>(isOnline === <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Loading...&quot;</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> isOnline ? <span class="hljs-string">&quot;onLine&quot;</span> : <span class="hljs-string">&quot;OffLine&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="为什么不能在循环、条件或嵌套函数中调用React-Hook？"><a href="#为什么不能在循环、条件或嵌套函数中调用React-Hook？" class="headerlink" title="为什么不能在循环、条件或嵌套函数中调用React Hook？"></a>为什么不能在循环、条件或嵌套函数中调用React Hook？</h2><p>React是使用类似于链表的结构来存储Hook的，每次Hook的调用都对应着一个全局的index索引，通过这个索引运行当前组件上的_hooks数组查找保存的值，也就是Hook返回的<code>[state, useState]</code></p>
+<p>假设在下面代码中：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Example</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> [state1, setState1] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">const</span> [state2, setState2] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">2</span>);<br>    <span class="hljs-keyword">const</span> [state3, setState3] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">3</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/11/5/166e20d92aa52108~tplv-t2oaga2asx-zoom-in-crop-mark:4536:0:0:0.image" srcset="/img/loading.gif" lazyload alt="react-hooks"></p>
+<p>在执行函数组件的时候，第一次执行<code>useState</code>是时候，它会对应Fiber对象上的<code>memoizedState</code>，这个属性原来是设计来存储类组件的state的，因为在类组件中state是一整个对象，所以可以和<code>memoizedState</code>一一对应。</p>
+<p>但是在Hooks中，React并不知道我们调用了几次<code>useState</code>，所以在保存state这件事上，React提出了另一种解决方案，即调用<code>useState</code>之后在<code>memoizedState</code>上的对象设计成如下样式：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    baseState<span class="hljs-punctuation">,</span><br>    next<span class="hljs-punctuation">,</span><br>    baseUpdate<span class="hljs-punctuation">,</span><br>    queue<span class="hljs-punctuation">,</span><br>    memoizedState<br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>我们将其称为Hook对象。这里最需要关心的是<code>memoizedState</code>和<code>next</code>，<code>memoizedState</code>用来记录该<code>useState</code>应该返回的结果，而<code>next</code>指向下一次<code>useState</code>对应的Hook对象。</p>
+<p>即：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js">hook1 =&gt; <span class="hljs-title class_">Fiber</span>.<span class="hljs-property">memoizedState</span><br>state1 === hook1.<span class="hljs-property">memoizedState</span><br>hook1.<span class="hljs-property">next</span> =&gt; hook2<br>state2 === hook2.<span class="hljs-property">memoizedState</span><br>hook2.<span class="hljs-property">next</span> =&gt; hook3<br>state3 === hook3.<span class="hljs-property">memoizedState</span><br></code></pre></td></tr></table></figure>
+
+<p>React按照执行顺序以类似链表的数据格式存放在<code>Fiber.memoizedState</code>上</p>
+<p>由于按照这种方式存储state，因此<code>useState</code>(包括其他Hooks)都必须在函数组件的根作用域声明，而不能再条件或循环中声明。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">if</span>(something) &#123;<br>    <span class="hljs-keyword">const</span> [state1] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">1</span>);<br>&#125;<br><span class="hljs-comment">// or</span><br><span class="hljs-keyword">for</span>(something) &#123;<br>    <span class="hljs-keyword">const</span> [state2] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">2</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>因为我们无法保证条件语句每次执行的次数是一样的，也就是说如果第一次render创建了<code>state1 =&gt; hook1, state2 =&gt; hook2, state3 =&gt; hook3</code>这样的对应关系，再次render的时候因为<code>something</code>未达成，导致<code>useState(1)</code>没有执行的话，那么执行<code>useState(2)</code>的时候，拿到的hook对象是<code>state1</code>的，那么逻辑就会混乱，因此该条件必须遵守。</p>
+<p>更新state的时候，调用<code>useState</code>的返回方法如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> dispatch = queue.<span class="hljs-property">dispatch</span> = dispatchAction.<span class="hljs-title function_">bind</span>(<span class="hljs-literal">null</span>, currentlyRenderingFiber$1, queue);<br><span class="hljs-keyword">return</span> [workInProgressHook.<span class="hljs-property">memoizedState</span>, dispatch];<br></code></pre></td></tr></table></figure>
+
+<p>调用该方法会创建一个update</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> update = &#123;<br>  <span class="hljs-attr">expirationTime</span>: _expirationTime,<br>  <span class="hljs-attr">action</span>: action,<br>  <span class="hljs-attr">callback</span>: callback !== <span class="hljs-literal">undefined</span> ? callback : <span class="hljs-literal">null</span>,<br>  <span class="hljs-attr">next</span>: <span class="hljs-literal">null</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里的action是调用<code>setState(1)</code>传入的值，而这个update会被加入到queue上，因此可能存在一次性调用多次setState1的情况。</p>
+<p>在收集完这所有<code>update</code>之后，会调度一次<code>React</code>的更新，在更新的过程中，肯定会执行到函数组件，那么就会执行到对应的<code>useState</code>，然后就拿到了<code>Hook</code>对象，它保存了<code>queue</code>对象表示有哪些更新存在，然后依次进行更新，拿到最新的<code>state</code>保存在<code>memoizedState</code>上，并且返回，最终达到了<code>setState</code>的效果。</p>
+<p>参考文档：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903704437456909">https://juejin.cn/post/6844903704437456909</a></p>
+<h2 id="useMemo和useCallback的区别⭐"><a href="#useMemo和useCallback的区别⭐" class="headerlink" title="useMemo和useCallback的区别⭐"></a>useMemo和useCallback的区别⭐</h2><p>二者都是用于缓存数据，优化性能的，它们接受到的参数是一样的，第一个参数表示回调函数，第二个参数表示依赖的数据。</p>
+<p>共同作用：在依赖数据发生变化的时候，才会调用传进去的回调函数去重新计算结果，起到缓冲的作用。</p>
+<p>区别：</p>
+<ul>
+<li><strong><code>useMemo</code>缓存的结果是回调函数中return回来的值</strong>，主要用于缓存计算结果的值，应用场景如需要计算的状态。</li>
+<li><code>useCallback</code>缓存的结果是函数，主要用于<strong>缓存函数</strong>，应用场景如需要缓存的函数，因为函数式组件每次任何一个state发生变化都会触发整个组件更新，一些函数是没有必要更新的，此时就应该缓存起来，<strong>提高性能，减少对资源的浪费</strong>。<code>useCallback</code>应该和<code>React.memo</code>配套使用，缺少一个可能会导致性能不升反降。</li>
+</ul>
+<h3 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123;useState, useMemo&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Info</span>(<span class="hljs-params">props</span>) &#123;<br>    <span class="hljs-keyword">const</span> [info, setInfo] = <span class="hljs-title function_">useState</span>(&#123;<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;LiHua&quot;</span>,<br>        <span class="hljs-attr">gender</span>: <span class="hljs-string">&quot;male&quot;</span><br>    &#125;);<br>    <span class="hljs-comment">// 翻译性别的函数</span><br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">formatGender</span> = (<span class="hljs-params">gender</span>) =&gt; &#123;<br>        <span class="hljs-keyword">return</span> gender === <span class="hljs-string">&quot;male&quot;</span> ? <span class="hljs-string">&quot;男&quot;</span> : <span class="hljs-string">&quot;女&quot;</span>;<br>    &#125;<br>    <span class="hljs-comment">// 如果不使用useMemo,修改其他属性，也会导致formatGender方法的调用，浪费计算资源</span><br>    <span class="hljs-comment">// const gender = formatGender(info.gender);</span><br>    <span class="hljs-comment">// 仅当info.gender发生变化的时候才调用formatGender</span><br>    <span class="hljs-keyword">const</span> gender = <span class="hljs-title function_">useMemo</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-title function_">formatGender</span>(info.<span class="hljs-property">gender</span>);<br>    &#125;, [info.<span class="hljs-property">gender</span>]);<br>    <span class="hljs-keyword">return</span> (<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        姓名：&#123;info.name&#125; - 性别：&#123;gender&#125;</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">button</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">onClick</span> = <span class="hljs-string">&#123;()</span> =&gt;</span> setInfo(...info, name: &quot;XiaoMing&quot;)&#125;</span><br><span class="language-xml">        &gt;点击修改姓名<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="useCallback"><a href="#useCallback" class="headerlink" title="useCallback"></a>useCallback</h3><p>useCallback是设计初衷是为了<strong>减少子组件的不必要重读渲染</strong>，优化思路主要有以下两种：</p>
+<ul>
+<li>减少render的次数</li>
+<li>减少计算量</li>
+</ul>
+<p>在如下场景中</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-comment">// 不使用useCallback和memo的时候</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Comp</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> [dataA, setDataA] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">const</span> [dataB, setDataB] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">onClickA</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>        <span class="hljs-title function_">setDataA</span>(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> o+<span class="hljs-number">1</span>);<br>    &#125;<br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">onClickB</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>        <span class="hljs-title function_">setDataB</span>(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> o+<span class="hljs-number">1</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> (<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Cheap</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onClickA&#125;</span>&gt;</span>组件Cheap: &#123;dataA&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">Cheap</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Expensive</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onClickB&#125;</span>&gt;</span>组件Expensive: &#123;dataB&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">Expensive</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对于上述组件中，每当点击Cheap组件的时候，Expensive组件也会重新渲染，即使dataB没有发生变化，原因就是onClickB被重新定义，导致React在diff新旧组件的时候判定了组件发生了变化。</p>
+<p>此时，useCallback和memo就发挥作用了。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123;useCallback, useState, memo&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Expensive</span>(<span class="hljs-params">&#123;onClick, name&#125;</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Expensive渲染&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onClick&#125;</span>&gt;</span>&#123;name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br><span class="hljs-keyword">const</span> memoExpensive = <span class="hljs-title function_">memo</span>(<span class="hljs-title class_">Expensive</span>);<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Cheap</span>(<span class="hljs-params">&#123;onClick, name&#125;</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Cheap渲染&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onClick&#125;</span>&gt;</span>&#123;name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Comp</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> [dataA, setDataA] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">const</span> [dataB, setDataB] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">onClickA</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>        <span class="hljs-title function_">setDataA</span>(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> o+<span class="hljs-number">1</span>);<br>    &#125;<br>    <span class="hljs-keyword">const</span> onClickB = <span class="hljs-title function_">useCallback</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-title function_">setDataB</span>(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> o+<span class="hljs-number">1</span>);<br>    &#125;, [])<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">    	<span class="hljs-tag">&lt;<span class="hljs-name">Cheap</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onClickA&#125;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&#123;</span>`<span class="hljs-attr">组件Cheap:</span> $&#123;<span class="hljs-attr">dataA</span>&#125;`&#125; /&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Expensive</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onClickB&#125;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&#123;</span>`<span class="hljs-attr">组件Expensive:</span> $&#123;<span class="hljs-attr">data</span>&#125;`&#125; /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>memo与PureComponent类似，对传入组件的新旧数据进行浅比较，如果相同则不会触发渲染。</p>
+<p>useCallback保证onClickB不会发生变化，此时点击Cheap组件不会触发Expensive组件的刷新，只有点击Expensive组件才会触发。在实现减少不必要渲染的优化过程中，useCallback和memo是一对利器。</p>
+<h2 id="useMemo相当于是对状态进行了一次缓存吗？"><a href="#useMemo相当于是对状态进行了一次缓存吗？" class="headerlink" title="useMemo相当于是对状态进行了一次缓存吗？"></a>useMemo相当于是对状态进行了一次缓存吗？</h2><p>是的，useMemo 可以看作是对计算结果进行缓存，仅在依赖项发生变化时才会重新计算。</p>
+<p>useMemo 接收两个参数：一个是计算函数，另一个是依赖项数组。当依赖项数组中的任意一个依赖项发生变化时，useMemo 会重新计算计算函数的结果。如果依赖项数组中的依赖项没有发生变化，则 useMemo 返回上一次缓存的结果。</p>
+<p>通过使用 useMemo，可以避免在每次渲染时都进行昂贵的计算，提高组件的性能。在某些情况下，如果没有使用 useMemo，组件可能会进行大量的重复计算，导致性能下降。</p>
+<p>此外，虽然 useMemo 可以优化组件的性能，但是过度使用 useMemo 也会带来一些问题，如增加内存占用和代码复杂度等。因此，在使用 useMemo 时需要根据实际情况进行权衡和调整。</p>
+<h2 id="useEffect和useLayoutEffect的区别？"><a href="#useEffect和useLayoutEffect的区别？" class="headerlink" title="useEffect和useLayoutEffect的区别？"></a>useEffect和useLayoutEffect的区别？</h2><p>useEffect 和 useLayoutEffect 都是 React 的 Hooks API，它们的主要区别在于执行的时机和是否会阻塞浏览器渲染。</p>
+<ol>
+<li>执行时机：useEffect 是<strong>在组件渲染完成后、在浏览器完成布局和绘制之后异步执行的</strong>，而 useLayoutEffect 是在<strong>组件渲染完成后、页面绘制和布局前同步执行的</strong>。因此，useLayoutEffect 的执行优先级更高。</li>
+<li>是否阻塞浏览器渲染：<strong>useEffect 不会阻塞浏览器渲染，而 useLayoutEffect 会阻塞浏览器渲染</strong>。因此，在使用 useLayoutEffect 时要注意避免长时间的计算和操作，以免影响用户体验。</li>
+<li>使用场景：useEffect 适合处理副作用，如数据获取、订阅事件等。而 useLayoutEffect 适合处理需要同步更新 DOM 的操作，如计算 DOM 元素的大小和位置等。</li>
+</ol>
+<p>综上所述，useEffect 和 useLayoutEffect 在执行时机和是否阻塞浏览器渲染方面有所不同，需要根据实际情况选择使用。一般来说，如果需要同步更新 DOM，可以使用 useLayoutEffect，否则可以使用 useEffect。</p>
+<h2 id="useRef有哪些作用？"><a href="#useRef有哪些作用？" class="headerlink" title="useRef有哪些作用？"></a>useRef有哪些作用？</h2><p>React中的useRef是一个Hook，它返回一个可变的ref对象，它的<code>.current</code>属性被初始化为传入的参数(initialValue)。useRef可以用来存储任何可变值，就像在类数组中使用实例属性一样。</p>
+<p>useRef返回的对象在组件的整个生命周期中保持不变，因此可以用来存储哪些 不需要触发重新渲染的值，例如定时器或其他引用类型的值。另外，useRef还可以用来获取DOM元素或者其他组件的实例。</p>
+<p>作用：</p>
+<ul>
+<li>存储状态</li>
+<li>获取DOM元素或其他组件实例</li>
+</ul>
+<h2 id="useRef的返回值是什么？"><a href="#useRef的返回值是什么？" class="headerlink" title="useRef的返回值是什么？"></a>useRef的返回值是什么？</h2><p><code>useRef</code>的返回值是一个可变的<code>ref</code>对象，且只有一个current属性，其中 <code>current</code> 属性指向一个可变的值。可以通过修改 <code>current</code> 属性来更新这个值，而不会触发组件的重新渲染。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; useRef &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> inputRef = <span class="hljs-title function_">useRef</span>(<span class="hljs-literal">null</span>);<br><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleClick</span>(<span class="hljs-params"></span>) &#123;<br>    inputRef.<span class="hljs-property">current</span>.<span class="hljs-title function_">focus</span>();<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;inputRef&#125;</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;handleClick&#125;</span>&gt;</span>Focus<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="用useState可以实现useRef的效果吗？"><a href="#用useState可以实现useRef的效果吗？" class="headerlink" title="用useState可以实现useRef的效果吗？"></a>用useState可以实现useRef的效果吗？</h2><p>不能。</p>
+<p>虽然 <code>useState</code> 和 <code>useRef</code> 都可以用来存储组件中的数据，但是它们的实现方式不同，因此不能完全替代彼此。</p>
+<p><code>useState</code> 用于存储组件的状态，每次更新状态都会触发组件的重新渲染。而 <code>useRef</code> 用于存储组件中的数据，不会触发组件的重新渲染。</p>
+<p>虽然 <code>useState</code> 可以用来存储组件中的数据，但是每次更新状态都会触发组件的重新渲染，这可能会导致性能问题。而 <code>useRef</code> 可以在不触发组件重新渲染的情况下存储数据，因此更适合用来存储不需要触发重新渲染的数据。</p>
+<p>例如，<code>useRef</code> 可以用来存储 DOM 元素的引用，而 <code>useState</code> 则不适合用来存储 DOM 元素的引用，因为每次更新状态都会触发组件的重新渲染，从而导致 DOM 元素的重新创建和销毁。</p>
+<h2 id="函数组件如何模拟生命周期？"><a href="#函数组件如何模拟生命周期？" class="headerlink" title="函数组件如何模拟生命周期？"></a>函数组件如何模拟生命周期？</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// 模拟componentDidMount</span><br><span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>   <span class="hljs-comment">// 第一次渲染时调用 </span><br>&#125;, [])<br><br><span class="hljs-comment">// 模拟componentDidUpdate</span><br><span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-comment">// 任意属性发生改变该属性就会改变</span><br>&#125;)<br><br><span class="hljs-comment">// 模拟componentWillUnmount useEffect会在状态变化的时候进行解绑</span><br><span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> timer = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> &#123;&#125;, <span class="hljs-number">1000</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> &#123; <span class="hljs-comment">// 返回的函数是用于清除副作用的</span><br>        <span class="hljs-comment">// 执行卸载操作</span><br>        <span class="hljs-built_in">clearInterval</span>(timer);<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h2 id="React-state更新机制"><a href="#React-state更新机制" class="headerlink" title="React state更新机制"></a>React state更新机制</h2><p>React中类组件的state是通过setState()方法来更新的。当执行setState()时，会将需要更新的state合并后放入状态队列，不会立即更新。React也正是通过状态队列实现了setState的异步更新，避免频繁的重复更新state。当React需要更新组件时，会将状态队列中的state合并后一次性更新组件，这样可以提高性能。</p>
+<p>React函数组件中的state是通过useState()方法来更新的。useState()方法返回一个数组，第一个元素是当前state的值，第二个元素是更新state的函数。当执行更新state的函数时，会将需要更新的state合并后放入状态队列，不会立即更新。React也正是通过状态队列实现了useState的异步更新，避免频繁的重复更新state。当React需要更新组件时，会将状态队列中的state合并后一次性更新组件，这样可以提高性能。</p>
+<p>在React18优化了批处理之后，state的更新都表现为异步的。</p>
+<h2 id="React如何减少渲染次数？"><a href="#React如何减少渲染次数？" class="headerlink" title="React如何减少渲染次数？"></a>React如何减少渲染次数？</h2><ol>
+<li>使用 <code>React.memo</code> 或 <code>PureComponent</code>：这些方法可以帮助组件实现浅比较，当组件的 props 没有发生变化时，避免不必要的重新渲染。</li>
+<li>使用 <code>useCallback</code>：当需要将函数作为 props 传递给子组件时，可以使用 <code>useCallback</code> 缓存函数，避免在每次重新渲染时都创建新的函数。</li>
+<li>尽可能地将组件拆分成更小的组件：这样可以避免不必要的重新渲染，提高组件的复用性。</li>
+<li>避免在 <code>render</code> 方法中执行复杂的计算或操作：将复杂的计算或操作移到组件外部，或者使用 <code>useMemo</code> 或 <code>useEffect</code> 缓存计算结果。</li>
+<li>避免在 <code>render</code> 方法中使用匿名函数：使用匿名函数会导致组件的重新渲染，因此尽可能地避免在 <code>render</code> 方法中使用匿名函数。</li>
+</ol>
+<h2 id="有哪些Hooks可以减少渲染次数？"><a href="#有哪些Hooks可以减少渲染次数？" class="headerlink" title="有哪些Hooks可以减少渲染次数？"></a>有哪些Hooks可以减少渲染次数？</h2><ol>
+<li><code>React.memo</code>：这个 Hook 可以帮助函数组件进行浅比较，避免不必要的重新渲染。它接受一个组件作为参数，并返回一个新的组件，新组件会对原组件的 props 进行浅比较，当 props 没有发生变化时，避免不必要的重新渲染。</li>
+<li><code>useCallback</code>：这个 Hook 可以缓存函数，避免在每次重新渲染时都创建新的函数。它接受一个函数和依赖项列表作为参数，并返回一个新的函数。当依赖项的值没有发生变化时，返回缓存的函数，否则返回新的函数。</li>
+<li><code>useMemo</code>：这个 Hook 可以缓存计算结果，避免在每次重新渲染时都重新计算。它接受一个计算函数和依赖项列表作为参数，并返回计算结果。当依赖项的值没有发生变化时，返回缓存的计算结果，否则重新计算并返回新的结果。</li>
+<li><code>useReducer</code>：这个 Hook 可以帮助管理组件的状态，并避免不必要的重新渲染。它接受一个 reducer 函数、初始状态和一个初始化函数作为参数，并返回一个包含状态和 dispatch 函数的数组。当状态发生变化时，只会重新渲染与状态相关的部分。</li>
+<li><code>useMemoOne</code>：这个 Hook 可以缓存计算结果，避免在每次重新渲染时都重新计算。它类似于 <code>useMemo</code>，但是可以在渲染期间多次调用计算函数，并缓存计算结果。它接受一个计算函数和依赖项列表作为参数，并返回计算结果。</li>
+</ol>
+<h2 id="React的高阶组件是如何实现的？"><a href="#React的高阶组件是如何实现的？" class="headerlink" title="React的高阶组件是如何实现的？"></a>React的高阶组件是如何实现的？</h2><p>React高阶组件（Higher-Order Components，HOC）是一个函数，接收一个组件并返回一个增强版本的组件。它用于复用组件逻辑，可以用来实现代码复用、逻辑封装等。</p>
+<p>React高阶组件的实现方式如下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">higherOrderComponent</span>(<span class="hljs-params">WrappedComponent</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">extends</span> <span class="hljs-title class_">React</span>.<span class="hljs-property">Component</span> &#123;<br>    <span class="hljs-comment">// 这里可以定义一些通用的逻辑</span><br><br>    <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>      <span class="hljs-comment">// 在这里渲染被包裹的组件，并注入一些 props</span><br>      <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">WrappedComponent</span> &#123;<span class="hljs-attr">...this.props</span>&#125; /&gt;</span></span>;<br>    &#125;<br>  &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面这个例子演示了一个最基础的高阶组件实现方式。当组件使用这个高阶组件时，它将被包裹在高阶组件返回的类组件中。</p>
+<p>使用这个高阶组件的方式如下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title class_">EnhancedComponent</span> = <span class="hljs-title function_">higherOrderComponent</span>(<span class="hljs-title class_">BaseComponent</span>);<br></code></pre></td></tr></table></figure>
+
+<p>这样，<code>EnhancedComponent</code> 就变成了增强版的 <code>BaseComponent</code>。</p>
+<p>React高阶组件的应用有很多，例如：</p>
+<ul>
+<li>控制组件渲染</li>
+<li>访问 React 组件的生命周期方法</li>
+<li>将通用逻辑抽象为一个公共组件</li>
+</ul>
+<p>需要注意的是，使用高阶组件将会导致一些性能问题。因为每次渲染时，都可能会创建一个新的组件实例。为了解决这个问题，我们可以使用 <code>React.memo</code> 高阶函数对组件进行优化，使其只在依赖项发生变化时才进行更新，避免不必要的渲染。</p>
+<h2 id="什么是React-Fiber？"><a href="#什么是React-Fiber？" class="headerlink" title="什么是React Fiber？"></a>什么是React Fiber？</h2><p>React Fiber是React v16中引入的一种新的协调引擎，用于重新设计和实现React的核心算法。它的目标是提高React的性能、灵活性和可扩展性。</p>
+<p>React v15在渲染时,会递归比对 VirtualDOM树，找出需要变动的节点步更新它过程期间， React会占据浏览器资源，这会导致用户触发的事件得不到响应，并且会导致掉帧，导致用户感觉到卡顿。</p>
+<p>为了给用户制造一种应用很快的”假象”，不能让一个任务长期霸占着资源。可以将浏览器的渲染、布局、绘制、资源载、事件响应、脚本执行视作操作系统的”进程”，需要通过某些调策略合理地分配CPU资源，从而提高浏览器的用户响应速率，同时兼顾任务执行效率。</p>
+<p>React通过Fiber架构，让这个执行过程变得可中断。适时的让出CPU执行权，除了可以让浏览器及时的响应用户的交互，还有一些好处：</p>
+<ul>
+<li>分批延时的对DOM进行操作，避免一次性操作大量DOM节点，可以获得更好的用户体验。</li>
+<li>给浏览器一些喘息的机会，它会对代码进行编译优化 ( JIT ) 及热代码优化，或对 reflow 进行修正。</li>
+</ul>
+<p>React Fiber的主要特点包括：</p>
+<ol>
+<li>可中断的渲染：React Fiber可以在渲染过程中暂停、中断和恢复渲染，以支持更高优先级的任务，如动画和用户输入。</li>
+<li>渐进式渲染：React Fiber可以将渲染过程分为多个阶段，并在每个阶段中执行一部分工作，以避免长时间的阻塞，提高用户体验。</li>
+<li>异步渲染：React Fiber可以在不同的时间段内执行渲染，以支持异步渲染和服务器端渲染等场景。</li>
+<li>更好的错误处理：React Fiber可以更好地捕获和处理错误，以提高应用程序的健壮性和可靠性。</li>
+</ol>
+<h2 id="hash路由和history路由的区别？"><a href="#hash路由和history路由的区别？" class="headerlink" title="hash路由和history路由的区别？"></a>hash路由和history路由的区别？</h2><ul>
+<li><p>hash路由是通过触发并监听hashChange事件来实现前端路由的，改变hash可以直接通过location.hash &#x3D; xxx来改变；而history路由是通过history的各种API (history.pushState、history.replaceState) 等实现url的改变的，监听url的变化可以通过自定义事件触发实现。</p>
+</li>
+<li><p>hash路由兼容性好，支持所有的浏览器，而且可以实现前端路由的核心功能 (IE8以上)，但是ur不够美观；history路由url美观，可以利用浏览器的前进、后退等基本功能，但是兼容性不好(IE10以上)，需要浏览器支持HTML5的history API，同时需要服务器端支持，否则刷新页面会出现404错误。</p>
+</li>
+<li><p>history pushState设置的新URL可以与当前URL一模一样，这样也会把记录添加到栈中；而hash设置的新值必须与原来不一样才会触发记录添加到栈中。</p>
+</li>
+<li><p>history 进行刷新页面时，无法找到url对应的页面，会出现 404 问题。因为域名后面的路由是由前端控制的，后端只能保留域名部分，所以就会造成页面丢失的问题。</p>
+</li>
+</ul>
+<h2 id="React中什么时候用history路由，什么时候用hash路由？"><a href="#React中什么时候用history路由，什么时候用hash路由？" class="headerlink" title="React中什么时候用history路由，什么时候用hash路由？"></a>React中什么时候用history路由，什么时候用hash路由？</h2><ul>
+<li>如果需要兼容更老的路由，建议使用hash路由，history的兼容性较差。</li>
+<li>如果希望url看起来更美观，建议使用history路由，不会在url中添加#字符。</li>
+<li>如果需要更好的SEO(搜索引擎优化)，建议使用history路由，因为搜索引擎对hash路由中的#字符处理不太友好。</li>
+<li>服务端渲染：如果需要在服务端渲染应用程序，建议使用history路由，因为服务端渲染需要在服务器上匹配URL。</li>
+<li>前进&#x2F;后退：如果需要利用浏览器的前进&#x2F;后退等基本功能，建议使用history路由，因为hash路由中的#字符不会被浏览器记录到历史记录中。</li>
+</ul>
+<h2 id="React中hash路由与history路由的实现原理？"><a href="#React中hash路由与history路由的实现原理？" class="headerlink" title="React中hash路由与history路由的实现原理？"></a>React中hash路由与history路由的实现原理？</h2><p>Hash路由：通过监听<code>hashChange</code>事件，感知hash的变化，改变hash可以直接通过<code>location.hash = xxx</code>进行改变。</p>
+<p>History路由：改变url需要通过<code>history.pushState</code>和<code>history.replaceState</code>等，会将url压入堆栈，同时能够适应<code>history.go()</code>等API，监听url的改变可以通过自定义事件触发实现。</p>
+<h2 id="为什么history模式会出现404的情况？"><a href="#为什么history模式会出现404的情况？" class="headerlink" title="为什么history模式会出现404的情况？"></a>为什么history模式会出现404的情况？</h2><p>在使用 HTML5 History API 中的 history 模式时，如果不正确地设置服务器配置，就有可能出现 404 错误。<strong>这是因为在 history 模式下，浏览器的 URL 地址与后端服务器的路由地址是不同的，此时需要后端服务器做出相应的配置</strong>。</p>
+<p>在 history 模式中，URL 会随着页面的跳转而发生变化，但实际上服务器只会返回同一个 HTML 文件，因此如果没有正确地配置服务器，当用户在浏览器中直接输入 URL 或者刷新浏览器时，服务器会根据该路径去查找对应的文件，但是由于该文件不存在于服务器中，所以就会返回 404 错误。</p>
+<p>为了解决这个问题，我们需要在服务器端进行以下配置：</p>
+<ol>
+<li><p>配置重定向：在任何非文件资源请求的情况下，将所有请求都重定向到 index.html 文件上。这可以通过在服务器上设置一个统配符来完成。例如，如果使用 Apache 服务器，可以在 .htaccess 文件中添加以下配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs htaccess">&lt;IfModule mod_rewrite.c&gt;<br>  RewriteEngine On<br>  RewriteBase /<br>  RewriteRule ^index\.html$ - [L]<br>  RewriteCond %&#123;REQUEST_FILENAME&#125; !-f<br>  RewriteCond %&#123;REQUEST_FILENAME&#125; !-d<br>  RewriteRule . /index.html [L]<br>&lt;/IfModule&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置404.html文件：将服务器上的默认错误页面更改为自定义的错误页面。在这个自定义的错误页面中，我们可以在页面中使用 JavaScript 来动态获取页面路径并重定向到正确的路径上。</p>
+</li>
+</ol>
+<p>以上两种配置方式可以解决 history 模式中出现 404 错误的问题，确保每个路由的请求都被正确地处理。</p>
+<h2 id="什么是虚拟DOM？"><a href="#什么是虚拟DOM？" class="headerlink" title="什么是虚拟DOM？"></a>什么是虚拟DOM？</h2><p>虚拟DOM（Virtual DOM）是指一种构建在内存中的、轻量级的虚拟节点树。在React等某些JavaScript框架中，组件经常被定义为一个虚拟的数据结构，它们包含了组件的状态和属性，但是没有DOM元素。当一个组件的状态发生改变时，虚拟DOM会在内存中重新构建一棵树，然后与之前的树进行比较，找出两棵树中不同的部分并更新到实际的DOM上，从而实现了页面内容的更新。</p>
+<p>虚拟DOM的优点在于：</p>
+<ol>
+<li>减少DOM操作次数：通过计算前后两次虚拟DOM树的差异，只更新差异的部分，而不是整个页面都进行重绘，从而避免了一些性能上的浪费。</li>
+<li>提高渲染效率：虚拟DOM可以根据需要进行分类，一个虚拟节点上所包含的真实节点也只会在其附近需要更新的时候才会被添加到真实的DOM树中。</li>
+<li>更好地实现跨平台：虚拟DOM的本质是一个跨平台的数据结构，可以轻松地在不同平台和环境中实现页面的构建和渲染，例如React Native就是利用虚拟DOM实现的。</li>
+</ol>
+<p>虚拟DOM的实现过程一般包括三个步骤：生成虚拟DOM树、对比新旧虚拟DOM树、更新真实DOM树。虽然虚拟DOM有些许性能上的消耗，但是在复杂的应用场景下，它还是展现出了出色的性能优势。</p>
+<h2 id="React为什么要使用虚拟DOM？"><a href="#React为什么要使用虚拟DOM？" class="headerlink" title="React为什么要使用虚拟DOM？"></a>React为什么要使用虚拟DOM？</h2><p>提高性能和开发效率。</p>
+<p>传统的DOM操作是非常耗费性能的，因为每次更新DOM都需要重新计算布局、绘制等操作，而且频繁的DOM操作会导致页面卡顿和性能下降。而虚拟DOM是在内存中维护一个虚拟的DOM树，通过对比新旧虚拟DOM树的差异，最终只更新需要更新的部分，从而减少DOM操作次数，提高性能。</p>
+<p>此外，使用虚拟DOM还可以提高开发效率。开发者可以通过JSX语法编写组件，将组件的状态和属性传递给虚拟DOM，React会根据虚拟DOM自动更新组件的状态，从而减少了手动操作DOM的代码量，提高了开发效率。</p>
+<h2 id="React的diffing算法-比如从ABCD变为BADC，具体是移动还是销毁？"><a href="#React的diffing算法-比如从ABCD变为BADC，具体是移动还是销毁？" class="headerlink" title="React的diffing算法 比如从ABCD变为BADC，具体是移动还是销毁？"></a>React的diffing算法 比如从ABCD变为BADC，具体是移动还是销毁？</h2><p>如果节点没有发生变化，只是位置发生了变化，会对它们进行移动而不是销毁。</p>
+<p><strong>React允许开发者对同一层级的同组子节点，添加唯一 key 进行区分。</strong></p>
+<p>当同一层级的某个节点添加了对于其他同级节点唯一的key属性，当它在<strong>当前层级</strong>的位置发生了变化后。react diff算法通过新旧节点比较后，<strong>如果发现了key值相同的新旧节点，就会执行移动操作（然后依然按原策略深入节点内部的差异对比更新），而不会执行原策略的删除旧节点，创建新节点的操作。</strong>这无疑大大提高了React性能和渲染效率。</p>
+<p>在具体的执行过程中，首先会对新集合中的节点进行遍历循环，通过唯一的key判断新旧节点中是否存在相同的节点，如果存在则进行移动操作，但是在移动操作之前需要将当前节点在旧几个中的位置与lastIndex进行比较 <code>if(child._mountIndex &lt; lastIndex)</code>，否则不执行该操作。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fe044edaaf28439c9d4afba753690eb9~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/img/loading.gif" lazyload alt="同一层级中所有节点只发生了位置变化"></p>
+<p>按新集合中顺序开始遍历</p>
+<ol>
+<li>B在新集合中 lastIndex(类似浮标) &#x3D; 0, 在旧集合中 index &#x3D; 1，index &gt; lastIndex 就认为 B 对于集合中其他元素位置无影响，不进行移动，之后lastIndex &#x3D; max(index, lastIndex) &#x3D; 1</li>
+<li>A在旧集合中 index &#x3D; 0， 此时 lastIndex &#x3D; 1, 满足 index &lt; lastIndex, 则对A进行移动操作，此时lastIndex &#x3D; max(Index, lastIndex) &#x3D; 1</li>
+<li>D和B操作相同，同(1)，不进行移动，此时lastIndex&#x3D;max(index, lastIndex) &#x3D; 3</li>
+<li>C和A操作相同，同(2)，进行移动，此时lastIndex &#x3D; max(index, lastIndex) &#x3D; 3</li>
+</ol>
+<p>如果同一层级中的节点不仅发生了位置变化，还发生了节点增删：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/83a71d590dce4999a0320e7d7ba7bacd~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/img/loading.gif" lazyload alt="不仅发生了位置变化，还发生了节点增删"></p>
+<ol>
+<li>同上面那种情形，B不进行移动，lastIndex&#x3D;1</li>
+<li>新集合中取得E,发现旧中不存在E，在 lastIndex处<strong>创建</strong>E，lastIndex++</li>
+<li>在旧集合中取到C，C不移动，lastIndex&#x3D;2</li>
+<li>在旧集合中取到A，A移动到新集合中的位置，lastIndex&#x3D;2</li>
+<li>完成新集合中所有节点diff后，对旧集合进行循环遍历，寻找新集合中不存在但就集合中的节点(此例中为D)，删除D节点。</li>
+</ol>
+<p><strong>是否推荐使用遍历时的index作为key属性值？</strong></p>
+<p>React官方建议不要用遍历的index作为这种场景下的节点的key属性值。比如当前遍历的所有节点类型都相同，其内部文本不同，在用index作key的情况下，当我们对原始的数据list进行了某些元素的顺序改变操作，导致了新旧集合中在进行diff比较时，相同index所对应的新旧的节点其文本不一致了，就会出现一些节点需要更新渲染文本，而如果用了其他稳定的唯一标识符作为key，则只会发生位置顺序变化，无需更新渲染文本，提升了性能。</p>
+<p><strong>key机制的缺陷：</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ce6eb05a24674c51943127fcde856d34~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/img/loading.gif" lazyload alt="只有D节点位置变化"></p>
+<p>如图 所示，若新集合的节点更新为 D、A、 B、C，与旧集合相比只有 D 节点移动，而 A、B、C 仍然保持原有的顺序，理论上 diff 应该只需对 D 执行移动操作，然而由于 D 在旧集合中的位置是最大的，导致其他节点的 _mountIndex &lt;lastIndex，造成 D 没有执行移动操作，而是 A、B、C 全部移动到 D 节点后面的现象。</p>
+<p><strong>在开发过程中，尽量减少类似将最后一个节点移动到列表首部的操作。当节点数量过大或更新操作过于频繁时，这在一定程度上会影响 React 的渲染性能。</strong></p>
+<p><strong>key使用注意事项：</strong></p>
+<ol>
+<li>如果遍历的列表子节是作为纯展示，而不涉及到列表元素顺序的动态变更，那使用index作为key还是没有问题的。</li>
+<li>key只是针对同一层级的节点进行了diff比较优化，而跨层级的节点互相之间的key值没有影响</li>
+<li>大部分情况下，通过遍历的同一层级的使用了key属性的元素节点其节点类型是相同的（比如都是span元素或者同一个组件）。如果存在新旧集合中，相同的key值所对应的节点类型不同（比如从span变成div），这相当于完全替换了旧节点，删除了旧节点，创建了新节点。</li>
+<li>如果新集合中，出现了旧集合没有存在过的key值。例如某个节点的key之前为1，现在为100，但旧集合中其他节点也没有使用100这个key值。说明没发生过移动操作，此时diff算法会对对应的节点进行销毁并重新创建。这在一些场景中会比较有用（比如重置某个组件的状态）</li>
+<li>key值在比较之前都会被执行toString()操作，所以尽量不要使用object类型的值作为key，会导致同一层级出现key值相同的节点。key值重复的同一类型的节点或组件很可能出现拷贝重复内部子元素的问题。</li>
+</ol>
+<p>参考：[React虚拟DOM、Diff算法与Key机制](</p>
+<h2 id="React虚拟DOM的Diff算法？"><a href="#React虚拟DOM的Diff算法？" class="headerlink" title="React虚拟DOM的Diff算法？"></a>React虚拟DOM的Diff算法？</h2><p>React中的虚拟DOM和diff算法是为了提高渲染效率而设计的。虚拟DOM是一种编程概念，UI以一种理想化的、或者说“虚拟的”表现形式存在于内存中，而不是真实的DOM树。当状态发生变化时，React会通过diff算法比较新旧虚拟DOM树的差异，然后只更新需要更新的部分，从而避免了全量渲染，提高了渲染效率。</p>
+<p>React中的diff算法是通过比较新旧虚拟DOM树的差异来确定需要更新的节点。diff算法会遍历新旧虚拟DOM树，对比它们的节点，然后根据节点的变化情况来更新真实DOM。React中的diff算法是基于两个假设：同一层级的两个节点可以通过唯一的id进行区分；同一层级的节点可以通过位置进行区分。React中的diff算法是一个递归算法，它会递归遍历新旧虚拟DOM树，对比它们的节点，然后根据节点的变化情况来更新真实DOM。如果两个节点不同，则会直接替换掉旧节点，如果两个节点相同，则会更新该节点。</p>
+<p><strong>查找需要更新的节点是从尾节点找还是头节点找还是中间二分择半？</strong></p>
+<p>React的Diff算法进行虚拟节点比较是从头部开始，然后依次向后比较，直到找到不同的节点位置。如果新旧虚拟节点的数量不同，则从尾部开始比较，直到找到不同的节点为止。</p>
+<h2 id="React-Diff算法的实现细节？"><a href="#React-Diff算法的实现细节？" class="headerlink" title="React Diff算法的实现细节？"></a>React Diff算法的实现细节？</h2><p>React Diff算法是指React通过比较前后两次的虚拟DOM树来计算出真实DOM树中需要更新的节点，从而提高渲染性能的算法。</p>
+<p>React Diff算法的实现细节如下：</p>
+<ol>
+<li>只会在同一个节点（即相同的组件）之间进行比较：React会判断新旧两个节点是否相同，如果不同，则直接暴力删除旧节点，新增一个新节点，重新创建所有子节点，这时会丢失所有DOM节点上的状态。如果相同，则继续下一步比较。</li>
+<li>对属性进行比较：React比较前后两次虚拟DOM节点的属性，只更新有改变的属性，提高渲染效率。</li>
+<li>采用“key”进行优化：在对列表进行Diff算法时，通过给每一个单独的列表项加上唯一的“key”属性，可以更快速精准地找出需要更新的节点。</li>
+<li>对子节点进行递归比较：当两个节点的属性相同且节点类型相同时，React会对它们的子节点进行递归比较，找出需要更新的子节点。</li>
+<li>按顺序更新子节点：React将之前生成的虚拟DOM节点数组与新的虚拟DOM节点数组进行比较，找出需要更新、新增和删除的节点，并按顺序更新节点。</li>
+</ol>
+<h2 id="React过期闭包了解过吗？"><a href="#React过期闭包了解过吗？" class="headerlink" title="React过期闭包了解过吗？"></a>React过期闭包了解过吗？</h2><p>React过期闭包是指在使用React Hook时，由于函数组件多次render之间，函数的闭包可能会包住过期的上下文，也就是之前render时的上下文。这个问题在应用Hooks更突出。</p>
+<p>React解决过期闭包问题的方法是依赖数组。针对过期state，可以使用函数的方法更新值。React确保通过更新函数可以得到最新的state值。</p>
+<h2 id="React中父组件如何向子孙组件传值？"><a href="#React中父组件如何向子孙组件传值？" class="headerlink" title="React中父组件如何向子孙组件传值？"></a>React中父组件如何向子孙组件传值？</h2><ul>
+<li>props</li>
+<li>useContext</li>
+</ul>
+<h2 id="子孙组件如何修改通过useContext获取到的值？"><a href="#子孙组件如何修改通过useContext获取到的值？" class="headerlink" title="子孙组件如何修改通过useContext获取到的值？"></a>子孙组件如何修改通过useContext获取到的值？</h2><p>在父组件中定义一个state，然后将state和其更新方法一起传递给context对象，然后再需要的时候调用该函数修改state。</p>
+<p>例如：在App.jsx中定义count，并将其传递给Context</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; createContext, useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Father</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./components/Father&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> C = <span class="hljs-title function_">createContext</span>(<span class="hljs-literal">null</span>);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [count, setCount] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>);<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">C.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;&#123;count,</span> <span class="hljs-attr">setCount</span>&#125;&#125;&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Father</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">C.Provider</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后在Father组件中引用Son组件：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Son</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../Son&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Father</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Son</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Son</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>最终在子组件中展示count以及修改count</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useContext &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; C &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../App&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Son</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> &#123;count, setCount&#125; = <span class="hljs-title function_">useContext</span>(C);<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>count的值为&#123;count&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> setCount(count+1)&#125;&gt;点我+1<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="context封装的值改变了，会触发组件的重新渲染吗？"><a href="#context封装的值改变了，会触发组件的重新渲染吗？" class="headerlink" title="context封装的值改变了，会触发组件的重新渲染吗？"></a>context封装的值改变了，会触发组件的重新渲染吗？</h2><p>在 React 中，当一个组件被包裹在一个 Context Provider 中时，只有当该组件<strong>直接依赖于该 Context 数据</strong>时，才会在 Context 数据发生变化时重新渲染。</p>
+<p>如果一个组件被包裹在一个 Context Provider 中，但是它并没有使用该 Context 数据，那么该组件不会在 Context 数据发生变化时重新渲染。</p>
+<p>这是因为 React 使用了优化算法来避免不必要的重新渲染，也就是说，只有当组件的 props 或者 state 发生变化时，才会触发重新渲染。而对于 Context 数据的变化，只有当该 Context 数据被使用的组件才会重新渲染。</p>
+<h2 id="假如在某个子孙组件中-使用了-useEffect-其依赖项中记录了某个-context-当-context-值变了-会触发-useEffect-内包裹的函数执行吗-会触发该组件的重新渲染吗"><a href="#假如在某个子孙组件中-使用了-useEffect-其依赖项中记录了某个-context-当-context-值变了-会触发-useEffect-内包裹的函数执行吗-会触发该组件的重新渲染吗" class="headerlink" title="假如在某个子孙组件中, 使用了 useEffect, 其依赖项中记录了某个 context, 当 context 值变了, 会触发 useEffect 内包裹的函数执行吗? 会触发该组件的重新渲染吗?"></a>假如在某个子孙组件中, 使用了 useEffect, 其依赖项中记录了某个 context, 当 context 值变了, 会触发 useEffect 内包裹的函数执行吗? 会触发该组件的重新渲染吗?</h2><p>使用useEffect包裹context的值，当context的值发生变化会触发useEffect包裹的函数执行，即使props和state没有发生变化，也会导致该组件的重新渲染，但是如果使用React.memo包裹就不会导致组件重新渲染了。</p>
+<h2 id="为什么使用Redux进行状态管理？"><a href="#为什么使用Redux进行状态管理？" class="headerlink" title="为什么使用Redux进行状态管理？"></a>为什么使用Redux进行状态管理？</h2><ul>
+<li><strong>Redux使状态可预测。</strong>传递相同的状态和动作传递给减速器，总会产生相同的结果，因为减速器是纯函数。</li>
+<li><strong>Redux方便维护。</strong>Redux对代码的组织方式很严格，结构更容易理解，维护更加方便。同时有利于用户将业务逻辑与组件树分离。</li>
+<li><strong>Redux调试简单。</strong>Redux使调试程序变得简单，通过记录操作和状态，很容易理解编码错误、网络错误和生产过程中出现的其他形式的错误。</li>
+<li><strong>Redux有性能优势。</strong>Redux内部实现了很多优化，因此我们自己的连接组件仅在实际需要时才重新渲染。</li>
+<li><strong>数据持久化。</strong></li>
+<li><strong>Redux还能用于服务端渲染。</strong>我们可以通过将应用程序的状态连同它对服务器请求的响应发送到服务器来处理应用程序的初始呈现，然后所需组件以HTML格式呈现并发送到客户端。</li>
+</ul>
+<h2 id="Redux一般用于存储哪些数据？"><a href="#Redux一般用于存储哪些数据？" class="headerlink" title="Redux一般用于存储哪些数据？"></a>Redux一般用于存储哪些数据？</h2><p>全局公共数据用Redux进行管理，局部状态用state和props即可。</p>
+<ol>
+<li>全局状态数据：如果一个状态数据<strong>需要在多个组件中共享并且需要管理其生命周期</strong>，那么这个状态数据则适合使用 Redux 进行存储。</li>
+<li>非父子组件之间共享的状态数据：如果一个状态数据需要<strong>在非父子关系的组件之间共享</strong>，也可以考虑使用 Redux 进行存储。</li>
+<li>异步数据：如果一个数据需要进行异步操作（如网络请求），那么使用 Redux 可以<strong>更好地管理请求的状态和结果</strong>。</li>
+<li>路由状态：如果需要<strong>在应用程序的路由之间共享状态</strong>，那么 Redux 也是一个不错的选择。</li>
+<li>调试信息：Redux 提供了强大的时间旅行调试工具，可以记录和回放应用程序状态的变化，帮助我们更好地调试应用程序。</li>
+</ol>
+<h2 id="Redux使用流程及场景？"><a href="#Redux使用流程及场景？" class="headerlink" title="Redux使用流程及场景？"></a>Redux使用流程及场景？</h2><ol>
+<li>安装Redux。</li>
+<li>创建一个store，store是一个对象，它有四个方法：dispatch、subscribe、getState和replaceReducer。</li>
+<li>定义action，action是一个普通的JavaScript对象，用来描述发生了什么。</li>
+<li>定义reducer，reducer是一个纯函数，接收旧的state和action，返回新的state。</li>
+<li>使用combineReducers将多个reducer合并成一个根reducer。</li>
+<li>使用Provider组件将store传递给子组件。</li>
+<li>在组件中使用connect函数连接store和组件。</li>
+</ol>
+<h2 id="Redux的实现原理？"><a href="#Redux的实现原理？" class="headerlink" title="Redux的实现原理？"></a>Redux的实现原理？</h2><p><code>Redux</code> 的实现原理可以概括为：单一数据源、状态不可变、纯函数更新状态。</p>
+<p>具体来说，<code>Redux</code> 将应用程序的状态存储在一个单一的对象中，称为<code>store</code>。这个<code>store</code>对象是只读的，应用程序的状态只能通过派发“action”来改变。每个“action”描述了应用程序中发生的某个事件，它包含一个类型和一些数据。当派发一个<code>action</code>时，<code>Redux</code> 会将当前的状态和“action”一起传递给一个“reducer”函数，这个函数根据“action”的类型来更新状态，并返回一个新的状态对象。<code>Redux</code> 的状态更新是纯函数式的，它不会直接修改原来的状态，而是返回一个新的状态对象，从而保证了状态的不可变性。</p>
+<p><code>Redux</code> 还提供了一些辅助函数，如<code>connect</code>和<code>mapStateToProps</code>，用于将<code>store</code>中的状态映射到组件的属性中，并在状态变化时自动更新组件。这些函数也是基于纯函数的原理实现的。</p>
+<h2 id="为什么Redux要设计action等工具，而不是允许用户直接进行修改？"><a href="#为什么Redux要设计action等工具，而不是允许用户直接进行修改？" class="headerlink" title="为什么Redux要设计action等工具，而不是允许用户直接进行修改？"></a>为什么Redux要设计action等工具，而不是允许用户直接进行修改？</h2><p>设计action等工具是为了更好的管理状态。通过使用action，可以确保状态的变化是可预测的，因为它们只能通过dispatch函数进行更改，这样可以避免在应用程序中出现意外的状态变化，从而使代码更具有可维护性和可测试性。此外，使用action还可以使我们更好的跟踪应用程序中发生的事情，因为每个action都有唯一的标识符，可以轻松跟踪它们。</p>
+<h2 id="组件库是如何实现让用户按需加载的？"><a href="#组件库是如何实现让用户按需加载的？" class="headerlink" title="组件库是如何实现让用户按需加载的？"></a>组件库是如何实现让用户按需加载的？</h2><p>通过支持基于ES模块的tree shaking来实现按需加载。只需要直接引入需要的组件，就可以实现按需加载的效果。</p>
+<h2 id="为什么要设计ElementUI、Ant-Design等组件库？"><a href="#为什么要设计ElementUI、Ant-Design等组件库？" class="headerlink" title="为什么要设计ElementUI、Ant Design等组件库？"></a>为什么要设计ElementUI、Ant Design等组件库？</h2><ol>
+<li><p>提高开发效率：组件库的设计和开发是为了解决重复工作，使用现有组件能够<strong>加快开发速度，减少重复工作量，提高开发效率</strong>。</p>
+</li>
+<li><p>提高代码可维护性：组件库的使用能够<strong>使得代码更加规范化，便于维护</strong>，同时也避免了代码重复，减轻了开发人员负担。</p>
+</li>
+<li><p>优化用户体验：设计的组件库对UI、交互、动效等方面进行了深入优化，可以帮助开发人员打造出<strong>更好的用户体验</strong>。</p>
+</li>
+<li><p>响应式设计：组件库<strong>具有响应式的特性，能够满足不同尺寸和设备的适配需求</strong>，提高网站或应用的可用性。</p>
+</li>
+<li><p>节省开发成本：使用现成组件库可以<strong>节省开发成本和人力成本</strong>，既可以降低开发难度和技术门槛，也可以降低公司的开发成本。</p>
+</li>
+</ol>
+<h2 id="设计组件库有哪些注意事项？"><a href="#设计组件库有哪些注意事项？" class="headerlink" title="设计组件库有哪些注意事项？"></a>设计组件库有哪些注意事项？</h2><ol>
+<li>UI和交互设计：组件库的设计需要遵循良好的UI设计和交互设计原则，提供<strong>良好的用户体验，包括直观的视觉指引、简单易懂的界面、良好的交互反馈</strong>等。</li>
+<li>组件设计：在设计组件时，需要考虑组件的基础特性、定位、使用场景、可扩展性、可定制性等，同时要有充分的用户体验测试。</li>
+<li>兼容性：组件库要考虑到<strong>各种浏览器和设备的兼容性</strong>，建议采用<strong>响应式设计和渐进增强</strong>的设计策略。</li>
+<li>文档和示例：组件库需要完善的文档和示例，<strong>方便开发人员使用和调试</strong>，避免不必要的耗时。</li>
+<li>维护和更新：组件库需要持续的维护和更新，包括bug修复、功能增强、安全性更新等，保证组件库的<strong>稳定性和可靠性</strong>。</li>
+<li>样式管理：组件库的样式需要考虑到<strong>全局样式管理和组件内部样式的优化</strong>，防止出现样式冲突和不必要的CSS代码重复。</li>
+<li>可重用性：组件库的组件应尽可能保持独立性，便于<strong>在不同的应用中重复使用</strong>。</li>
+</ol>
+<h2 id="开发组件库的过程中有什么难点？"><a href="#开发组件库的过程中有什么难点？" class="headerlink" title="开发组件库的过程中有什么难点？"></a>开发组件库的过程中有什么难点？</h2><ol>
+<li>设计阶段：在组件库的设计阶段，需要考虑到组件的<strong>丰富性和可用性</strong>，以及<strong>组件间的协调和统一性</strong>，需要在设计和开发之前进行充分的需求分析和用户调研。</li>
+<li>兼容性：组件库需要考虑到各<strong>种浏览器和设备的兼容性</strong>，包括浏览器的版本不同、设备分辨率不同等，需要进行多个平台的测试。</li>
+<li>在多个项目中使用：组件库的组件需要在多个项目中使用，因此需要满足<strong>通用性</strong>的需求，同时需要保证可维护性，以便在多个项目中进行更新和升级。</li>
+<li>长期维护：组件库需要考虑到长期维护的需求，需要进行<strong>稳定性的测试和更新</strong>。</li>
+<li>性能优化：组件库需要考虑到性能优化的问题，<strong>避免在页面中渲染过多的组件和数据</strong>，同时需要对组件库进行<strong>代码分离和按需加载</strong>等优化。</li>
+<li>API的设计：组件库的API设计需要充分考虑到<strong>不同需求下的定制性和扩展性</strong>，同时需要保证API的易用性和一致性。</li>
+<li>文档和示例：组件库需要考虑到文档和示例的编写和更新，以便开发者能够快速地掌握组件库的使用方法。</li>
+</ol>
+<h2 id="Ant-Design组件库是怎么实现的？"><a href="#Ant-Design组件库是怎么实现的？" class="headerlink" title="Ant Design组件库是怎么实现的？"></a>Ant Design组件库是怎么实现的？</h2><ol>
+<li>核心代码实现：Ant Design的核心代码实现是基于React框架，使用TypeScript语言编写，使用webpack进行打包。代码中主要包含了不同组件的实现，包括表单、按钮、导航、布局等。</li>
+<li>样式实现：Ant Design的样式实现主要是基于Less预处理器进行开发，使用了变量、混入、嵌套等功能。通过变量的定义和使用，实现了全局的样式风格的统一。同时，还使用一些第三方的CSS库，如Normalize.css和iconfont等。</li>
+<li>工具库：Ant Design中有一个封装了常用工具函数的utility库，此库包括类型检测、数据处理、字符串处理、时间处理等常用方法，并对一些方法进行了二次封装，方便调用。</li>
+<li>国际化实现：Ant Design支持多语言和多区域的国际化，其实现基于react-intl库，通过对不同语言的国际化配置，实现组件中文本的切换。</li>
+<li>文档和示例：Ant Design的文档和示例基于dumi库进行生成，同时还有一个在线的交互式示例网站Ant Design Pro，用户可以通过此网站直接预览和体验各个组件。</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Spring-Recruitment/">#Spring Recruitment</a>
+      
+        <a href="/tags/React/">#React</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>React知识点总结</div>
+      <div>https://ustinians.github.io/2023/04/25/React知识点总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>想躺在云上</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/04/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9B%B8%E5%85%B3%E6%80%BB%E7%BB%93/" title="数据结构相关总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据结构相关总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/25/JavaScript%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="JavaScript知识点总结">
+                        <span class="hidden-mobile">JavaScript知识点总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,1307 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="想躺在云上">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Webpack，Git打包部署、性能优化、安全相关Webpack中loader和plugin的区别？⭐ loader是一种打包方案，对于某一种类型文件它知道如何打包，帮助Webpack完成打包工作。loader就是一个单纯的文件转化过程。 plugin是一个扩展器，丰富Webpack本身，增强功能，针对的是在loader结束之后，Webpack打包的整个过程。plugin并不直接操作文件，而是基于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack，Git打包部署、性能优化、安全相关">
+<meta property="og:url" content="https://ustinians.github.io/2023/04/26/Webpack%EF%BC%8CGit%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2%E3%80%81%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%81%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:site_name" content="想躺在云上 - In doing we learn.">
+<meta property="og:description" content="Webpack，Git打包部署、性能优化、安全相关Webpack中loader和plugin的区别？⭐ loader是一种打包方案，对于某一种类型文件它知道如何打包，帮助Webpack完成打包工作。loader就是一个单纯的文件转化过程。 plugin是一个扩展器，丰富Webpack本身，增强功能，针对的是在loader结束之后，Webpack打包的整个过程。plugin并不直接操作文件，而是基于">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/5/27/1725635059c3e804~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp">
+<meta property="article:published_time" content="2023-04-26T04:04:56.000Z">
+<meta property="article:modified_time" content="2023-04-26T04:05:46.444Z">
+<meta property="article:author" content="想躺在云上">
+<meta property="article:tag" content="Spring Recruitment">
+<meta property="article:tag" content="Webpack">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="性能优化">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/5/27/1725635059c3e804~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp">
+  
+  
+  
+  <title>Webpack，Git打包部署、性能优化、安全相关 - 想躺在云上 - In doing we learn.</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ustinians.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>想躺在云上</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Webpack，Git打包部署、性能优化、安全相关"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-26 12:04" pubdate>
+          2023年4月26日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          34k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          280 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Webpack，Git打包部署、性能优化、安全相关</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Webpack，Git打包部署、性能优化、安全相关"><a href="#Webpack，Git打包部署、性能优化、安全相关" class="headerlink" title="Webpack，Git打包部署、性能优化、安全相关"></a>Webpack，Git打包部署、性能优化、安全相关</h1><h2 id="Webpack中loader和plugin的区别？⭐"><a href="#Webpack中loader和plugin的区别？⭐" class="headerlink" title="Webpack中loader和plugin的区别？⭐"></a>Webpack中loader和plugin的区别？⭐</h2><ul>
+<li>loader是一种打包方案，对于某一种类型文件它知道如何打包，帮助Webpack完成打包工作。loader就是一个单纯的文件转化过程。</li>
+<li>plugin是一个扩展器，丰富Webpack本身，增强功能，针对的是在loader结束之后，Webpack打包的整个过程。plugin并不直接操作文件，而是基于事件机制工作，会监听Webpack打包过程中的某些事件钩子，执行任务。</li>
+</ul>
+<h2 id="常用的Webpack-Loader有哪些？"><a href="#常用的Webpack-Loader有哪些？" class="headerlink" title="常用的Webpack Loader有哪些？"></a>常用的Webpack Loader有哪些？</h2><ol>
+<li>css-loader：用于加载CSS文件，并解析CSS文件中的@import和url()等语句。</li>
+<li>style-loader：将CSS代码注入到HTML页面中。</li>
+<li>file-loader：用于加载图片等静态资源，并返回资源路径。</li>
+<li>url-loader：根据文件大小，将文件转换成DataURL或者返回文件路径。</li>
+<li>babel-loader：用于转换ES6&#x2F;ES7代码，使其兼容旧版浏览器。</li>
+<li>eslint-loader：用于在Webpack中使用ESLint进行代码规范检查。</li>
+<li>ts-loader：用于将TypeScript代码编译成JavaScript代码。</li>
+<li>vue-loader：用于加载Vue.js单文件组件，并编译成JavaScript代码。</li>
+<li>json-loader：用于加载JSON文件，并返回JSON对象。</li>
+<li>xml-loader：用于加载XML文件，并返回解析后的XML对象。</li>
+</ol>
+<h2 id="常用的Webpack-plugin有哪些？"><a href="#常用的Webpack-plugin有哪些？" class="headerlink" title="常用的Webpack plugin有哪些？"></a>常用的Webpack plugin有哪些？</h2><ol>
+<li>HtmlWebpackPlugin：自动生成HTML文件，包括引入打包后的JS、CSS文件等。</li>
+<li>MiniCssExtractPlugin：将CSS从打包后的JS中分离出来，生成单独的CSS文件。</li>
+<li>CleanWebpackPlugin：在每次打包时清除之前生成的文件。</li>
+<li>CopyWebpackPlugin：将文件从源目录复制到目标目录。</li>
+<li>DefinePlugin：定义全局变量，可以在代码中直接使用。</li>
+<li>UglifyJsPlugin：压缩JS代码，减小文件体积。</li>
+<li>HotModuleReplacementPlugin：实现热更新，修改代码后无需刷新页面即可看到效果。</li>
+<li>ExtractTextWebpackPlugin：将CSS从打包后的JS中分离出来，生成单独的CSS文件。</li>
+<li>ProvidePlugin：自动加载模块，无需import或require。</li>
+<li>BundleAnalyzerPlugin：分析打包后的文件大小，找出体积较大的模块。</li>
+</ol>
+<h2 id="Webpack打包原理"><a href="#Webpack打包原理" class="headerlink" title="Webpack打包原理"></a>Webpack打包原理</h2><p>Webpack处理应用程序时，它会递归的构建一个依赖关系图，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个bundle。Webpack的打包原理就是将所有的模块霸道成一个或多个Bundle，以便于在浏览器中加载和使用。</p>
+<p>Webpack就像是一条生产线，要经过一系列处理流程后才能将源文件转换成输出结果。这条生产线上的每个处理流程的职责都是单一的，多个流程之间有存在依赖关系，只有当完成当前处理后才能交给下一个流程去处理。而插件就像是插入到生产线中的一个功能，在特定的时机对生产线上的资源进行处理。</p>
+<p>Webpack打包原理：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/101541041">https://zhuanlan.zhihu.com/p/101541041</a></p>
+<h2 id="Webpack打包流程？⭐"><a href="#Webpack打包流程？⭐" class="headerlink" title="Webpack打包流程？⭐"></a>Webpack打包流程？⭐</h2><ol>
+<li>解析配置文件：Webpack会读取并解析配置文件(通常为webpack.config.js文件)。并根据配置生成一个Compiler对象。</li>
+<li>读取入口文件：Webpack会根据配置中的入口文件，读取这些文件及其依赖的模块，并将它们组成一个依赖图。</li>
+<li>解析模块依赖：Webpack会根据模块之间的依赖关系，递归的解析它们的依赖。直到所有的依赖都被解析完毕。</li>
+<li>加载模块：Webpack会根据模块的路径，使用相应的Loader加载模块的源代码，并将其转换成Webpack可以处理的形式。</li>
+<li>转换代码：Webpack会根据配置中的插件，对加载的模块进行一系列的转换操作，比如压缩，优化等。</li>
+<li>生成代码：Webpack会将所有模块转换后的代码都合并到一个或多个文件中并输出到指定目录中。</li>
+</ol>
+<p>Webpack打包流程：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7210756376309203005">简析Webpack打包流程 - 掘金 (juejin.cn)</a></p>
+<h2 id="Webpack中热更新-HMR-的原理是什么？"><a href="#Webpack中热更新-HMR-的原理是什么？" class="headerlink" title="Webpack中热更新(HMR)的原理是什么？"></a>Webpack中热更新(HMR)的原理是什么？</h2><p><code>HMR</code>全称 <code>Hot Module Replacement</code>，可以理解为模块热替换，指在应用程序运行过程中，替换、添加、删除模块，而无需重新刷新整个应用。</p>
+<p>开启热更新：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;webpack&#x27;</span>)<br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  <span class="hljs-comment">// ...</span><br>  <span class="hljs-attr">devServer</span>: &#123;<br>    <span class="hljs-comment">// 开启 HMR 特性</span><br>    <span class="hljs-attr">hot</span>: <span class="hljs-literal">true</span><br>    <span class="hljs-comment">// hotOnly: true</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/5/27/1725635059c3e804~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ul>
+<li>Webpack Compile：将 JS 源代码编译成 bundle.js</li>
+<li>HMR Server：用来将热更新的文件输出给 HMR Runtime</li>
+<li>Bundle Server：静态资源文件服务器，提供文件访问路径</li>
+<li>HMR Runtime：socket服务器，会被注入到浏览器，更新文件的变化</li>
+<li>bundle.js：构建输出的文件</li>
+<li>在HMR Runtime 和 HMR Server之间建立 websocket，即图上4号线，用于实时更新文件变化</li>
+</ul>
+<p>热更新的两个过程</p>
+<ul>
+<li><p>启动阶段 1 - 2 - A - B</p>
+<p>首先我们在文件系统便写完代码之后，Webpack Compile 将源代码和 HMR Runtime 一起编译成 bundle 文件，传输给 Bundle Server，Bundle Server 是一个服务器，这样在浏览器里就可以以服务的方式访问文件。</p>
+</li>
+<li><p>更新阶段 1 - 2 - 3 - 4</p>
+<p>当我们在文件系统更新文件之后，还是会经过 Webpack Compile 的编译，Webpack Compile 会将编译后的结果传递给 HMR Server，HMR Server 会比较哪些文件发生了变化，因为服务端的 HMR Server 会和客户端的 HMR Runtime 建立起一条 websocket 链接，所以 HMR Server 会以 json 的形式通知给 HMR Runtime 文件做出了哪些变化。</p>
+</li>
+</ul>
+<p><strong>总结：</strong></p>
+<ul>
+<li>通过<code>webpack-dev-server</code>创建两个服务器：提供静态资源的服务（express）和Socket服务</li>
+<li>express server 负责直接提供静态资源的服务（打包后的资源直接被浏览器请求和解析）</li>
+<li>socket server 是一个 websocket 的长连接，双方可以通信</li>
+<li>当 socket server 监听到对应的模块发生变化时，会生成两个文件.json（manifest文件）和.js文件（update chunk）</li>
+<li>通过长连接，socket server 可以直接将这两个文件主动发送给客户端（浏览器）</li>
+<li>浏览器拿到两个新的文件后，通过HMR runtime机制，加载这两个文件，并且针对修改的模块进行更新</li>
+</ul>
+<p>参考：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904134697549832">https://juejin.cn/post/6844904134697549832</a></p>
+<h2 id="Vite和Webpack的区别？"><a href="#Vite和Webpack的区别？" class="headerlink" title="Vite和Webpack的区别？"></a>Vite和Webpack的区别？</h2><ol>
+<li>构建过程不同：Webpack 是通过一系列 Loader 和插件对代码进行编译和打包，Vite 则是通过浏览器原生支持的 ES Modules（ESM）导入的方式进行实时编译和构建，避免了打包过程中的耗时和资源浪费。</li>
+<li>开发环境启动速度不同：Vite 开发环境的启动速度比 Webpack 快很多，基本上可以做到开发环境立即响应，因为 Vite 不需要进行打包操作，而 Webpack 则需要在每次启动开发环境时进行较为繁琐的构建。</li>
+<li>支持的文件类型不同：Webpack 支持多种文件类型的打包构建，而 Vite 目前只支持 Javascript 和 Vue 单组件。</li>
+<li>热更新实现不同：Webpack 的热更新实现是通过 HMR（Hot Module Replacement）机制，重新加载模块实现快速更新，而 Vite 利用了浏览器中的 ESM 特性，通过一个 WebSocket 服务器实现了模块的实时编译和热更新。</li>
+</ol>
+<p>总而言之，Vite 相较于 Webpack 有着更快的构建速度和更优秀的开发体验，但它的能力没有 Webpack 强大，不支持多种文件类型的打包构建。Vite 使得前端开发者可以更快地进行开发并且代码构建的过程更加高效。</p>
+<h2 id="Vite打包的产物能直接发布吗？"><a href="#Vite打包的产物能直接发布吗？" class="headerlink" title="Vite打包的产物能直接发布吗？"></a>Vite打包的产物能直接发布吗？</h2><p>Vite 打包的产物的确可以直接发布到线上服务器，但需要注意以下几点：</p>
+<ol>
+<li>Vite 打包出来的文件默认不会压缩，需要自行使用类似 UglifyJS，Terser 等工具进行压缩和混淆，以减小文件体积和提高加载速度。</li>
+<li>由于 Vite 采用的是预处理打包方式，打包出来的代码可能会出现一些奇怪的问题，需要在发布前进行全面测试和校验。</li>
+<li>在打包过程中需要注意依赖的引入方式，是否存在跨域访问的问题等，以保证打包产物能够正常运行。</li>
+</ol>
+<p>总之，Vite 打包的产物可以直接发布，但需要注意以上问题以确保生产环境的稳定运行。对于有更严格需求的项目，最好还是通过 CI&#x2F;CD 工具进行自动化构建和部署。</p>
+<h2 id="Vite比Webpack快的原因？"><a href="#Vite比Webpack快的原因？" class="headerlink" title="Vite比Webpack快的原因？"></a>Vite比Webpack快的原因？</h2><p>Vite比Webpack快的原因的因为Vite在开发阶段使用了浏览器原生ES模块导入，而不是想Wepkack一样使用打包后的文件。这使得Vite在开发阶段的热更新速度更快，因为它不需要重新打包整个应用程序，而只需要更新更改的部分。</p>
+<h2 id="还了解过哪些打包工具？"><a href="#还了解过哪些打包工具？" class="headerlink" title="还了解过哪些打包工具？"></a>还了解过哪些打包工具？</h2><ol>
+<li>Parcel Parcel是一个快速、零配置的打包工具，支持JS、CSS、HTML等多种类型文件的打包和编译。与Webpack不同的是，Parcel使用的是多线程打包，具有快速打包的优势。</li>
+<li>Rollup Rollup是一个专门针对JavaScript库和工具的打包器，它使用的是ES6的模块化规范，采用Tree Shaking的方式来对代码进行打包，去除掉未使用的代码。Rollup对于构建JavaScript库、组件和插件等非常有用。</li>
+<li>Gulp Gulp是一个自动化构建工具，它可以帮助开发者自动处理CSS、JS、HTML等文件。它基于流式处理数据的思想，可以实现高效的打包、压缩、合并等功能。Gulp使用JavaScript代码来配置任务，非常易于扩展和使用。</li>
+<li>Grunt Grunt是另一种常用的自动化构建工具，它与Gulp类似，也可以通过插件实现自动化任务。与Gulp不同的是，Grunt更为传统，使用配置文件来描述任务流程。</li>
+<li>Browserify Browserify是一个基于Node.js的模块打包工具，它使开发者可以在浏览器中使用Node.js的模块系统。它采用的是CommonJS的模块化规范。</li>
+</ol>
+<h2 id="Webpack5有哪些新特性？"><a href="#Webpack5有哪些新特性？" class="headerlink" title="Webpack5有哪些新特性？"></a>Webpack5有哪些新特性？</h2><ol>
+<li>支持Module Federation：Module Federation是Webpack5中的一个新特性，它允许多个独立的Webpack构建共享模块，从而实现跨域共享模块的能力。</li>
+<li>支持持久化缓存：Webpack5引入了持久化缓存，可以将编译过程中的中间结果缓存到本地磁盘上，从而提高二次构建的速度。</li>
+<li>支持WebAssembly：Webpack5对WebAssembly提供了原生支持，可以将WebAssembly模块打包为单独的chunk，从而提高应用程序的性能。</li>
+<li>支持Tree Shaking优化：Webpack5对Tree Shaking优化进行了改进，可以更精确地识别和移除无用代码。</li>
+<li>支持Top-level await：Webpack5支持Top-level await，可以在模块顶层使用await关键字，从而简化异步代码的写法。</li>
+</ol>
+<h2 id="Webpack4相比3有哪些新特性？"><a href="#Webpack4相比3有哪些新特性？" class="headerlink" title="Webpack4相比3有哪些新特性？"></a>Webpack4相比3有哪些新特性？</h2><ol>
+<li>Webpack4引入了Mode选项，可以通过设置Mode为development或production来自动启用不同的优化策略。</li>
+<li>Webpack4<strong>对代码分割进行了优化，可以更好地支持动态导入和异步加载</strong>。</li>
+<li>Webpack4<strong>对性能优化进行了改进，可以更快地进行编译和构建</strong>。</li>
+<li>Webpack4支持多种文件格式的导入和导出，如JSON、WebAssembly等。</li>
+<li>Webpack4对API进行了改进，提供了更好的插件和Loader接口。</li>
+</ol>
+<h2 id="Webpack3更新了哪些？"><a href="#Webpack3更新了哪些？" class="headerlink" title="Webpack3更新了哪些？"></a>Webpack3更新了哪些？</h2><ol>
+<li><strong>Scope Hoisting</strong>：Webpack3引入了Scope Hoisting功能，可以将模块的作用域提升，从而减少代码量，提高性能。</li>
+<li>Magic Comments：Webpack3支持Magic Comments，可以通过在代码中添加特殊注释来控制chunk的生成和命名。</li>
+<li><strong>动态import</strong>：Webpack3支持动态import，可以在运行时动态加载模块，从而提高应用程序的性能和灵活性。</li>
+<li>CommonChunkPlugin：Webpack3对CommonChunkPlugin进行了优化，可以更灵活地配置和使用。</li>
+<li>Loader Options：Webpack3引入了Loader Options功能，可以在配置文件中为Loader设置选项，从而更方便地进行定制化配置。</li>
+<li>NamedModulesPlugin：Webpack3引入了NamedModulesPlugin插件，可以为模块和chunk生成可读性更好的名称。</li>
+<li><strong>配置文件优化</strong>：Webpack3对配置文件进行了优化，可以更方便地进行模块解析、路径映射、文件处理等操作。</li>
+</ol>
+<h2 id="Webpack3、4、5版本有哪些差异？"><a href="#Webpack3、4、5版本有哪些差异？" class="headerlink" title="Webpack3、4、5版本有哪些差异？"></a>Webpack3、4、5版本有哪些差异？</h2><ol>
+<li>性能：Webpack4和Webpack5相比于Webpack3，在构建速度和性能优化方面有了很大的提升，尤其是Webpack5更加注重性能优化，引入了持久化缓存和Module Federation等功能。</li>
+<li>模块热替换：Webpack4和Webpack5相比于Webpack3，在模块热替换方面有所改进，提供了更好的开发体验。</li>
+<li>Tree Shaking：Webpack4和Webpack5相比于Webpack3，在Tree Shaking方面有了更好的支持，可以更精确地识别和移除无用代码。</li>
+<li>Mode选项：Webpack4引入了Mode选项，可以通过设置Mode为development或production来自动启用不同的优化策略。</li>
+<li>WebAssembly：Webpack5对WebAssembly提供了原生支持，可以将WebAssembly模块打包为单独的chunk，从而提高应用程序的性能。</li>
+<li>Top-level await：Webpack5支持Top-level await，可以在模块顶层使用await关键字，从而简化异步代码的写法。</li>
+<li>插件和Loader：Webpack4和Webpack5相比于Webpack3，在插件和Loader方面提供了更好的接口和扩展性。</li>
+</ol>
+<h2 id="JS常用的压缩工具？"><a href="#JS常用的压缩工具？" class="headerlink" title="JS常用的压缩工具？"></a>JS常用的压缩工具？</h2><ol>
+<li>UglifyJS：UglifyJS是一个广泛使用的JavaScript压缩工具，它可以将JavaScript代码压缩成更小、更高效的形式，从而提高网页的性能。它支持ES6语法，并且可以在命令行或者作为Gulp、Grunt等构建工具的插件使用。</li>
+<li>Closure Compiler：Closure Compiler是Google开发的JavaScript压缩工具，可以将JavaScript代码压缩成更小的形式，并且可以进行代码优化和错误检查。它支持ES6语法和模块化，并且可以在命令行或者作为Gulp、Grunt等构建工具的插件使用。</li>
+<li>Babel-minify：Babel-minify是一个基于Babel的JavaScript压缩工具，可以将JavaScript代码压缩成更小、更高效的形式。它支持ES6语法和模块化，并且可以在命令行或者作为Gulp、Grunt等构建工具的插件使用。</li>
+<li>Terser：Terser是一个JavaScript压缩工具，可以将JavaScript代码压缩成更小、更高效的形式。它支持ES6语法和模块化，并且可以在命令行或者作为Gulp、Grunt等构建工具的插件使用。</li>
+</ol>
+<h2 id="JS进行压缩的原理是什么？"><a href="#JS进行压缩的原理是什么？" class="headerlink" title="JS进行压缩的原理是什么？"></a>JS进行压缩的原理是什么？</h2><p>JS压缩的原理是通过<strong>删除JavaScript代码中的空格、注释、不必要的分号和换行符等无用字符</strong>，以及<strong>将变量名、函数名等重复的内容替换成更短的名称</strong>来减小文件大小。这样可以<strong>减少文件的加载时间和网络传输的流量，提高网页的性能</strong>。</p>
+<p>JS压缩工具一般分为两种压缩方式：</p>
+<ol>
+<li>基于词法分析的压缩方式：这种方式通过对JavaScript代码进行词法分析，找出其中的关键字、变量名、函数名等，然后将其替换成更短的名称，同时删除无用的字符和注释，从而减小文件大小。常用的JS压缩工具如UglifyJS和Closure Compiler都是基于词法分析的压缩方式。</li>
+<li>基于语法分析的压缩方式：这种方式通过对JavaScript代码进行语法分析，找出其中的无用代码、重复代码等，然后将其删除或合并，同时进行变量名、函数名等的替换和删除无用的字符和注释，从而减小文件大小。常用的JS压缩工具如Babel-minify和Terser都是基于语法分析的压缩方式。</li>
+</ol>
+<h2 id="UglifyJS和Terser的区别？"><a href="#UglifyJS和Terser的区别？" class="headerlink" title="UglifyJS和Terser的区别？"></a>UglifyJS和Terser的区别？</h2><ol>
+<li>压缩效率：Terser相对于UglifyJS来说，能够更好地压缩JavaScript代码，生成的压缩文件体积更小。</li>
+<li>ES6+支持：Terser支持ES6+语法，包括箭头函数、模板字符串、解构赋值等，而UglifyJS只支持ES5语法。</li>
+<li>代码质量：Terser生成的代码质量更高，更容易维护和调试，而UglifyJS在某些情况下可能会生成一些难以阅读的代码。</li>
+<li>插件支持：Terser支持插件机制，可以使用插件对JavaScript代码进行更细致的优化和压缩，而UglifyJS没有插件机制。</li>
+<li>平台支持：Terser支持多种平台，包括Node.js、浏览器、Webpack等，而UglifyJS主要是针对浏览器环境进行优化。</li>
+</ol>
+<h2 id="为什么Terser压缩的代码更小？"><a href="#为什么Terser压缩的代码更小？" class="headerlink" title="为什么Terser压缩的代码更小？"></a>为什么Terser压缩的代码更小？</h2><ol>
+<li>更好的算法：Terser采用了更先进的压缩算法，例如更好的代码分析和优化，更多的死代码消除等，能够更好地识别和删除不必要的代码，从而生成更小的压缩文件。</li>
+<li>ES6+支持：Terser能够支持ES6+语法，包括箭头函数、模板字符串、解构赋值等，能够更好地处理新的语法特性，从而生成更小的压缩文件。</li>
+<li>代码优化：Terser能够对代码进行更深入的优化，例如内联函数、变量重命名、常量替换等，从而进一步减小代码体积。</li>
+</ol>
+<h2 id="git-reset和git-revert的区别？"><a href="#git-reset和git-revert的区别？" class="headerlink" title="git reset和git revert的区别？"></a>git reset和git revert的区别？</h2><ol>
+<li>git reset：这个命令可以<strong>撤销一些已经提交的修改，将目标分支的当前指针重置到指定的提交</strong>，这样可以将历史中的一些提交彻底清除掉。可以使用<code>--hard</code>参数强制清除所有本地修改，但这也会导致本地工作目录中未提交的修改全部消失。使用<code>--soft</code>参数可以清除提交记录，但是会保留所有本地修改，需要手动进行下一步操作。</li>
+<li>git revert：这个命令<strong>用于撤销某个提交，并创建一个新提交</strong>，撤销的过程是使用反向修改，生成一个新的提交来撤销之前的提交。这个命令可以更安全地回滚提交，因为它不会覆盖历史记录（不能删除提交记录），而是创建新的提交记录。可以使用<code>--no-commit</code>参数，让Git只生成撤销记录而不会自动提交，并在必要时手动编辑撤销记录。</li>
+</ol>
+<p>因此，git reset命令可以删除某些提交记录，而git revert命令则可以引入新的提交记录，用于撤销先前的提交。一般来说，git revert更安全，因为它不会破坏代码库的历史，并允许团队协作进行回滚操作。但是，如果需要完全从代码库中删除提交历史，那么就需要使用git reset命令。</p>
+<h2 id="git-amend命令的作用？"><a href="#git-amend命令的作用？" class="headerlink" title="git amend命令的作用？"></a>git amend命令的作用？</h2><p>git amend命令是Git版本控制系统中的一个命令，用于修改最后一次提交的信息或者将缺失的文件添加到最后一次提交中。</p>
+<p>具体来说，git amend命令可以用于以下两种情况：</p>
+<ol>
+<li><p>修改最后一次提交的信息：如果最后一次提交的信息存在错误或者需要进行修改，可以使用git amend命令来修改。具体操作如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git commit --amend<br></code></pre></td></tr></table></figure>
+
+<p>在执行上述命令之后，Git会打开默认编辑器，让你修改最后一次提交的信息。修改完成后，保存并关闭编辑器即可。</p>
+</li>
+<li><p>将缺失的文件添加到最后一次提交中：如果最后一次提交中漏掉了某个文件，可以使用git amend命令将该文件添加到最后一次提交中。具体操作如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git add missed_file<br>$ git commit --amend<br></code></pre></td></tr></table></figure>
+
+<p>在执行上述命令之后，Git会将missed_file文件添加到最后一次提交中。</p>
+</li>
+</ol>
+<p>需要注意的是，使用git amend命令修改最后一次提交的信息或者添加缺失的文件，会改变Git仓库的历史记录，因此需要谨慎使用。</p>
+<h2 id="git合并commit有哪几种方式？区别是什么？"><a href="#git合并commit有哪几种方式？区别是什么？" class="headerlink" title="git合并commit有哪几种方式？区别是什么？"></a><code>git</code>合并<code>commit</code>有哪几种方式？区别是什么？</h2><p>git merge</p>
+<p>git merge 会新建一个新的 commit 对象，然后两个分支以前的 commit 记录都指向这个新 commit 记录。这种方法会保留之前每个分支的 commit 历史。</p>
+<p>git rebase</p>
+<p>git rebase 会先找到两个分支的第一个共同的 commit 祖先记录，然后将提取当前分支这之后的所有 commit 记录，然后将这个 commit 记录添加到目标分支的最新提交后面。经过这个合并后，两个分支合并后的 commit 记录就变为了线性的记录了。</p>
+<h2 id="Git中如果两个人提交分支冲突怎么办？"><a href="#Git中如果两个人提交分支冲突怎么办？" class="headerlink" title="Git中如果两个人提交分支冲突怎么办？"></a>Git中如果两个人提交分支冲突怎么办？</h2><p>当两个人在Git中提交到相同分支时，Git可能会出现分支冲突（merge conflict）的情况。这种情况通常会出现在两个人在同一个文件的同一个地方进行了修改，Git无法判断应该采用哪个修改。解决冲突的方法如下：</p>
+<ol>
+<li>提交前进行代码协调：在提交代码之前，可以高效地协同工作，以避免出现冲突。</li>
+<li>Pull更新代码：如果两个人在不同的副本上对同一个文件进行了修改，可以使用<code>git pull</code>命令，将两个副本合并到本地仓库中。这样可以避免出现相同代码冲突的情况。</li>
+<li>Merge合并分支：如果两个人对同一个分支进行修改，可以使用<code>git merge</code>命令进行合并。Git会自动检查冲突，并在本地环境中进行解决冲突。</li>
+<li>Rebase重构提交历史：如果两个人在同一个分支上工作，可以使用<code>git rebase</code>命令来重构提交历史以解决冲突。</li>
+</ol>
+<p>在解决冲突时，可以使用Git提供的工具帮助进行冲突解决，并手动解决冲突。最后再提交到版本库中。处理分支冲突需要一定经验和技能，需要仔细分析分支修改的内容，并根据需求灵活采取解决方案。</p>
+<h2 id="git-checkout-HEAD-命令的作用？"><a href="#git-checkout-HEAD-命令的作用？" class="headerlink" title="git checkout HEAD^ 命令的作用？"></a>git checkout HEAD^ 命令的作用？</h2><p>git checkout HEAD^ 命令的作用是将工作区切换到当前分支的父提交（即当前提交的前一个提交）。HEAD^ 是一个指向当前分支最新提交的父提交的引用。</p>
+<p>在这个命令中：</p>
+<ul>
+<li>git checkout：用于切换分支或恢复工作区文件。</li>
+<li>HEAD：一个指向当前分支最新提交的引用。</li>
+<li>^：表示父提交。可以使用 HEAD^、HEAD^^ 等表示当前提交的前一个、前两个提交。也可以使用 HEAD<del>1、HEAD</del>2 等表示相同的意义。</li>
+</ul>
+<p>执行 git checkout HEAD^ 后，工作区的内容将回退到前一个提交的状态。这在需要检查或修改之前提交的代码时非常有用。请注意，这会导致当前工作区的更改丢失，因此在执行此操作之前，请确保已保存或提交所有更改。</p>
+<h2 id="如何将ES6转为ES5？"><a href="#如何将ES6转为ES5？" class="headerlink" title="如何将ES6转为ES5？"></a>如何将ES6转为ES5？</h2><p>babel-loader</p>
+<h2 id="bebel将ES6转换为ES5的流程？"><a href="#bebel将ES6转换为ES5的流程？" class="headerlink" title="bebel将ES6转换为ES5的流程？"></a><code>bebel</code>将<code>ES6</code>转换为<code>ES5</code>的流程？</h2><ol>
+<li>Babel首先读取ES6代码并将其转换为一个字符串。</li>
+<li>然后，Babel使用解析器将字符串转换为AST。</li>
+<li>Babel会遍历AST并应用配置的插件和预设来转换代码。每个插件都会检查AST节点并决定是否需要修改它。如果需要修改，插件会返回新的AST节点以替换原来的节点。</li>
+<li>转换后，Babel会将AST转换回代码字符串。</li>
+<li>最后，Babel会将ES5代码写入文件或输出到控制台。</li>
+</ol>
+<h2 id="前端常见的优化手段？"><a href="#前端常见的优化手段？" class="headerlink" title="前端常见的优化手段？"></a>前端常见的优化手段？</h2><p>常见的前端性能优化手段包括：减少请求数量、减小资源大小、优化网络连接、优化资源加载、减少重绘回流、使用性能更好的API和构建优化等。</p>
+<p>其中，减少请求数量可以通过合并CSS和JS文件、使用CSS Sprites技术、使用字体图标等方式来实现；减小资源大小可以通过压缩CSS、JS和图片等方式来实现；优化网络连接可以通过使用CDN、开启Gzip压缩等方式来实现；优化资源加载可以通过使用预加载、懒加载等方式来实现；减少重绘回流可以通过避免频繁操作DOM、使用CSS3动画等方式来实现；使用性能更好的API可以通过使用requestAnimationFrame代替setTimeout、使用Web Workers等方式来实现；构建优化可以通过使用Webpack等打包工具进行代码分割、按需加载等方式来实现。</p>
+<p>七大优化手段：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7016868803069886471">https://juejin.cn/post/7016868803069886471</a></p>
+<h2 id="前端性能优化的过程和具体方法？"><a href="#前端性能优化的过程和具体方法？" class="headerlink" title="前端性能优化的过程和具体方法？"></a>前端性能优化的过程和具体方法？</h2><p>前端性能优化的过程可以分为以下几个步骤：</p>
+<ol>
+<li>分析性能瓶颈：使用浏览器的开发者工具或第三方工具来分析页面性能，例如 Chrome DevTools、Lighthouse、PageSpeed Insights 等。</li>
+<li>识别优化机会：根据分析结果，识别出需要优化的关键资源，例如 JavaScript、CSS、图片等。</li>
+<li>制定优化策略：根据优化机会，制定相应的优化策略，例如缩小文件大小、减少 HTTP 请求、使用缓存等。</li>
+<li>实施优化方案：根据制定的优化策略，实施具体的优化方案。</li>
+<li>测试和监控：对优化后的页面进行测试和监控，确保优化效果。</li>
+</ol>
+<p>具体的优化方法包括：</p>
+<ol>
+<li>压缩代码：使用压缩工具压缩 JavaScript、CSS、HTML 代码，减小文件大小，加快加载速度。</li>
+<li>减少 HTTP 请求：将多个小文件合并为一个大文件，减少 HTTP 请求次数。</li>
+<li>使用缓存：使用浏览器缓存或服务器缓存来减少文件加载时间。</li>
+<li>延迟加载：将不必要的资源延迟加载，例如图片、视频等。</li>
+<li>使用图片压缩：使用图片压缩工具将图片压缩，减小文件大小，加快加载速度。</li>
+<li>使用 CDN：使用 CDN（内容分发网络）来加速文件加载速度。</li>
+<li>使用 Web Workers：使用 Web Workers 来在后台运行 JavaScript 代码，提高页面响应速度。</li>
+<li>避免重排和重绘：避免频繁的 DOM 操作和样式修改，减少浏览器的重排和重绘次数。</li>
+<li>使用异步加载：使用异步加载技术，例如 async 和 defer 属性来加快页面加载速度。</li>
+<li>优化图片大小：使用合适的图片格式和尺寸，减小图片大小，加快加载速度。</li>
+</ol>
+<h2 id="如何监控性能指标？"><a href="#如何监控性能指标？" class="headerlink" title="如何监控性能指标？"></a>如何监控性能指标？</h2><p>前端监控性能指标可以通过以下几种方式实现：</p>
+<ol>
+<li>使用浏览器自带的开发者工具，如Chrome DevTools、Firefox Developer Tools等，通过Performance面板可以监控页面的加载、解析、渲染等过程的性能指标，如网络请求时间、DOMContentLoaded时间、首次渲染时间等。</li>
+<li>使用第三方性能监控工具，如Google Analytics、New Relic、AppDynamics等，这些工具可以在网站代码中嵌入一段JavaScript代码，通过前端代码监控页面的性能指标，并将数据发送到后台进行分析和展示。</li>
+<li>使用性能指标监控库，如Performance.js、Metrics.js等，这些库可以通过JavaScript代码监控页面的性能指标，并提供API接口让开发者可以自定义监控指标和展示方式。</li>
+<li>使用前端性能监控服务，如SpeedCurve、Pingdom等，这些服务可以在多个地点模拟用户访问网站，并监控页面的性能指标，同时提供报告和分析工具，帮助开发者优化页面性能。</li>
+</ol>
+<h2 id="npm包会自己发送请求吗？"><a href="#npm包会自己发送请求吗？" class="headerlink" title="npm包会自己发送请求吗？"></a>npm包会自己发送请求吗？</h2><p>一般而言，npm包本身并不会发送请求。npm包只是一些代码和资源的打包，用于在项目中引用和使用。然而，<u>一些npm包可能会包含与第三方服务进行交互的代码，这些代码可能会发送请求</u>。</p>
+<p>例如，一些npm包可能会包含用于访问API的代码，或包含用于从CDN加载资源的代码。</p>
+<h2 id="执行npm-install后发生了什么？"><a href="#执行npm-install后发生了什么？" class="headerlink" title="执行npm install后发生了什么？"></a>执行npm install后发生了什么？</h2><ol>
+<li>检查package.json文件，确定需要安装的模块和版本号。</li>
+<li>从npm仓库中下载指定版本的模块，并将其存储在本地的node_modules目录中。</li>
+<li>如果package.json文件中定义了依赖关系，npm会递归地安装这些依赖模块，直到所有的依赖关系都被满足。</li>
+<li>如果package.json文件中定义了开发环境依赖关系，npm会将这些模块安装在node_modules&#x2F;.dev目录中，而不是node_modules目录中。</li>
+<li>如果npm在安装过程中发现了与当前包管理器版本不兼容的模块，它会尝试自动修复这些模块。</li>
+<li>安装完成后，npm会在本地生成一个package-lock.json文件，用于记录所有安装的模块及其版本号，以便在以后重新安装时保证一致性。</li>
+</ol>
+<h2 id="执行npm-run-start后发生了什么？"><a href="#执行npm-run-start后发生了什么？" class="headerlink" title="执行npm run start后发生了什么？"></a>执行npm run start后发生了什么？</h2><ol>
+<li>npm会查找package.json文件中scripts对象中名为”start”的脚本，并执行该脚本命令。</li>
+<li>根据scripts对象中的”start”命令，npm会执行相应的命令，如”node server.js”或”webpack-dev-server”等。</li>
+<li>如果”start”命令中包含了其他命令，如”prestart”或”poststart”，npm会先执行这些命令，再执行”start”命令。</li>
+<li>如果”start”命令中包含了环境变量，npm会将这些变量传递给执行的命令。</li>
+<li>如果在执行过程中出现错误，npm会显示相应的错误信息，并停止执行。</li>
+</ol>
+<h2 id="统一包命令和管理，除了npm还有哪些？"><a href="#统一包命令和管理，除了npm还有哪些？" class="headerlink" title="统一包命令和管理，除了npm还有哪些？"></a>统一包命令和管理，除了npm还有哪些？</h2><ol>
+<li>Yarn：由Facebook团队开发的JavaScript包管理器，与npm类似，但具有更好的性能和可靠性。</li>
+<li>Bower：专注于前端库和框架的包管理器，与npm和Yarn不同，它主要面向前端资源。</li>
+<li>NuGet：适用于.NET开发的包管理器，可以用于管理各种类型的.NET组件，包括代码库、NuGet包、MSI文件等。</li>
+<li>Cargo：适用于Rust编程语言的包管理器，与npm和Yarn相似，可以用于安装、更新和卸载Rust包。</li>
+</ol>
+<h2 id="前端如何判断内存泄漏？如何处理？"><a href="#前端如何判断内存泄漏？如何处理？" class="headerlink" title="前端如何判断内存泄漏？如何处理？"></a>前端如何判断内存泄漏？如何处理？</h2><p>检测方法：</p>
+<ul>
+<li><p>使用Chrome的开发者工具profiles来进行快照对比。</p>
+<ul>
+<li>打开Chrome浏览器，进入开发者工具。</li>
+<li>点击Profiles选项卡，选择Take Heap Snapshot或Take Allocation Profile。</li>
+<li>进行操作后，再次点击Profiles选项卡，选择Compare Snapshots或Compare Allocation Profiles。</li>
+<li>选择两个快照进行比较，即可看到两个快照之间的差异。</li>
+</ul>
+</li>
+<li><p>在Node环境下，可以使用Node提供的<code>process.memoryUsage()</code>方法来检查内存泄漏。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js">process.<span class="hljs-title function_">memoryUsage</span>();<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">&#123;</span><br><span class="hljs-comment">	res: 2366456,</span><br><span class="hljs-comment">	heapTotal: 9232384,</span><br><span class="hljs-comment">	heapUsed: 5019712,</span><br><span class="hljs-comment">	external: 8776</span><br><span class="hljs-comment">&#125;</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>res: (Resident Set Size)操作系统分配给进程的总的内存大小。</p>
+</li>
+<li><p>heapTotal：堆的总大小，包括3个部分，</p>
+<ul>
+<li>已分配的内存，用于对象的创建和存储，对应于heapUsed</li>
+<li>未分配的但可用于分配的内存</li>
+<li>未分配的但不能分配的内存，例如在垃圾收集（GC）之前对象之间的内存碎片</li>
+</ul>
+</li>
+<li><p>heapUsed: 已分配的内存，即堆中所有对象的总大小，是heapTotal的子集</p>
+</li>
+<li><p>external: 进程使用到的系统链接库所占用的内存</p>
+</li>
+</ul>
+<p>判断内存泄漏以heapUsed为准</p>
+</li>
+<li><p>利用Performance录制页面性能变化，若内存下限不断升高，则可能发生了内存泄漏</p>
+</li>
+</ul>
+<p>如何处理内存泄漏？</p>
+<p>变量导致的内存泄漏，将变量清除为null即可</p>
+<p>事件导致的内存泄漏，监听后移除即可。</p>
+<h2 id="Tree-Shaking的实现原理？"><a href="#Tree-Shaking的实现原理？" class="headerlink" title="Tree-Shaking的实现原理？"></a>Tree-Shaking的实现原理？</h2><p>Tree-Shaking是一种基于ES Module规范的Dead Code Elimination技术，它会在运行过程中静态分析模块之间的导入导出，确定ESM模块中的哪些导出值未曾被其他模块使用，并将其删除，以此实现打包产物的优化。</p>
+<ul>
+<li>Make阶段，收集模块导出变量并记录到模块依赖关系图ModuleGraph变量中</li>
+<li>Seal阶段，遍历ModuleGraph标记模块导出变量有没有被使用</li>
+<li>生成产物时，若变量没有被其他模块使用则删除对应的导出语言</li>
+</ul>
+<blockquote>
+<p>标记功能需要配置 <code>optimization.usedExports = true</code> 开启</p>
+</blockquote>
+<h2 id="常见的Web安全问题有哪些？"><a href="#常见的Web安全问题有哪些？" class="headerlink" title="常见的Web安全问题有哪些？"></a>常见的Web安全问题有哪些？</h2><ul>
+<li><p>注入漏洞</p>
+<p>注入漏洞会让攻击者方便将恶意代码植入到目标应用系统(如解析器中)。如果你的Web应用允许用户将其输入的信息插入到后端数据库，或使用shell命令对操作系统进行调用，那么您的应用就可能会受到注入漏洞的影响。</p>
+<p>当然，您可以通过检查应用的源代码，或对应用进行彻底的渗透测试，来发现此类漏洞。注入漏洞最常见的类型是SQL注入。攻击者会在SQL查询中，插入恶意代码，并将其转发到后端数据库服务器上，实施远程盗窃或攻击。</p>
+<p>除常见的SQL注入之外，目前还有LDAP注入、XML注入、XPATH注入、OS命令注入、以及HTML注入。我们通常可以通过适当、及时地检查与清理用户的输入，来防范此类威胁。</p>
+</li>
+<li><p>身份认证失败</p>
+<p>身份验证失败是由身份验证和会话管理控件的实施不当而引起的。如果攻击者能够成功的识别和利用那些与身份验证相关的漏洞，那么他们就能直接访问各种敏感数据和功能。</p>
+<p>为了利用身份验证漏洞，攻击者需要通过采用诸如：凭证填充、会话劫持、密码暴力破解、以及会话ID URL重写等方法，来模拟应用程序的合法用户。</p>
+<p>我们可以通过实施健全的会话管理控制、多因素身份验证、限制和监视失败的登录尝试，来防范此类攻击。</p>
+</li>
+<li><p>敏感数据泄露</p>
+<p>当Web应用不能充分保护诸如：会话ID、密码、财务信息以及客户信息等敏感信息时，数据泄露就会发生。</p>
+<p>此类泄漏的内部原因主要包括：未对敏感数据实施加密，仅采用了弱加密方式，软件应用的本身漏洞，以及操作员将数据上传至错误的数据库等方面。而外部攻击因素则包括：SQL注入、身份验证与访问控制的破坏、网络钓鱼攻击、以及针对明文协议HTTP、FTP和SMTP传输数据等网络级别的攻击。</p>
+<p>为了应对此类泄漏，我们可以采取的主要措施包括：彻底检查应用程序的源代码与IT环境，尤其是正在使用安全密码算法等方面。</p>
+</li>
+<li><p>XML外部实体</p>
+<p>XML外部实体注入(通常被称为XML External Entity，XXE)可以让攻击者通过Web应用的漏洞，干扰应用对于XML数据的处理。此类攻击往往会导致诸如拒绝服务、数据泄露、服务器端请求伪造等问题。</p>
+<p>我们可以通过实施服务器端的输入验证，修补和升级所有XML处理器，以及使用SAST工具来分析源代码等方法，来有效地防止XML外部实体注入。</p>
+</li>
+<li><p>受损的访问控制</p>
+<p>从概念上说，访问控制机制就是要确定用户是否可以执行，与之身份和权限相符的操作。而当用户可以在其预期权限之外执行某项操作时，那么就出现了访问控制的破坏。</p>
+<p>受损的访问控制通常会导致：未经授权的信息泄露、数据被直接修改或破坏、以及业务功能偏离预期用途等情况。我们可以通过在受信任的服务器端代码中、或无服务器的API中，强制使用完备的访问控制机制，来防止攻击者修改元数据(metadata)，或绕过正常的访问控制检查。</p>
+</li>
+</ul>
+<h2 id="如何保护Web应用程序的安全？"><a href="#如何保护Web应用程序的安全？" class="headerlink" title="如何保护Web应用程序的安全？"></a>如何保护Web应用程序的安全？</h2><ul>
+<li>定义并采用合适的网络安全框架</li>
+<li>跟踪资产并进行安全评估</li>
+<li>遵循安全编码标准</li>
+<li>部署企业级安全解决方案</li>
+<li>尽可能自动化</li>
+<li>对数据进行加密</li>
+<li>渗透测试</li>
+</ul>
+<p>Web安全相关：[5大Web应用安全威胁与7大防护措施](<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/363791438#:~:text=5%E5%A4%A7Web%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E5%A8%81%E8%83%81%E4%B8%8E7%E5%A4%A7%E9%98%B2%E6%8A%A4%E6%8E%AA%E6%96%BD">https://zhuanlan.zhihu.com/p/363791438#:~:text=5大Web应用安全威胁与7大防护措施</a> 1 1.注入漏洞 2 2.身份验证失败 3 3.敏感数据泄漏 4,5.受损的访问控制 6 1.定义并采用合适的网络安全框架 7 2.跟踪您的资产并进行威胁评估 8 3.遵守安全编码标准 更多项目)</p>
+<h2 id="什么是前端工程化？"><a href="#什么是前端工程化？" class="headerlink" title="什么是前端工程化？"></a>什么是前端工程化？</h2><p>对前端进行一些流程的标准化，让开发变得更有效率，且更好的做产品交付。前端工程化是使用软件工程的技术和方法来进行前端的开发流程、技术、工具、经验等规范化、标准化，其主要目的是为了提高效率和降低成本，即提高开发过程中的开发效率，减少不必要的重复工作时间。</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/588483704">前端工程化指的是什么？</a></p>
+<h2 id="如何实现模块懒加载？"><a href="#如何实现模块懒加载？" class="headerlink" title="如何实现模块懒加载？"></a>如何实现模块懒加载？</h2><p>模块懒加载是指在需要模块的时候才进行加载，而不是在应用启动时就加载所有的模块，这样可以提高应用的启动速度与性能。实现模块懒加载的方法由很多，比如：</p>
+<ul>
+<li>Webpack实现</li>
+<li>ES6 import()</li>
+</ul>
+<h2 id="前端常见的安全问题？"><a href="#前端常见的安全问题？" class="headerlink" title="前端常见的安全问题？"></a>前端常见的安全问题？</h2><ul>
+<li>跨站脚本攻击(XSS)</li>
+<li>跨站请求伪造(CSRF)</li>
+<li>点击劫持(Click Jacking)</li>
+<li>HTTP严格传输安全(HSTS)</li>
+<li>CDN劫持</li>
+<li>SQL注入攻击</li>
+</ul>
+<h2 id="如何进行防范？"><a href="#如何进行防范？" class="headerlink" title="如何进行防范？"></a>如何进行防范？</h2><ul>
+<li>输入检查：对用户输入的数据进行检查和过滤，防止XSS和SQL注入等攻击。</li>
+<li>输出攻击：对输出到页面上的数据进行检查和过滤，防止XSS攻击。</li>
+<li>防范CSRF攻击：在请求中添加随机数或者验证码。</li>
+<li>防止点击劫持：使用X-FRAME-OPTIONS头部或者JS脚本防止点击劫持</li>
+<li>防止HTTP劫持：使用HTTPS协议或HTTP严格传输安全(HSTS)协议防范HTTP劫持</li>
+<li>防止CDN劫持：使用SRI，为了防止校验资源完整性来判断是否被篡改。它通过验证文件的哈希值是否与你提供的哈希值一样来判断资源是否被篡改。</li>
+</ul>
+<h2 id="XSS与CSRF的攻击场景？"><a href="#XSS与CSRF的攻击场景？" class="headerlink" title="XSS与CSRF的攻击场景？"></a>XSS与CSRF的攻击场景？</h2><p>XSS：跨站脚本攻击，攻击者将恶意脚本嵌入到被攻击网站中，当用户访问该网站时，恶意脚本会被执行，从而达到获取用户信息、窃取Cookie等目的。</p>
+<p>攻击场景：评论区、搜索框、留言板、聊天室。</p>
+<p>CSRF：跨站请求伪造。攻击者通过某种方法诱导用户访问被攻击网站，从而在用户不知情的情况下发起恶意请求，如转账、修改密码等。</p>
+<p>攻击场景：点击链接、打开图片、访问网页等。</p>
+<h2 id="如果通过-html-标签内的-src-属性攻击-只能攻击到-GET-请求-如何攻击到-POST-请求？"><a href="#如果通过-html-标签内的-src-属性攻击-只能攻击到-GET-请求-如何攻击到-POST-请求？" class="headerlink" title="如果通过 html 标签内的 src 属性攻击, 只能攻击到 GET 请求, 如何攻击到 POST 请求？"></a>如果通过 html 标签内的 src 属性攻击, 只能攻击到 GET 请求, 如何攻击到 POST 请求？</h2><p>如果攻击者想要攻击POST请求，可以使用类似XSS攻击的方式，即通过在HTML标签内嵌入恶意代码，从而实现攻击。例如，攻击者在一个表单中插入一个隐藏的iframe，然后将表单的提交地址修改为攻击者的服务器地址，当用户提交表单的时候，iframe自动向被攻击网站发起POST请求，从而实现CSRF攻击。</p>
+<h2 id="localStorage和Cookie存储如果不注意的话，会有什么安全问题？"><a href="#localStorage和Cookie存储如果不注意的话，会有什么安全问题？" class="headerlink" title="localStorage和Cookie存储如果不注意的话，会有什么安全问题？"></a>localStorage和Cookie存储如果不注意的话，会有什么安全问题？</h2><p>Cookie容易受到跨站脚本攻击(XSS)和跨站请求伪造(CSRF)的攻击；而localStorage容易受到跨站脚本攻击(XSS)的攻击。</p>
+<ul>
+<li>对于Cookie，可以使用HttpOnly标志来防止XSS攻击，使其无法通过JS进行访问；使用SameSite标志来防止CSRF攻击。</li>
+<li>对于localStorage，尽量不要存储敏感信息，或者使用sessionStorage进行替代。</li>
+</ul>
+<h2 id="首屏加载、白屏时间长可能是哪些原因导致的？"><a href="#首屏加载、白屏时间长可能是哪些原因导致的？" class="headerlink" title="首屏加载、白屏时间长可能是哪些原因导致的？"></a>首屏加载、白屏时间长可能是哪些原因导致的？</h2><ul>
+<li>打包后的js和css文件过大，浏览器初始访问网站时，会先加载该项目的js和css文件，加载完成后才会进行页面渲染。如果打包的文件过大，加载时间就会变长，出现视觉上的页面白屏，可以使用webpack进行代码分割、懒加载等优化，减小入口文件体积。</li>
+<li>网络延迟：网络延迟是影响首屏加载速度的主要因素之一。可以通过使用CDN、DNS预解析等方式来减少网络延迟时间。</li>
+<li>资源重复请求加载：可以使用Webpack的splitChunks进行公共代码抽离，避免重复请求。</li>
+<li>加载脚本的过程中，渲染堵塞：可以使用defer、async等属性来异步加载脚本，避免渲染堵塞。</li>
+</ul>
+<h2 id="长列表进行性能优化？可以通过哪些指标进行优化？"><a href="#长列表进行性能优化？可以通过哪些指标进行优化？" class="headerlink" title="长列表进行性能优化？可以通过哪些指标进行优化？"></a>长列表进行性能优化？可以通过哪些指标进行优化？</h2><ol>
+<li>合理使用虚拟滚动和无限滚动等技术，减少 DOM 元素的数量和页面渲染的时间。</li>
+<li>尽量减小每个列表项的渲染时间，如通过性能优化的 JavaScript 引擎、使用优化的 CSS 属性等方式来提高性能。</li>
+<li>合理使用懒加载技术，延迟加载非必要的列表项。</li>
+<li>对于大型的列表数据，可以使用分页或者增量加载方式，即每次只加载部分数据而不是一次性加载整个列表。</li>
+<li>避免不必要的更新，在数据更新时，可以使用 shouldComponentUpdate 方法来优化更新，减少不必要的 DOM 操作。</li>
+<li>对于复杂的列表项，可以使用 React 的 PureComponents，减少渲染时间。</li>
+<li>对于列表中图片等资源，可以合理使用缓存技术，减少网络请求和提高加载速度。</li>
+</ol>
+<h2 id="什么是混入？"><a href="#什么是混入？" class="headerlink" title="什么是混入？"></a>什么是混入？</h2><p>混入（Mixin）是一种在面向对象编程中，通过将多个类的属性和方法“混合”到一个类中来扩展该类功能的方式。</p>
+<p>混入可以在不修改原有类的情况下，为该类添加新的功能。在JavaScript中，混入可以通过对象的复制、原型继承、类继承等方式来实现。</p>
+<p>具体来说，混入可以通过以下几个步骤来实现：</p>
+<ol>
+<li>定义一个混入对象，该对象包含要混入的属性和方法。</li>
+<li>在需要混入的类中，通过复制、继承等方式将混入对象的属性和方法“混合”到该类中。</li>
+<li>使用混入后的类，即可享受到混入对象中扩展的功能。</li>
+</ol>
+<p>混入可以使代码更加模块化、灵活，可以避免代码冗余和重复。但是，在使用混入时，需要注意命名冲突和属性覆盖等问题，避免出现不必要的错误和bug。</p>
+<h2 id="什么是SSR？"><a href="#什么是SSR？" class="headerlink" title="什么是SSR？"></a>什么是SSR？</h2><p>SSR，全称为Server Side Rendering，即服务器端渲染。它是指在<strong>服务器端生成HTML代码，然后将其发送到浏览器端进行展示</strong>的一种技术。</p>
+<p>在传统的前端开发中，所有的HTML、CSS和JavaScript代码都是在浏览器端进行渲染的，这种方式被称作客户端渲染（CSR）。但是，随着Web应用程序的复杂性不断增加，客户端渲染会带来一些问题，例如：</p>
+<ol>
+<li>首屏加载慢：因为需要等待所有的JavaScript代码加载完成后才能进行页面渲染，用户需要等待较长时间才能看到页面内容。</li>
+<li>SEO不友好：由于搜索引擎爬虫无法执行JavaScript代码，因此客户端渲染的页面对SEO不友好。</li>
+<li>用户体验差：由于需要等待JavaScript代码加载完成后才能进行页面渲染，因此会出现白屏或者Loading页面，用户体验较差。</li>
+</ol>
+<p>SSR技术就是为了解决这些问题而提出的。通过在服务器端生成HTML代码，可以<strong>大大缩短首屏加载时间，提高SEO友好性，改善用户体验</strong>。同时，由于服务器端生成的HTML代码已经包含了页面内容，因此<strong>不需要等待JavaScript代码加载完成，可以直接展示给用户</strong>。</p>
+<h2 id="什么是SEO？"><a href="#什么是SEO？" class="headerlink" title="什么是SEO？"></a>什么是SEO？</h2><p>SEO（Search Engine Optimization）是指通过各种技术手段，优化网站结构、内容、外部链接等因素，提高网站在搜索引擎中的排名，从而获得更多的有机流量和用户。SEO主要分为以下几个方面：</p>
+<ol>
+<li>网站结构优化：包括网站的URL结构、页面标题、Meta标签、HTML标签等的优化，以便搜索引擎更好地理解和抓取网站内容。</li>
+<li>内容优化：包括网站内容的质量、关键词密度、标题、描述、图片等的优化，以提高网站的相关性和权威性。</li>
+<li>外部链接优化：包括外部链接的质量、数量、来源、锚文本等的优化，以提高网站的权重和流量。</li>
+<li>移动端优化：包括网站的响应式设计、页面加载速度、移动端友好性等的优化，以适应移动互联网时代的需求。</li>
+<li>社交媒体优化：包括网站在社交媒体上的活跃度、分享度、关注度等的优化，以提高网站的曝光度和口碑效应。</li>
+</ol>
+<p>SEO的优化需要综合考虑多个因素，包括用户体验、搜索引擎算法、竞争对手等，需要长期持续地进行优化和调整。</p>
+<h2 id="SEO的优化有哪些方法？"><a href="#SEO的优化有哪些方法？" class="headerlink" title="SEO的优化有哪些方法？"></a>SEO的优化有哪些方法？</h2><ol>
+<li>关键词优化：通过研究用户搜索行为和竞争对手情况，确定关键词，并将其合理地分布在网站的标题、内容、Meta标签等位置，以提高网站的相关性和排名。</li>
+<li>内容优化：通过提高网站内容的质量和原创性，增加关键词密度和标题、描述等元素的优化，以提高网站的权威性和吸引力。</li>
+<li>网站结构优化：通过优化网站的URL、HTML标签、网站结构等，使搜索引擎更好地识别和抓取网站内容，提高网站的可访问性和相关性。</li>
+<li>外部链接优化：通过获取高质量的外部链接，提高网站的权重和流量，并避免使用无效或违规的链接方式。</li>
+<li>移动端优化：通过响应式设计、页面加载速度、移动端友好性等方式，提高移动端用户的体验和访问量。</li>
+<li>社交媒体优化：通过在社交媒体上活跃、分享、关注等方式，提高网站的曝光度和口碑效应。</li>
+</ol>
+<h2 id="项目上线部署流程？"><a href="#项目上线部署流程？" class="headerlink" title="项目上线部署流程？"></a>项目上线部署流程？</h2><ol>
+<li>打包：将前端项目打包成静态资源文件，例如 HTML、CSS、JavaScript、图片等。可以使用 Webpack、Gulp、Grunt 等工具进行打包。</li>
+<li>上传到服务器：将打包好的静态资源文件上传到服务器上，可以使用 FTP、SFTP、SCP、rsync 等工具进行上传。</li>
+<li>配置服务器：根据项目需要，对服务器进行配置，例如安装 Web 服务器、配置域名、SSL 证书、反向代理等。</li>
+<li>启动服务：启动 Web 服务器并将静态资源文件部署到 Web 服务器上，例如使用 Nginx、Apache 等 Web 服务器。</li>
+<li>测试和验证：测试和验证部署的 Web 服务器是否正常工作，例如访问网站、检查日志、排除错误等。</li>
+<li>监控和维护：监控部署的 Web 服务器，确保其稳定运行，并及时处理出现的异常问题。</li>
+</ol>
+<h2 id="写项目的时候有没有用到哪些设计模式使得代码更加利于修改？"><a href="#写项目的时候有没有用到哪些设计模式使得代码更加利于修改？" class="headerlink" title="写项目的时候有没有用到哪些设计模式使得代码更加利于修改？"></a>写项目的时候有没有用到哪些设计模式使得代码更加利于修改？</h2><ol>
+<li><p>MVC（Model-View-Controller）模式</p>
+<p>MVC模式是一种将应用程序分成三个核心部分的设计模式：模型（Model）、视图（View）和控制器（Controller）。这种模式可以使得代码更加清晰、易于维护和修改，也可以提高代码的重用性和可扩展性。</p>
+</li>
+<li><p>MVVM（Model-View-ViewModel）模式</p>
+<p>MVVM模式是一种MVC模式的变体，它将控制器（Controller）替换为视图模型（ViewModel）。视图模型负责将模型数据转换为视图可以使用的数据，并且可以通过双向绑定来实现数据的自动更新，从而减少了手动操作DOM的代码量。</p>
+</li>
+<li><p>单例模式</p>
+<p>单例模式是一种保证一个类只有一个实例的设计模式。在前端开发中，常用于管理全局状态或资源，例如全局配置、全局事件管理等。</p>
+</li>
+<li><p>装饰者模式</p>
+<p>装饰者模式是一种在不改变原有对象的基础上，动态地给对象增加新的功能的设计模式。在前端开发中，常用于对原有组件进行功能扩展或增强。</p>
+</li>
+<li><p>观察者模式</p>
+<p>观察者模式是一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖它的对象都会得到通知并自动更新。在前端开发中，常用于实现事件监听和发布-订阅模式。</p>
+</li>
+</ol>
+<p>使用这些设计模式可以使前端项目的代码更加易于维护和修改，提高代码的重用性和可扩展性。但是，过度使用设计模式也会增加代码的复杂度，所以需要根据实际情况选择合适的设计模式。</p>
+<h2 id="有没有使用过单元测试工具或代码检查？"><a href="#有没有使用过单元测试工具或代码检查？" class="headerlink" title="有没有使用过单元测试工具或代码检查？"></a>有没有使用过单元测试工具或代码检查？</h2><ol>
+<li>Jest：Facebook 开源的 JavaScript 测试框架，支持单元测试、集成测试和快照测试等。</li>
+<li>Mocha：一个功能丰富的 JavaScript 测试框架，支持异步测试、前端和后端测试，以及 BDD 和 TDD 等测试风格。</li>
+<li>Jasmine：一个行为驱动开发（BDD）框架，支持浏览器和 Node.js 等环境，可以进行单元测试、集成测试和端到端测试。</li>
+<li>Karma：一个测试运行器，可以在多个浏览器和平台上运行测试，并支持与其他测试框架集成。</li>
+<li>Enzyme：一个 React 组件测试工具，可以方便地进行组件渲染、事件模拟和快照测试等。</li>
+<li>Ava：一个快速、轻量级的测试框架，支持并行测试和异步测试，可以在浏览器和 Node.js 等环境下运行。</li>
+<li>Puppeteer：一个由 Google 开发的自动化测试工具，可以模拟用户操作和浏览器环境，用于进行端到端测试。</li>
+<li>Cypress：一个端到端测试工具，具有自动重试、实时重载和可视化测试等功能，可以在浏览器中运行测试。</li>
+</ol>
+<h2 id="ESLint代码检查原理？"><a href="#ESLint代码检查原理？" class="headerlink" title="ESLint代码检查原理？"></a>ESLint代码检查原理？</h2><p>ESLint是一个开源的JavaScript代码检查工具，它可以检查代码的语法错误、代码风格、潜在的错误等。ESLint的核心原理是基于抽象语法树（AST）来检查代码。</p>
+<p>ESLint会将代码解析成AST，然后通过遍历AST节点来检查代码，检查的规则由配置文件中的规则集合定义。ESLint的规则集合包括官方规则和第三方规则，可以根据需要自定义规则。</p>
+<p>在检查代码时，ESLint会根据规则集合中的规则来判断代码是否符合规范，如果不符合则输出错误或警告信息。ESLint还支持自动修复代码中的一些问题，可以通过–fix选项来修复代码中的问题。</p>
+<p>ESLint的检查原理可以总结为以下几个步骤：</p>
+<ol>
+<li>将代码解析成AST。</li>
+<li>遍历AST节点，根据规则集合中的规则判断代码是否符合规范。</li>
+<li>如果代码不符合规范，则输出错误或警告信息。</li>
+<li>如果需要，可以通过–fix选项来自动修复代码中的问题。</li>
+</ol>
+<p>总之，ESLint的检查原理基于抽象语法树（AST）来检查代码，可以根据规则集合中的规则来判断代码是否符合规范。</p>
+<h2 id="ESLint如何进行配置？常见的配置有哪些？"><a href="#ESLint如何进行配置？常见的配置有哪些？" class="headerlink" title="ESLint如何进行配置？常见的配置有哪些？"></a>ESLint如何进行配置？常见的配置有哪些？</h2><p>ESLint的配置文件可以使用JS、JSON、YAML、XML格式的文件进行配置。通常将配置文件命名为<code>.eslintrc.js</code>、<code>.eslintrc.json</code>、<code>.eslintrc.yaml</code>、<code>.eslintrc.yml</code>、<code>.eslintrc.xml</code>中的一种，放置于项目的根目录下。</p>
+<p>ESLint的配置文件可以使用JS、JSON、YAML、XML格式的文件进行配置。通常我们将配置文件命名为<code>.eslintrc.js</code>、<code>.eslintrc.json</code>、<code>.eslintrc.yaml</code>、<code>.eslintrc.yml</code>、<code>.eslintrc.xml</code>中的一种，放置于项目的根目录下。</p>
+<p>常见的ESLint配置有以下几项：</p>
+<ol>
+<li><code>env</code>: 指定应用程序的运行环境，一般是浏览器或Node.js环境</li>
+<li><code>extends</code>: 指定要扩展的 ESLint 配置文件</li>
+<li><code>rules</code>: 配置规则，可以禁用或启用规则，以及覆盖默认规则或扩展规则重载规则、覆盖提示程度等</li>
+<li><code>globals</code>: 在代码中定义全局变量，防止报未定义错误</li>
+<li><code>parserOptions</code>: 配置ESLint的解析器，如支持ECMAScript的版本等</li>
+<li><code>plugins</code>: 通过ESLint插件扩展规则，可以开启或关闭插件</li>
+<li><code>ignore</code>: 跳过某些文件或文件夹</li>
+</ol>
+<p>例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  <span class="hljs-attr">env</span>: &#123;<br>    <span class="hljs-attr">browser</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">es6</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">node</span>: <span class="hljs-literal">true</span>,<br>  &#125;,<br>  <span class="hljs-attr">extends</span>: [<span class="hljs-string">&#x27;eslint:recommended&#x27;</span>, <span class="hljs-string">&#x27;plugin:react/recommended&#x27;</span>],<br>  <span class="hljs-attr">plugins</span>: [<span class="hljs-string">&#x27;react&#x27;</span>],<br>  <span class="hljs-attr">parserOptions</span>: &#123;<br>    <span class="hljs-attr">ecmaVersion</span>: <span class="hljs-number">2018</span>,<br>    <span class="hljs-attr">sourceType</span>: <span class="hljs-string">&#x27;module&#x27;</span>,<br>    <span class="hljs-attr">ecmaFeatures</span>: &#123;<br>      <span class="hljs-attr">jsx</span>: <span class="hljs-literal">true</span>,<br>    &#125;,<br>  &#125;,<br>  <span class="hljs-attr">rules</span>: &#123;<br>    <span class="hljs-string">&#x27;react/prop-types&#x27;</span>: <span class="hljs-string">&#x27;off&#x27;</span>,<br>    <span class="hljs-string">&#x27;no-unused-vars&#x27;</span>: <span class="hljs-string">&#x27;warn&#x27;</span>,<br>  &#125;,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>该配置使用了ESLint默认的<code>recommended</code>规则和<code>react/recommended</code>规则，指定了环境为浏览器、ES6和Node.js环境，启用了React插件，禁用了对于React中props的类型检查，开启了对于未使用变量的警告。</p>
+<p>需要注意的是，ESLint的配置可以进行优先级继承，通常情况下，更具体、具有更小范围的文件配置优先级更高，在不同目录下的配置文件可以进行覆盖和继承。</p>
+<h2 id="Chrome开发者工具中Elements主要用来做什么？"><a href="#Chrome开发者工具中Elements主要用来做什么？" class="headerlink" title="Chrome开发者工具中Elements主要用来做什么？"></a>Chrome开发者工具中Elements主要用来做什么？</h2><p>Chrome开发者工具中Elements主要用来查看和编辑网页的DOM结构和样式。具体的使用如下：</p>
+<ol>
+<li>查看DOM结构：在Elements面板中，可以看到网页中所有的HTML元素及其嵌套关系。可以通过点击元素来快速定位到特定的元素，并查看其属性值、样式、事件等信息。</li>
+<li>编辑DOM结构：在Elements面板中，可以直接编辑网页的HTML和CSS代码，实时预览编辑结果。可添加、删除、修改网页中的元素和样式，便于前端开发和调试。</li>
+<li>查看计算样式：在Elements面板中，可以查看指定元素的样式属性及其来源。还可以查看元素的盒模型大小、外边距、内边距等信息，方便排版和布局。</li>
+<li>调试JavaScript：在Elements面板中，可以调试JavaScript代码。可以在控制台中输入命令、设置断点，查看变量、堆栈、网络请求等信息。</li>
+</ol>
+<h2 id="Chrome开发者工具中Sources的作用？如何调试代码？"><a href="#Chrome开发者工具中Sources的作用？如何调试代码？" class="headerlink" title="Chrome开发者工具中Sources的作用？如何调试代码？"></a>Chrome开发者工具中Sources的作用？如何调试代码？</h2><p>Chrome开发者工具中Sources主要用于调试JavaScript代码和查看相关资源，具体的作用有：</p>
+<ol>
+<li>查看页面中的JavaScript文件：在Sources面板中，可以查看当前页面中加载的JavaScript文件，包括内联、外链文件和异步加载文件等。</li>
+<li>编辑和调试JavaScript代码：在Sources面板中，可以直接在浏览器中编辑JavaScript代码，并实时预览效果。还可以设置断点、单步调试、查看变量、堆栈、网络请求等信息，帮助开发人员快速定位和解决代码错误。</li>
+<li>查看网页的CSS和资源：在Sources中，还可以查看网页的CSS样式及其相关资源，例如图片、字体、音频、视频等等。</li>
+</ol>
+<p>调试代码的步骤如下：</p>
+<ol>
+<li>打开Chrome浏览器，在需要调试的页面上右键选择“检查”或快捷键“ctrl + shift + I”打开开发者工具。</li>
+<li>在Sources面板中选择需要调试的JavaScript文件，点击行号左边的标记来设置断点。</li>
+<li>执行页面操作，例如点击按钮、输入内容等等，查看代码执行过程中的变量值、堆栈等信息。</li>
+<li>在Console中输入指令，例如console.log()打印变量信息。</li>
+<li>如果需要单步调试，可以点击面板上的“单步执行”按钮，一步一步执行代码。</li>
+</ol>
+<h2 id="Chrome开发者工具中NetWorks中一般会关注哪些东西？"><a href="#Chrome开发者工具中NetWorks中一般会关注哪些东西？" class="headerlink" title="Chrome开发者工具中NetWorks中一般会关注哪些东西？"></a>Chrome开发者工具中NetWorks中一般会关注哪些东西？</h2><p>在Chrome开发者工具中，NetWork面板主要用于<strong>分析和监控网站的网络请求</strong>。一般需要关注以下几个方面：</p>
+<ol>
+<li>请求类型：网络请求分为GET、POST、PUT、DELETE等，需要关注请求类型是否正确。</li>
+<li>请求的URL和状态码：查看请求的URL和状态码，可以获取请求是否成功以及返回的内容。</li>
+<li>请求和响应的头信息：请求和响应的头信息中包含了很多重要的信息，例如Cookie、User-Agent、Referer、Cache-Control等等。</li>
+<li>请求和响应的内容：在NetWork面板中，可以通过点击请求和响应的内容查看详细信息，例如请求和响应的参数、JSON数据、HTML代码等等。</li>
+<li>请求和响应时间：了解请求和响应时间可以帮助我们优化网站的性能。</li>
+<li>缓存信息：在NetWork面板中可以查看是否启用了缓存，并了解缓存的过期时间等。</li>
+<li>XHR请求：如果网站使用了XHR请求，可以通过NetWork面板中的XHR过滤器查看和分析这些请求。</li>
+</ol>
+<h2 id="Chrome开发者工具中Performance的作用？"><a href="#Chrome开发者工具中Performance的作用？" class="headerlink" title="Chrome开发者工具中Performance的作用？"></a>Chrome开发者工具中Performance的作用？</h2><p>Chrome开发者工具中的Performance（性能）标签页可以用于分析网页的性能问题，包括CPU占用、网络请求、JavaScript执行等方面。其主要作用如下：</p>
+<ol>
+<li>分析加载时间：可以使用Performance标签页来分析网页的加载时间，找出网页加载过程中的瓶颈，优化网页的性能表现。</li>
+<li>分析性能问题：性能标签页中提供了CPU和内存使用率、网络传输、JavaScript执行和渲染等方面的数据，可以帮助开发者发现性能问题。</li>
+<li>记录用户交互：Performance标签页可以记录用户的操作和交互行为，开发者可以借此了解用户体验，优化网站设计。</li>
+<li>模拟设备模式：Performance标签页中提供模拟设备模式，可以模拟不同设备下的网站运行情况，帮助开发者优化响应式设计。</li>
+</ol>
+<h2 id="Chrome开发者工具中Application中主要管理的是什么样的工作？"><a href="#Chrome开发者工具中Application中主要管理的是什么样的工作？" class="headerlink" title="Chrome开发者工具中Application中主要管理的是什么样的工作？"></a>Chrome开发者工具中Application中主要管理的是什么样的工作？</h2><p>Chrome开发者工具中的Application（应用程序）标签页主要管理网页应用程序的缓存、存储、数据库、Service Worker等内容。其主要功能如下：</p>
+<ol>
+<li>缓存管理：Application标签页中可以查看网页应用程序的缓存资源，包括HTTP缓存、Service Worker缓存等，并可以手动清除缓存。</li>
+<li>存储管理：可以查看网页应用程序使用的本地存储（localStorage、sessionStorage）等方式，也可以在此处清除这些数据。</li>
+<li>数据库管理：可以查看网页应用程序使用的Web SQL和IndexedDB数据库，并且可以在此处查看、修改、删除数据库中的数据。</li>
+<li>Service Worker管理：可以注册和注销Service Worker，查看当前Service Worker的状态，并手动刷新缓存等。</li>
+</ol>
+<p>通过使用Application标签页，开发者可以更好地管理和调试网页应用程序的缓存、存储、数据库和Service Worker等内容，提高开发效率和用户体验。</p>
+<h2 id="Application-Service-Workers是用来做什么的？"><a href="#Application-Service-Workers是用来做什么的？" class="headerlink" title="Application Service Workers是用来做什么的？"></a>Application Service Workers是用来做什么的？</h2><p>Chrome开发者工具中的Application Service Workers选项是用来查看和调试网页应用程序中的Service Workers的。</p>
+<p>通过该选项，可以查看当前网页应用程序所使用的Service Workers，包括其版本，以及缓存的资源和数据。此外，还可以手动更新和刷新Service Workers，以确保网页应用程序始终使用最新的版本。还可以改变Service Workers的状态，来测试网页应用程序在不同状态下的行为，例如离线模式、在线模式、更新中等等。</p>
+<p>在开发网页应用程序时，Service Workers可以提供许多便利的工具和功能。使用Chrome开发者工具中的Application Service Workers选项，开发人员可以快速地调试和测试Service Workers，并优化网页应用程序的性能和体验。</p>
+<p>Application Service Workers是一种浏览器特性，用于在后台运行脚本，以提供离线体验、消息推送和更高性能等功能。与传统的JavaScript脚本不同，Service Workers运行在单独的线程中，不会因为页面加载或关闭而终止，可以在多个页面或应用程序之间共享状态和资源。</p>
+<p>Service Workers可以缓存应用程序的资源（如HTML、CSS、JavaScript、图像和API响应等），使应用程序能够在没有网络连接的情况下仍能够正常运行。当应用程序需要更新或升级资源时，Service Workers会自动更新缓存中的内容，以确保应用程序保持最新的版本。</p>
+<p>此外，Service Workers还可以推送消息通知，以提供更好的用户体验。例如，当应用程序的新内容可用时，Service Workers可以发送消息通知给用户，以便用户及时查看内容。</p>
+<p>总之，Application Service Workers是一种强大的浏览器特性，能够为网页应用程序提供离线、推送和更高性能等功能，在现代网页应用程序的开发中起着越来越重要的作用。</p>
+<h2 id="npm-i时-D，-g，-s有什么区别？"><a href="#npm-i时-D，-g，-s有什么区别？" class="headerlink" title="npm i时 -D，-g，-s有什么区别？"></a>npm i时 -D，-g，-s有什么区别？</h2><ol>
+<li><code>-D</code> 或 <code>--save-dev</code>: 表示将依赖项保存在<code>devDependencies</code>节点下。<code>devDependency</code>表示本地开发环境所需要的依赖项，如测试库等，这些依赖项不会放到生产环境中，而是在开发和测试中使用。在项目中执行<code>npm install</code>时，这些依赖项不会被下载。</li>
+<li><code>-g</code> 或 <code>--global</code>: 表示将模块安装为全局模块，只需要在第一次安装时执行一次即可，以后在任意位置执行该模块时都会被引用。通常用于全局的命令行工具，例如<code>gulp-cli</code>。</li>
+<li><code>-S</code> 或 <code>--save</code>: 表示将依赖项保存在<code>dependencies</code>节点下。<code>dependency</code>表示运行时需要的依赖项。在项目中执行<code>npm install</code>时，这些依赖项会被下载到本地并保存在<code>node_modules</code>目录下，可以被应用程序或项目引用。</li>
+</ol>
+<p>默认使用的是<code>-s</code></p>
+<h2 id="前端项目工程初始化，package-json文件主要是什么样的作用？"><a href="#前端项目工程初始化，package-json文件主要是什么样的作用？" class="headerlink" title="前端项目工程初始化，package.json文件主要是什么样的作用？"></a>前端项目工程初始化，package.json文件主要是什么样的作用？</h2><ol>
+<li>管理项目依赖：在package.json文件中，可以定义项目所需要的依赖包及其版本号，以便管理和安装项目所需的npm包。</li>
+<li>配置项目：在package.json文件中还可以定义项目的一些基本配置信息，如项目名称、版本号、作者、许可证等，也可以定义脚本命令，例如：启动项目、打包构建等等。</li>
+<li>版本控制：package.json中还包含了项目的版本信息，可以在版本升级或更新时及时更新版本信息。</li>
+<li>社区交流：在开源社区中，人们可以通过查看项目的package.json文件快速了解项目的基本信息和相关依赖，从而更好地参与到项目的开发、交流与协作中。</li>
+</ol>
+<h2 id="dependencies和DevDependencies的区别？"><a href="#dependencies和DevDependencies的区别？" class="headerlink" title="dependencies和DevDependencies的区别？"></a>dependencies和DevDependencies的区别？</h2><p>devDependencies是项目生产环境中所依赖的工具包</p>
+<p>dependencies是项目正常运行时所依赖的工具包</p>
+<ol>
+<li>dependencies是指项目运行时必须要依赖的包，例如React、Vue、jQuery等等，这些包是直接影响到项目的运行，因此一定要安装并引入它们才能使项目正常运行。</li>
+<li>DevDependencies是指开发过程中需要依赖的包，例如Babel、Webpack等等，这些包通常用于打包构建代码、测试、格式化等开发环境中的工作，它们不会直接影响到项目的运行，只是在开发过程中需要用到它们进行开发。</li>
+<li>在npm install命令中，如果不指定参数，则会同时安装dependencies和DevDependencies中的所有包，如果只想安装dependencies中的包，可以使用npm install –production参数。</li>
+</ol>
+<h2 id="在项目的什么环节二者会出现差异？"><a href="#在项目的什么环节二者会出现差异？" class="headerlink" title="在项目的什么环节二者会出现差异？"></a>在项目的什么环节二者会出现差异？</h2><p>在项目开发过程中dependencies和DevDependencies可能会出现差异。在开发项目时，需要依赖各种开发工具和测试框架来进行代码编写和测试。这些工具和框架通常作为开发人员的开发环境，它们的作用是协助开发人员进行代码编写和测试，但是在项目运行时并不需要它们。</p>
+<p>当开发人员将项目发布到生产环境中时，只需要安装dependencies中的依赖即可。而DevDependencies中的依赖包只需要在开发和测试过程中使用，发布时可以不安装它们。</p>
+<p>因此，在开发一个项目时，我们需要清楚的区分哪些依赖包是生产环境必需的，哪些是开发环境必需的。这样可以减小项目的体积，并减少不必要的依赖。</p>
+<h2 id="dependencies的依赖中，版本号中的-代表什么含义？"><a href="#dependencies的依赖中，版本号中的-代表什么含义？" class="headerlink" title="dependencies的依赖中，版本号中的^代表什么含义？"></a>dependencies的依赖中，版本号中的<code>^</code>代表什么含义？</h2><p>在package.json文件中，^符号代表允许自动更新的版本号，即只要版本号的最左边的非零数字不变，就允许自动更新版本号。例如，^16.8.0表示允许更新到16.x.x的任何版本，但不允许更新到17.x.x及以上的版本。这意味着只有当React的主要版本号（即16）变化时，才需要手动更新项目中的React版本号。</p>
+<h2 id="开发依赖和上线依赖有什么，代码层面如何体现的？"><a href="#开发依赖和上线依赖有什么，代码层面如何体现的？" class="headerlink" title="开发依赖和上线依赖有什么，代码层面如何体现的？"></a>开发依赖和上线依赖有什么，代码层面如何体现的？</h2><p>开发依赖和生产依赖的主要区别在于它们所处的上下文环境不同。开发依赖是在在开发过程中使用的依赖项，而生产依赖是在发布后运行时需要的依赖项。</p>
+<p>在代码层面，可以通过修改 <code>package.json</code> 文件来区分开发依赖和生产依赖。<code>package.json</code> 文件是一个描述 <code>Node.js</code> 模块的文件，它包含了模块名称、版本、作者、许可证等一系列的信息，同时还包含了 <code>dependencies</code> 和 <code>devDependencies</code> 两个节点，分别用于描述生产依赖和开发依赖。</p>
+<p>举个例子，我们在开发过程中使用了 <code>babel</code> 和 <code>webpack</code>，但是生产环境中并不需要它们，那么在 <code>package.json</code> 文件中我们可以这样写：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;my-app&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1.0.0&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;dependencies&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;express&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;^4.16.4&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;devDependencies&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;babel-core&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;^6.26.0&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;babel-loader&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;^7.1.5&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;webpack&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;^4.39.1&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>在上面的示例中，<code>express</code> 被声明为生产依赖项，而 <code>babel-core</code>、<code>babel-loader</code> 和 <code>webpack</code> 被声明为开发依赖项。开发依赖项一般不会被发布到生产环境中，而生产环境中只会安装相应的生产依赖项。</p>
+<h2 id="页面和页面之间如何进行通信？"><a href="#页面和页面之间如何进行通信？" class="headerlink" title="页面和页面之间如何进行通信？"></a>页面和页面之间如何进行通信？</h2><ol>
+<li>URL参数传递：通过URL的参数来传递数据，一般用于简单的数据传递，如跳转页面时带上一个ID或者其他参数。</li>
+<li>LocalStorage：可以将数据存储在本地，然后在另外一个页面中通过读取LocalStorage来获得数据。</li>
+<li>Cookies：也可以使用Cookie来传递数据，在另一个页面中读取Cookie来获得数据。</li>
+<li>消息总线（Message Bus）：使用消息总线（Message Bus）来实现不同页面之间的通信，比如使用Vue.js框架中的vuex状态管理工具。</li>
+<li>WebSocket： 使用WebSocket可以在多个页面之间建立长连接，实现实时通信。</li>
+</ol>
+<h2 id="不同域名下的页面进行通信？"><a href="#不同域名下的页面进行通信？" class="headerlink" title="不同域名下的页面进行通信？"></a>不同域名下的页面进行通信？</h2><ol>
+<li><p>跨文档消息传输（Cross-document messaging）：通过JavaScript API从一个窗口向另一个窗口发送消息，使用postMessage方法。</p>
+</li>
+<li><p>JSONP：在页面中嵌入一个外部脚本文件，将数据封装在回调函数中，以JSONP格式传递。</p>
+</li>
+<li><p>服务器代理（Server proxy）：通过一个中间代理服务器，让服务器将请求发送至目标域名，在服务器端进行处理，返回结果。</p>
+</li>
+<li><p>iframe：利用iframe加载一个与目标域名下的页面通信的iframe，通过JavaScript API跨域访问iframe的内容。</p>
+</li>
+<li><p>WebSocket：一种支持浏览器和服务器间实时、双向通信的协议，可用于不同域名下的页面进行通信</p>
+</li>
+</ol>
+<h2 id="浏览器中多个tab页面如何进行通信？"><a href="#浏览器中多个tab页面如何进行通信？" class="headerlink" title="浏览器中多个tab页面如何进行通信？"></a>浏览器中多个tab页面如何进行通信？</h2><p>在浏览器中，多个tab页面之间可以通过以下方式进行通信：</p>
+<p>localStorage: localStorage是HTML5提供的一种本地存储机制，它可以将数据存储在浏览器中，而不<br>需要向服务器发送请求。同源的多个tab页面可以通过共享localStorage的方式实现通信，通过约定<br>localstorage的某一个itemName，基于该key值的内容作为“共享硬盘”方式通信。</p>
+<p>SharedWorker: SharedWorker是HTML5提供的一种JavaScript多线程解决方案，它可以让多个tab页<br>JavaScript代码，这样就可以在多个tab页面之间共享数据和状态。</p>
+<p>WebSocket: Websocket是HTML5提供的一种新协议，它可以在客户端和服务器之间建立一个持久性<br>的连接，从而实现双向通信。Websocket协议可以让服务器主动向客户端推送数据，而不需要客户端<br>发起请求。多个tab页面之间可以通过WebSocket协议进行通信。</p>
+<p>BroadcastChannel: BroadcastChannel是HTML5提供的一种新API，它可以让多人tab页面之间建门<br>个广播通道，从而实现跨页面通信。BroadcastChannel可以让一个页面向其他所有页面广播消息。</p>
+<p>postMessage: postMessage是HTML5提供的一种新API，它可以让多个tab页面之间建立一个消息通<br>道，从而实现跨页面通信。postMessage可以让一个页面向其他所有页面发送消息。</p>
+<h2 id="对微前端和小程序的理解？"><a href="#对微前端和小程序的理解？" class="headerlink" title="对微前端和小程序的理解？"></a>对微前端和小程序的理解？</h2><p>微前端和小程序是两种不同的架构模式。</p>
+<p>微前端是一种将前端应用程序拆分为多个较小、独立的部分，每个部分都可以独立构建、部署，跨团队共同开发，最终组合成完整的前端应用程序的架构风格。微前端可以将一个复杂的前端应用拆解成多个更易于理解、维护和开发的小应用，可以极大提高应用的可维护性、扩展性和可复用性。</p>
+<p>小程序则是一种轻量、低耦合的应用形态。它与普通的网页应用不同，是运行在一个独立的、受限的执行环境中的，可以通过微信、支付宝等应用平台下载和运行。小程序具有轻便、快速、便捷等特点，并且具有开发门槛低、维护简单等优势。</p>
+<p>在微前端中，每个小应用可以看作一个完整的应用，可以使用不同的框架、技术栈来开发。小程序则是一个更加轻量、特殊的应用类型，其开发也需要遵循一定的规范和限制。微前端和小程序都能够极大地提高应用的灵活性、可维护性、可扩展性，但适用的场景、开发方式、技术栈以及运行时环境等方面都存在差异。</p>
+<p>需要注意的是，微前端是一种架构风格，而不是具体实现。在实施微前端时，需要结合具体的业务需求和技术栈，选择适合自己的微前端实现方式。常见的微前端实现方式有：Web Components、IFrame、Javascript Integration等。</p>
+<h2 id="什么是并发池？"><a href="#什么是并发池？" class="headerlink" title="什么是并发池？"></a>什么是并发池？</h2><p>并发池（Concurrent Pool）是指一组线程处理任务的资源池，它用于控制并发任务的数量，以及线程的数量和调度。并发池是提高多线程效率的一种常见方式。由于创建线程是一项昂贵的操作，在有限的 CPU 资源下，任务多线程执行时有时会导致性能下降。为了提高线程处理任务的效率，可以将并发任务扔到并发池中，使其可以更高效地利用有限的 CPU 资源。</p>
+<p>在并发池中，当有任务需要执行时，会从池中取出一个线程，线程会负责处理任务。如果任务较多，而线程数不够，可以根据需要创建新的线程来处理，但这种操作需要消耗系统的资源，因此需要进行一定的控制和限制。</p>
+<p>并发池还可以设置任务队列和线程池的最大大小等参数，以调整整个系统的负载和性能。增加并发池的大小或者增强并发能力可以提高任务处理的速度，但是会增加系统的开销和调度的复杂度，需要进行合理的调整和平衡。</p>
+<p>并发池是基于多线程技术的一种高效的任务调度方案，在并发编程中被广泛应用，例如，Java中的ThreadPoolExecutor就是一个大家熟知的并发池实现。</p>
+<h2 id="手写并发池？"><a href="#手写并发池？" class="headerlink" title="手写并发池？"></a>手写并发池？</h2><p>JavaScript 实现并发池的思路一般可以分为以下几个步骤：</p>
+<ol>
+<li>创建一个任务队列，用于存储待执行的任务。</li>
+<li>创建一个线程池，用于并发执行任务。线程池中可以维护一个可用线程的队列，新任务需要执行时，从队列中获取一个线程进行执行。</li>
+<li>在执行任务时，线程需要从任务队列中取出一个待执行的任务进行处理。处理完成后，将线程回收到线程池中，等待下一个任务。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 任务队列</span><br><span class="hljs-keyword">const</span> taskQueue = [];<br><br><span class="hljs-comment">// 线程池</span><br><span class="hljs-keyword">const</span> threadPool = [];<br><br><span class="hljs-comment">// 初始化线程池，创建可用线程</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">initThreadPool</span>(<span class="hljs-params">num</span>) &#123;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; num; i++) &#123;<br>    threadPool.<span class="hljs-title function_">push</span>(&#123;<br>      <span class="hljs-attr">status</span>: <span class="hljs-string">&#x27;available&#x27;</span><br>    &#125;);<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 执行任务</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">executeTask</span>(<span class="hljs-params">task</span>) &#123;<br>  <span class="hljs-comment">// 检查是否有可用线程</span><br>  <span class="hljs-keyword">let</span> idleThread = threadPool.<span class="hljs-title function_">find</span>(<span class="hljs-function"><span class="hljs-params">thread</span> =&gt;</span> thread.<span class="hljs-property">status</span> === <span class="hljs-string">&#x27;available&#x27;</span>);<br>  <span class="hljs-keyword">if</span> (idleThread) &#123;<br>    <span class="hljs-comment">// 将线程状态设置为“忙碌”</span><br>    idleThread.<span class="hljs-property">status</span> = <span class="hljs-string">&#x27;busy&#x27;</span>;<br>    <span class="hljs-comment">// 执行任务</span><br>    <span class="hljs-title function_">task</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-comment">// 任务执行结束，将线程状态设置为“可用”</span><br>      idleThread.<span class="hljs-property">status</span> = <span class="hljs-string">&#x27;available&#x27;</span>;<br>      <span class="hljs-comment">// 处理下一个任务</span><br>      <span class="hljs-title function_">processTask</span>();<br>    &#125;);<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-comment">// 等待空闲线程</span><br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-title function_">executeTask</span>(task);<br>    &#125;, <span class="hljs-number">1000</span>);<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 处理任务</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">processTask</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">if</span> (taskQueue.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-keyword">let</span> task = taskQueue.<span class="hljs-title function_">shift</span>();<br>    <span class="hljs-title function_">executeTask</span>(task);<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 添加任务到队列</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">addTask</span>(<span class="hljs-params">task</span>) &#123;<br>  taskQueue.<span class="hljs-title function_">push</span>(task);<br>  <span class="hljs-title function_">processTask</span>();<br>&#125;<br><br><span class="hljs-comment">// 初始化线程池</span><br><span class="hljs-title function_">initThreadPool</span>(<span class="hljs-number">3</span>);<br><br><span class="hljs-comment">// 添加任务到队列</span><br><span class="hljs-title function_">addTask</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) &#123;<br>  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Task 1 completed!&#x27;</span>);<br>    <span class="hljs-title function_">callback</span>();<br>  &#125;, <span class="hljs-number">3000</span>);<br>&#125;);<br><br><span class="hljs-title function_">addTask</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) &#123;<br>  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Task 2 completed!&#x27;</span>);<br>    <span class="hljs-title function_">callback</span>();<br>  &#125;, <span class="hljs-number">2000</span>);<br>&#125;);<br><br><span class="hljs-title function_">addTask</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) &#123;<br>  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Task 3 completed!&#x27;</span>);<br>    <span class="hljs-title function_">callback</span>();<br>  &#125;, <span class="hljs-number">4000</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>以上代码中，我们定义了一个任务队列 <code>taskQueue</code> 和一个线程池 <code>threadPool</code>。在 <code>initThreadPool</code> 函数中，我们创建了一定数量的线程并添加到线程池中。</p>
+<p>在 <code>executeTask</code> 函数中，我们检查线程池中是否有可用线程，如果有可用线程则从任务队列中取出一个任务并将其交给线程执行。任务执行完成后，我们将线程状态设置为“可用”，并继续处理下一个任务。</p>
+<p>在 <code>addTask</code> 函数中，我们将新任务添加到任务队列中，在有可用线程时自动开始执行。我们也可以手动调用 <code>processTask</code> 函数开始执行任务。</p>
+<h2 id="什么是异步池？"><a href="#什么是异步池？" class="headerlink" title="什么是异步池？"></a>什么是异步池？</h2><p>异步池是一种用于控制并发异步操作的机制。它通过限制异步操作的并发数量，避免过多的异步操作导致系统资源紧张、性能下降或者甚至崩溃的情况发生。</p>
+<p>在异步编程模型中，异步操作常常需要消耗大量的系统资源，例如网络 IO、磁盘 IO、CPU 等。如果同时启动过多的异步操作，系统资源就会被耗尽，导致性能下降或者崩溃。因此，为了更好地控制异步操作的并发数量，提高系统的稳定性和性能，通常会采用异步池的机制。</p>
+<p>异步池的实现一般使用任务队列来控制异步操作的并发数量。当有任务需要执行时，先将任务添加到队列中，然后从池中取出一个空闲的线程进行执行，执行完成后再将线程回收到池中等待下一个任务。</p>
+<p>异步池具有以下优点：</p>
+<ol>
+<li>可以避免过多异步操作导致系统性能下降或者崩溃。</li>
+<li>可以提高异步操作的执行效率和响应速度。</li>
+<li>可以提高系统的稳定性和可靠性。</li>
+</ol>
+<p>异步池的应用场景非常广泛，例如网络通信、数据处理、图片处理、音视频处理等领域都会用到异步池的技术。</p>
+<h2 id="什么是Nginx的负载均衡？"><a href="#什么是Nginx的负载均衡？" class="headerlink" title="什么是Nginx的负载均衡？"></a>什么是Nginx的负载均衡？</h2><p>Nginx的负载均衡是一种分发网络负载的技术，它能够将请求分发到不同的服务器上，以达到提高应用程序可用性、可伸缩性和容错性的效果。</p>
+<p>Nginx 的负载均衡通过对请求进行分发，把负载均衡器作为客户端，把服务器作为后端，当客户端发送请求后，负载均衡器根据某种算法，将请求转发到不同的服务器上，分散了服务器的压力，实现了资源的共享。</p>
+<p>Nginx 的负载均衡有四种模式：轮询模式、IP哈希模式、最少连接模式和加权轮询模式。其中，</p>
+<ol>
+<li>轮询模式：按照每一次的连接顺序，在后端服务器间进行轮询；</li>
+<li>IP哈希模式：通过对每一个请求连接的IP地址进行哈希计算，来决定调度的服务器；</li>
+<li>最少连接模式：根据当前所有已连接的客户端数来判断应该将请求发送到哪个服务器上；</li>
+<li>加权轮询模式：根据服务器的性能指标给不同的服务器分配不同的权值，来决定应该将连接转发到哪个服务器上。</li>
+</ol>
+<p>通过Nginx的负载均衡，可以减小单台服务器的压力，提高应用程序的效率和负载能力，从而更好地满足用户需求。</p>
+<h2 id="如果一个项目上线后，用户反映白屏了，但是开发者这边没有问题，可能是哪些原因造成的？"><a href="#如果一个项目上线后，用户反映白屏了，但是开发者这边没有问题，可能是哪些原因造成的？" class="headerlink" title="如果一个项目上线后，用户反映白屏了，但是开发者这边没有问题，可能是哪些原因造成的？"></a>如果一个项目上线后，用户反映白屏了，但是开发者这边没有问题，可能是哪些原因造成的？</h2><p>白屏问题可能由以下原因造成：</p>
+<ol>
+<li>浏览器缓存问题：用户使用的浏览器可能存在缓存，而此次更新的文件或资源未被缓存或缓存已经过期，导致浏览器无法正确加载页面资源。</li>
+<li>CDN缓存问题：网站可能使用了CDN进行资源加速，如果CDN缓存未及时更新或者缓存中的页面资源损坏，也会导致白屏问题。</li>
+<li>代码问题：可能出现了未捕获的程序错误，导致代码无法正常执行，例如语法错误，异常等。在开发环境中由于代码基本经过了调试，因此没有出现问题，但在生产环境中出现问题。</li>
+<li>服务器配置问题：服务器可能配置有错误，例如PHP的错误配置、内存限制等，导致网站无法正常运行或仅显示部分内容。</li>
+<li>网络问题：由于网络连接不佳或者服务器承受的请求太多，导致服务返回数据受阻或丢失，从而出现白屏问题。</li>
+</ol>
+<p>解决方法：</p>
+<ol>
+<li>用户清除浏览器缓存与Cookie缓存。</li>
+<li>检查CDN缓存状态，尝试清除CDN缓存。</li>
+<li>检查代码的错误日志，运行调试工具进行问题定位。同时，在代码中加上错误日志，能帮助开发者更好的了解问题的具体情况。</li>
+<li>检查服务器配置是否正确，并优化服务器配置。</li>
+<li>检查网络连接、服务器负载情况，尝试优化服务器性能。</li>
+</ol>
+<p>通过以上方法，可以排除上述可能造成白屏的原因，逐一解决白屏问题。同时，在项目上线之前，要进行全方位的测试，确保项目稳定性和可靠性。</p>
+<h2 id="前端新旧浏览器如何兼容？"><a href="#前端新旧浏览器如何兼容？" class="headerlink" title="前端新旧浏览器如何兼容？"></a>前端新旧浏览器如何兼容？</h2><ol>
+<li>根据浏览器类型增加前缀和补丁：在CSS、JS、HTML等文件中，可以根据不同浏览器类型增加前缀和补丁。例如CSS中可以使用<code>-webkit-</code>、<code>-moz-</code>、<code>-o-</code>等前缀来解决浏览器兼容性问题。</li>
+<li>使用指针事件代替手势事件：在IE浏览器中，没有支持手势事件的API，可以使用指针事件代替手势事件。指针事件可以在IE11及以上版本的浏览器中获得支持。</li>
+<li>使用Polyfill填充开发者的API：Polyfill是一种库，可以在不支持新API的浏览器中通过JavaScript代码使用类似的API实现相同的功能。它可以使用JavaScript来抹平不同浏览器之间的差异，帮助开发人员开发跨浏览器的Web应用程序。</li>
+<li>使用媒体查询和弹性布局：在设计响应式布局的时候，可以使用媒体查询（Media Query）和弹性布局（Flexbox）来实现响应式设计，从而适应不同的屏幕大小和浏览器类型。</li>
+<li>采用替代方案或设计逐渐降级：如果在旧浏览器中无法实现新的特性，也可以选择采用替代的方案或者设计逐渐降级的方案，保证在旧浏览器上的用户也能够正常访问和使用。</li>
+</ol>
+<h2 id="单页应用与多页应用的区别？"><a href="#单页应用与多页应用的区别？" class="headerlink" title="单页应用与多页应用的区别？"></a>单页应用与多页应用的区别？</h2><p>单页应用（Single Page Application，SPA）和多页应用（Multiple Page Application，MPA）是常见的两种 Web 应用程序结构。</p>
+<p>单页应用是一种<strong>动态加载内容</strong>的方式，它仅仅<strong>在浏览器对服务器发起请求时加载必要的 HTML、CSS 和 JavaScript 文件，并通过 AJAX 技术从服务器获取新内容</strong>。用户在一个页面上进行所有的交互，而页面的更新和内容的变化则是由 JavaScript 控制的。单页应用可以<strong>提高网站的响应速度和用户体验，并且可以适应各种设备和屏幕尺寸</strong>。</p>
+<p>相比之下，多页应用是一种传统的 Web 应用程序结构，<strong>浏览器在用户导航时每次向服务器请求新页面，服务器再返回一个全新的 HTML 文档</strong>。在多页应用中，<strong>每个页面都有自己的 URL，并且需要通过浏览器的后退功能进行导航</strong>。</p>
+<p>SPA 和 MPA 的最主要区别在于其数据的加载方式。<strong>SPA 通常会在页面初始化的时候加载所有必要的组件和数据，而 MPA 则是在每次进行页面跳转的时候重新加载页面和数据</strong>。SPA 通过 AJAX 技术实现快速的页面局部更新，而 MPA 则需要向服务器请求完整的 HTML 文档。</p>
+<p>另外，SPA 的优点还包括<strong>更流畅、更快的用户体验、可复用性更高、开发成本更低</strong>，而 MPA 的优点则包括 <strong>SEO 更加友好、实现简单易懂，适合传统的 Web 应用程序</strong>。</p>
+<h2 id="对后端的理解？"><a href="#对后端的理解？" class="headerlink" title="对后端的理解？"></a>对后端的理解？</h2><p>后端是指Web应用程序中的服务器端（Server-Side）部分，主要负责处理客户端（Front-End）请求、数据库交互及业务逻辑处理等。后端通常是由Web框架、服务器、数据库等技术组成的，比如常用的Java后端主要基于Spring&#x2F;Spring Boot、MyBatis等技术架构来实现。</p>
+<p>后端主要任务之一是<strong>将前端用户请求转化为后端业务逻辑，将处理结果返回给前端</strong>，因此后端需要实现一些接口，以供前端调用。同时，后端还需要负责<strong>与数据库进行交互，如响应前端的请求，查询数据库中的数据并返回结果，将前端提交的数据写入数据库等</strong>。此外，后端还需要实现一些<strong>系统基础服务</strong>，如身份认证、日志输出、缓存等。</p>
+<p>为了保证后端的稳定性和高效性，后端需要考虑编码规范、安全性、性能优化等方面的问题。另外，随着Web技术的发展，后端还需要考虑如微服务、云计算等新技术的应用及其实现，以支持更好的系统架构和运行效率。</p>
+<h2 id="如何管理线程池？"><a href="#如何管理线程池？" class="headerlink" title="如何管理线程池？"></a>如何管理线程池？</h2><p>线程池是一种可以重复利用的线程集合，它可以减少线程的创建和销毁次数，提高应用程序的性能。为了有效地管理线程池，我们需要考虑以下几个方面：</p>
+<ol>
+<li>线程池大小：线程池大小的配置需要根据应用程序的性质、系统硬件环境和其他因素进行合理的配置。如果线程池大小过小，则可能导致应用程序响应变慢，如果线程池过大，则会消耗大量系统资源，降低系统性能。</li>
+<li>线程池任务队列：线程池任务队列可以缓存等待处理的任务，以便线程池中的线程可以及时处理。在实际应用中，我们需要根据实际情况来选择使用有界队列还是无界队列，以及队列的大小。</li>
+<li>线程池任务拒绝策略：当线程池中的线程和任务队列都已满时，可以采用不同的任务拒绝策略，例如直接丢弃任务、抛出异常、调用者运行等。</li>
+<li>线程池监控与日志：需要针对线程池进行监控和日志记录，以便及时发现并解决线程池性能问题。</li>
+<li>线程池关闭：在应用程序退出或者不再需要线程池时，需要正确地关闭线程池，并释放所有的资源。</li>
+</ol>
+<p>总之，线程池的管理需要根据实际情况进行灵活配置和优化，以保证线程池能够高效地运行并且不会导致内存泄露等问题。</p>
+<h2 id="面向对象的三大特性"><a href="#面向对象的三大特性" class="headerlink" title="面向对象的三大特性"></a>面向对象的三大特性</h2><ul>
+<li>封装：将客观事物抽象成类，并将自己的属性和方法让可信的类或对象操作，对不可信的隐藏</li>
+<li>继承：可以使用现有类的所有共鞥你，并在无需重新编写原来的类的情况下对这些功能进行拓展</li>
+<li>多态：允许将父对象设置成为和一个或更多它的子对象相等的技术，赋值之后，父对象可以根据当前赋值给它的子对象的特性以不同的方式运作。虽然针对不同对象的具体操作不同，但通过一个公共的类，他们可以通过相同的方式予以调用。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Spring-Recruitment/">#Spring Recruitment</a>
+      
+        <a href="/tags/Webpack/">#Webpack</a>
+      
+        <a href="/tags/Git/">#Git</a>
+      
+        <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">#性能优化</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Webpack，Git打包部署、性能优化、安全相关</div>
+      <div>https://ustinians.github.io/2023/04/26/Webpack，Git打包部署、性能优化、安全相关/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>想躺在云上</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/04/26/NodeJS%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="NodeJS知识点总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">NodeJS知识点总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/26/%E6%B5%8F%E8%A7%88%E5%99%A8%E3%80%81%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E3%80%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3/" title="浏览器、进程和线程、计算机网络、数据库相关">
+                        <span class="hidden-mobile">浏览器、进程和线程、计算机网络、数据库相关</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
