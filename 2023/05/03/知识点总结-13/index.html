@@ -24,7 +24,7 @@
 <meta property="og:description" content="知识点整理(13)HTTP 3.0使用的拥塞控制算法？HTTP&#x2F;3.0 使用的拥塞控制算法是 QUIC 拥塞控制算法（QUIC Congestion Control Algorithm）。 QUIC 拥塞控制算法主要采用了基于延迟控制的拥塞控制策略，即通过测量传输的延迟时间，动态地调整发送速率，以避免网络拥塞的发生。 具体来说，QUIC 拥塞控制算法采用了 BBR2（Bottleneck">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-03T06:18:08.000Z">
-<meta property="article:modified_time" content="2023-05-03T06:18:51.706Z">
+<meta property="article:modified_time" content="2023-05-03T07:19:50.727Z">
 <meta property="article:author" content="想躺在云上">
 <meta property="article:tag" content="前端学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -330,7 +330,7 @@
 <li>远程调试: 使用远程调试工具，在用户设备上进行调试，可以实现在用户本地进行调试，定位问题。</li>
 <li>使用模拟器: 运用模拟器工具，可以模拟不同浏览器、设备的环境，对问题进行排查。</li>
 </ol>
-<h2 id="ES2019引入的数组at方法？"><a href="#ES2019引入的数组at方法？" class="headerlink" title="ES2019引入的数组at方法？"></a>ES2019引入的数组at方法？</h2><p>这个方法返回数组中<strong>指定索引位置的元素</strong>，类似于数组下标操作，但稍有不同之处是<strong>如果索引值非法（大于等于数组长度或小于0），则会抛出一个 RangeError 异常</strong>。它的语法如下：</p>
+<h2 id="ES2019引入的数组at方法？"><a href="#ES2019引入的数组at方法？" class="headerlink" title="ES2019引入的数组at方法？"></a>ES2019引入的数组at方法？</h2><p>这个方法返回数组中<strong>指定索引位置的元素</strong>，类似于数组下标操作，它的语法如下：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>];<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr.<span class="hljs-title function_">at</span>(<span class="hljs-number">2</span>)); <span class="hljs-comment">// 3</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr.<span class="hljs-title function_">at</span>(-<span class="hljs-number">2</span>)); <span class="hljs-comment">// 4 (从后往前查找)’</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr.<span class="hljs-title function_">at</span>(<span class="hljs-number">10</span>)); <span class="hljs-comment">// undefined</span><br></code></pre></td></tr></table></figure>
 
 <p>index为指定的索引值。返回值是数组中指定的元素。<strong>如果 index 是负数，则它将被视为从后往前的偏移量</strong>，例如，-1表示数组末尾的元素。</p>
@@ -444,6 +444,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/05/04/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86-14/" title="知识点整理(14)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">知识点整理(14)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
