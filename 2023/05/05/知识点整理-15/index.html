@@ -1,0 +1,749 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="想躺在云上">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="整理(16)前端工程师的价值是什么？前端工程师的价值在于他们能够将设计团队提供的视觉设计和用户体验转化为可执行的代码，并且能够确保该代码可靠、高效地运行在不同的浏览器和设备上。除此之外，前端工程师还负责构建优秀的用户界面，使用户能够简单、直观地与Web应用程序或网站进行交互，从而提高用户满意度和忠诚度。与此同时，前端工程师还可以通过不断学习和实践来推动Web前端技术的进步和创新，促进移动端和Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识点整理(15)">
+<meta property="og:url" content="https://ustinians.github.io/2023/05/05/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86-15/index.html">
+<meta property="og:site_name" content="想躺在云上 - In doing we learn.">
+<meta property="og:description" content="整理(16)前端工程师的价值是什么？前端工程师的价值在于他们能够将设计团队提供的视觉设计和用户体验转化为可执行的代码，并且能够确保该代码可靠、高效地运行在不同的浏览器和设备上。除此之外，前端工程师还负责构建优秀的用户界面，使用户能够简单、直观地与Web应用程序或网站进行交互，从而提高用户满意度和忠诚度。与此同时，前端工程师还可以通过不断学习和实践来推动Web前端技术的进步和创新，促进移动端和Web">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic2.imgdb.cn/item/6454b23f0d2dde5777177899.jpg">
+<meta property="og:image" content="https://pic2.imgdb.cn/item/6454b2760d2dde577717de9f.jpg">
+<meta property="article:published_time" content="2023-05-05T08:02:03.000Z">
+<meta property="article:modified_time" content="2023-05-05T08:02:23.558Z">
+<meta property="article:author" content="想躺在云上">
+<meta property="article:tag" content="前端学习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pic2.imgdb.cn/item/6454b23f0d2dde5777177899.jpg">
+  
+  
+  
+  <title>知识点整理(15) - 想躺在云上 - In doing we learn.</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ustinians.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>想躺在云上</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="知识点整理(15)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-05 16:02" pubdate>
+          2023年5月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          49 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">知识点整理(15)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="整理-16"><a href="#整理-16" class="headerlink" title="整理(16)"></a>整理(16)</h1><h2 id="前端工程师的价值是什么？"><a href="#前端工程师的价值是什么？" class="headerlink" title="前端工程师的价值是什么？"></a>前端工程师的价值是什么？</h2><p>前端工程师的价值在于他们能够将设计团队提供的视觉设计和用户体验转化为可执行的代码，并且能够确保该代码可靠、高效地运行在不同的浏览器和设备上。除此之外，前端工程师还负责构建优秀的用户界面，使用户能够简单、直观地与Web应用程序或网站进行交互，从而提高用户满意度和忠诚度。与此同时，前端工程师还可以通过不断学习和实践来推动Web前端技术的进步和创新，促进移动端和Web技术的跨界融合，从而驱动整个互联网行业的发展。</p>
+<h2 id="什么是中间人攻击？"><a href="#什么是中间人攻击？" class="headerlink" title="什么是中间人攻击？"></a>什么是中间人攻击？</h2><p>中间人攻击（Man-In-The-Middle Attack&#x2F;Attack, MITM Attack&#x2F;Attack）是指<strong>攻击者与通讯双方的通讯过程中进行拦截和篡改，从而使双方认为自己正与对方直接通信，但实际上所有传输数据都经过了攻击者的篡改和窃取。</strong></p>
+<p>中间人攻击可能会在通讯过程中通过伪造数字证书等方式获得通讯双方的信任。一旦攻击者实现了中间人攻击，他就可以窃取或篡改双方通信的数据，读取双方机密信息如账号密码、身份证号、银行卡信息等。</p>
+<p>中间人攻击的常见情景包括：公共Wi-Fi网络上的登录、HTTP网站传输数据、SMTP、POP、IMAP等协议等。因此，通常建议用户在使用互联网时使用加密连接方式，如HTTPS、VPN等，并保持软件和系统的更新，以减少中间人攻击的风险。</p>
+<h2 id="中间人攻击的流程？"><a href="#中间人攻击的流程？" class="headerlink" title="中间人攻击的流程？"></a>中间人攻击的流程？</h2><ol>
+<li>监听：攻击者在通信的中间位置<strong>部署监听设备</strong>，如Wi-Fi网络嗅探器等，以截获双方的通信数据包。</li>
+<li>伪造：攻击者会<strong>伪装成一个可信的通讯双方参与通信</strong>，从而使双方相信自己是真正的通信对象。</li>
+<li>拦截：攻击者会拦<strong>截双方通信过程中传输的数据包，修改或替换其中的数据内容，并将伪造的数据重新发送给对方</strong>，使得双方都不知道数据包已被篡改。</li>
+<li>窃取：攻击者利用拦截到的通信数据包，获取其中的私密信息，如账号密码、银行卡信息等。</li>
+<li>篡改：攻击者还可以篡改数据包中的信息，比如把转账金额改大、修改登录密码，从而掌控用户的账号和密码。</li>
+</ol>
+<h2 id="中间人攻击会涉及到公钥吗？"><a href="#中间人攻击会涉及到公钥吗？" class="headerlink" title="中间人攻击会涉及到公钥吗？"></a>中间人攻击会涉及到公钥吗？</h2><p>中间人攻击有可能涉及到公钥。在加密通信中，公钥加密方式通常使用服务器公钥加密来保护通信的安全性。中间人攻击者可以<strong>替换服务器公钥发送给客户端，使得客户端的数据其实是被攻击者拦截和篡改过的</strong>。因此，公钥的安全性是中间人攻击的一个重要因素。为了减少中间人攻击的风险，可采用一些防御措施，比如使用HTTPS协议、数字证书等。</p>
+<hr />
+
+<p><code>SSLSniff</code>攻击：</p>
+<p>攻击者在网关截获<code>SSL</code>会话，替换服务器公钥证书，将公钥<code>PKey</code>换成自己的公钥<code>PKey</code>，欺骗客户端。客户端使用<code>PKey</code>加密信息并发送会话，中间人用私钥<code>Skey</code>解密客户端返回会话，从而劫持会话。同时，中间人用<code>PKey</code>加密明文会话并返回服务器。</p>
+<p><strong>过程如下：</strong></p>
+<ol>
+<li><code>Attacker</code>截获了客户端的<code>say hello</code>，可以把<code>publicKey_attacker</code>返回给客户端，取得客户端的信任，至此<code>Attacker</code>与客户端建立了安全连接。</li>
+<li><code>Attacker</code>冒充客户端向服务器发送<code>say hello</code>，至此<code>Attacker</code>与服务器建立了安全连接。</li>
+</ol>
+<p>这种攻击会存在一个问题会被感知到，就是<code>Attacker</code>的证书是伪造的不受信任的证书，所以客户端可以确认是否需要真的连接该服务器。</p>
+<p><code>SSLStrip</code>攻击：</p>
+<p>这种攻击相对于攻击一复杂一点，但是也更加厉害，几乎可以在客户端无感知的情况下实施攻击，并且不需要伪造证书；简单来说就是这样：<code>Attacker</code>在客户端与服务器建立连接时，在<code>Attacker</code>与服务器之间形成<code>HTTPS</code>连接，而在客户端与<code>Attacker</code>之间形成<code>HTTP</code>连接，即将<code>SSL</code>层从原<code>HTTPS</code>连接中“剥离”。这样，既避免了在客户端验证证书时难以避免的弹框问题，又能够劫持HTTP明文数据，并同时保证客户端<code>HTTP</code>数据的传输，达到欺骗服务器与客户端的效果。</p>
+<p><strong>过程如下：</strong></p>
+<p>用户在浏览器地址栏中输入网址时，多数会采用直接输入网址的方式，而忽略了传输所采用的协议。例如，在登录gmail过程中，大多数用户会直接在地址栏中输入<code>www.gmail.com</code>，向<code>Google</code>服务器发送一个HTTP连接请求，而不是输入<code>https：//www.gmail.com</code>， 向服务器发送一个<code>HTTPS</code>连接请求。因此，用户通常接触到HTTPS的方式有两种：一种是 Web上的连接，比如当用户在gmail上输入用户名和密码后，点击的登录键，将用户的用户名和密码以<code>HTTPS</code>的形式<code>POST</code>到服务器。另一种是通过HTTP的302状态。 当客户端向gmail提出HTTP连接请求时，gmail服务器会返回一个<code>REDIRECT</code>网址，<code>https：//www.google.com/accounts/ServiceLogin?service=mail...</code>，用户端在接收到这个URL后，将页面重定位到该网页，并请求HTTPS连接。 从另外一个角度讲，用户通常是通过<code>HTTP</code>向服务器发起<code>HTTPS</code>连接的。而<code>HTTP</code>本身是以明文的形式对外传送，并不能保证数据的安全。因此，可以考虑通过对HTTP进行劫持，来实现对HTTPS劫持的目的。</p>
+<ol>
+<li>客户端向服务器发起<code>HTTP</code>连接请求；</li>
+<li>中间人MITM监听客户端与服务器的<code>HTTP</code>数据；</li>
+<li>服务器返回给客户端的HTTP数据包被在客户端与服务器之间的中间人截获。中间人解析原HTTP数据包，将其中<code>&lt;a href=”https：//...”&gt;</code>替换成<code>&lt;a href=”http//...”&gt;</code>，将 <code>Location： https：//...</code> 替换成<code>Location：http://..</code>，同时记录下所修改的URL，并保存；</li>
+<li>中间人将修改后的<code>HTTP</code>数据发送给客户端；</li>
+<li>客户端向服务器发起<code>HTTP</code>连接请求；</li>
+<li>中间人计算机解析客户端的<code>HTTP</code>连接请求，并与保存文件相比较。当发现存在有已修改过的<code>HTTP URL</code>时，将其替换成原<code>HTTPS URL</code>，并发送给服务器；</li>
+<li>与服务器保持<code>HTTPS</code>连接，回到步骤3；</li>
+<li>与客户端保持<code>HTTP</code>连接，回到步骤4。</li>
+</ol>
+<h2 id="中间人攻击如果篡改信息，服务器会发现吗？"><a href="#中间人攻击如果篡改信息，服务器会发现吗？" class="headerlink" title="中间人攻击如果篡改信息，服务器会发现吗？"></a>中间人攻击如果篡改信息，服务器会发现吗？</h2><p>如果中间人攻击者成功地篡改了通信传输的信息，服务器端通常无法直接发现这种攻击。因为<strong>服务器和攻击者之间的通信是直接的，中间人攻击者的篡改并不会被服务器端所感知</strong>。但是，服务器有可能能够通过<strong>异常检测、加强的日志分析</strong>等方式来发现一些不寻常的行为，如<strong>明显的数据篡改或存在异常的数据包传输</strong>。此外，服务器也可以启用一些<strong>数据完整性和消息认证</strong>等机制来检测数据是否被篡改，以降低中间人攻击的风险。</p>
+<h2 id="TCP-x2F-IP模型与OSI模型的区别与联系？"><a href="#TCP-x2F-IP模型与OSI模型的区别与联系？" class="headerlink" title="TCP&#x2F;IP模型与OSI模型的区别与联系？"></a>TCP&#x2F;IP模型与OSI模型的区别与联系？</h2><h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ol>
+<li>层数：OSI模型将网络通信分为7层，而TCP&#x2F;IP模型将网络通信分为5层。即OSI模型比TCP&#x2F;IP模型多出了表示层和会话层两层。这也是OSI模型相对于TCP&#x2F;IP模型而言显得较为冗余的原因之一。</li>
+<li>技术实现的不同：OSI模型更注重于理论和学术领域的规范性，而TCP&#x2F;IP模型则更加实际和直接，更注重提出实现的协议和解决问题的方法。</li>
+<li>应用场景的不同：OSI模型更多地应用于大型企业网络和公共网络的标准化管理，而TCP&#x2F;IP模型则更多地应用于广泛的计算机网络，如互联网、局域网和广域网等。</li>
+</ol>
+<h3 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h3><ol>
+<li>都是层次结构，分层的目的都是为了使协议的设计和实现更加清晰、模块化。</li>
+<li>TCP&#x2F;IP模型中的各层和OSI模型中的各层都包含特定的协议和标准，而这些协议和标准都是为了实现网络通信而设计的。</li>
+<li>虽然OSI模型和TCP&#x2F;IP模型的分层结构不同，并且各自都有自己独特的特性，但它们都是网络通信领域的重要参考模型，为网络通信的标准化和规范化做出了重要贡献。</li>
+</ol>
+<p>OSI七层模型</p>
+<p><img src="https://pic2.imgdb.cn/item/6454b23f0d2dde5777177899.jpg" srcset="/img/loading.gif" lazyload alt="OSI七层模型及其作用"></p>
+<p>TCP&#x2F;IP五层模型</p>
+<p><img src="https://pic2.imgdb.cn/item/6454b2760d2dde577717de9f.jpg" srcset="/img/loading.gif" lazyload alt="TCP/IP五层协议及每层对应的协议有哪些"></p>
+<h2 id="CSS有哪些布局方式？"><a href="#CSS有哪些布局方式？" class="headerlink" title="CSS有哪些布局方式？"></a>CSS有哪些布局方式？</h2><ol>
+<li>盒子模型布局（box model layout）：指定元素的宽度、高度、内边距和边框等属性，通过对盒子模型进行设置来实现布局。</li>
+<li>浮动布局（float layout）：元素通过使用浮动属性，可以脱离标准布局流，浮动到页面的左侧或右侧，同时其他元素会环绕在其周围。</li>
+<li>弹性布局（flexbox layout）：定义一个容器，容器里的项目按照一定的比例分配空间，可以实现自适应的响应式布局。</li>
+<li>网格布局（grid layout）：将页面分成一个个容器来布局，通过定义行和列来划分布局区域，可以实现复杂的布局。</li>
+<li>定位布局（position layout）：使用position属性，指定元素的位置，往往和浮动属性一起使用。</li>
+<li>表格布局（table layout）：将元素当成表格和单元格来布局，可以实现类似传统网页设计的布局效果。</li>
+<li>多列布局（multi-column layout）：将内容分成多个列来显示，可以实现报纸和杂志的页面设计效果。</li>
+</ol>
+<h2 id="CSS有哪些默认值？"><a href="#CSS有哪些默认值？" class="headerlink" title="CSS有哪些默认值？"></a>CSS有哪些默认值？</h2><ol>
+<li>字体相关的默认值：<ul>
+<li>font-weight：normal</li>
+<li>font-size：medium（通常是16px）</li>
+<li>font-family：根据操作系统和浏览器自定义，如对于 Windows 系统的浏览器，通常为“Segoe UI”，对于 Apple 系统的浏览器，通常为“Helvetica”</li>
+<li>line-height：normal（通常是字体大小的1.2倍）</li>
+</ul>
+</li>
+<li>盒模型相关的默认值：<ul>
+<li>margin：0</li>
+<li>padding：0</li>
+<li>border：无</li>
+</ul>
+</li>
+<li>颜色相关的默认值：<ul>
+<li>color：通常为黑色（#000）</li>
+<li>background-color： 通常为透明（transparent）</li>
+</ul>
+</li>
+<li>布局相关的默认值：<ul>
+<li>display：通常为 block，但是对于 a、input，button等元素是 inline 或 inline-block</li>
+<li>position：通常为 static</li>
+<li>float：无</li>
+<li>clear：无</li>
+<li>visibility：visible</li>
+<li>overflow：visible</li>
+</ul>
+</li>
+</ol>
+<p>需要注意的是，这些默认值是<strong>根据浏览器的默认样式表来定义的，而不是由 CSS 规范来规定的</strong>。因此，不同的浏览器可能会有不同的默认值。为了确保实现一致的样式效果，建议为自己的 CSS 文件中的样式属性设置初始值。</p>
+<h2 id="归并排序的原理是什么"><a href="#归并排序的原理是什么" class="headerlink" title="归并排序的原理是什么?"></a>归并排序的原理是什么?</h2><p>归并排序（Merge Sort）是一种基于<strong>分治思想</strong>的排序算法。其基本原理是将一个未排序的列表（数组）递归地分成两个子问题，直到问题规模足够小，然后将这些子问题的解进行合并以获得原始问题的解。</p>
+<p>归并排序的实现步骤如下：</p>
+<ol>
+<li>分：将原始问题（未排序的列表）递归地分为两个子问题，直到问题规模足够小，例如列表中只有一个元素。</li>
+<li>治：将两个子问题的解进行合并以获得原始问题的解。</li>
+</ol>
+<p>具体的合并过程如下：</p>
+<ul>
+<li>建立一个辅助数组，用来存储合并后的结果。</li>
+<li>将要合并的两个数组按顺序依次比较，将较小（或较大）的元素放入辅助数组中。</li>
+<li>如果其中一个数组中所有元素都已经被合并入辅助数组中，则将另一个数组中剩余的元素依次放入辅助数组。</li>
+<li>最后，将辅助数组中的元素复制回原始数组。</li>
+</ul>
+<p>归并排序的时间复杂度为 O(n log n)，其中 n 表示列表中元素的个数。它的空间复杂度为 O(n)。可以看出，归并排序的递归深度是 log n，每次递归需要一个长度为 n 的辅助数组，因此总的空间复杂度为 O(n log n)。</p>
+<h2 id="快速排序的原理是什么？"><a href="#快速排序的原理是什么？" class="headerlink" title="快速排序的原理是什么？"></a>快速排序的原理是什么？</h2><p>快速排序（Quick Sort）也是一种基于<strong>分治思想</strong>的排序算法。其基本原理是<strong>选择一个元素作为基准值（通常选择第一个元素），将列表中所有小于基准值的元素移到基准值的左边，所有大于基准值的元素移到基准值的右边，然后递归地对基准值左右两边的子列表进行排序。</strong></p>
+<p>具体的实现步骤如下：</p>
+<ol>
+<li>选择基准值：从列表中选择一个元素作为基准值（通常选择第一个元素）。</li>
+<li>分区：将列表中小于基准值的元素放到基准值的左边，将大于基准值的元素放到基准值的右边，相等的元素可以放到任一侧（通常使用双指针法进行分区操作）。</li>
+<li>递归排序：对基准值左右两边的子列表进行递归排序，直到子列表长度小于等于 1。</li>
+</ol>
+<p>快速排序的时间复杂度为 O(n log n)，其中 n 表示列表中元素的个数。最坏情况下的时间复杂度为 O(n^2)，发生在列表已经有序，或者基准值选取不合理的情况下。它的空间复杂度为 O(log n)，因为递归调用的深度是 log n。快速排序是一种原地排序算法，因此它的空间复杂度是比较低的。</p>
+<h2 id="为什么快速排序要取一个随机数作为基准数？"><a href="#为什么快速排序要取一个随机数作为基准数？" class="headerlink" title="为什么快速排序要取一个随机数作为基准数？"></a>为什么快速排序要取一个随机数作为基准数？</h2><p>快速排序算法的性能与基准值的选择有关。<strong>如果每次选择的基准值都是列表中的最小值或最大值，那么每次分割出的两个子列表的长度分别为 n-1 和 1，此时快速排序的时间复杂度就会退化为 O(n^2)，最坏情况发生的概率比较高。而对于随机选择基准值，可以尽可能地避免这种最坏情况的发生，从而保证了算法的性能。</strong></p>
+<p>随机选择基准值的优点在于可以<strong>减少最坏情况的概率</strong>。随机选择基准值可以让算法的平均时间复杂度达到 O(n log n)，可以在很大程度上提高算法的效率。此外，随机选择基准值也让攻击者很难找到攻击的空间，避免了一些安全漏洞。</p>
+<h2 id="快速排序再最差的情况下和冒泡排序相比谁更快？为什么？"><a href="#快速排序再最差的情况下和冒泡排序相比谁更快？为什么？" class="headerlink" title="快速排序再最差的情况下和冒泡排序相比谁更快？为什么？"></a>快速排序再最差的情况下和冒泡排序相比谁更快？为什么？</h2><p>在最坏的情况下，快速排序的时间复杂度是 O(n^2)，此时快速排序会退化成冒泡排序。但是，<strong>快速排序的交换次数要比冒泡排序少得多，因为每次交换只会交换基准值和另一个元素的位置。而冒泡排序在每一轮比较中都有可能进行元素交换</strong>，因此在最坏情况下，**冒泡排序的时间复杂度和交换次数都比快速排序更差，均为 O(n^2)**。</p>
+<p>因此，尽管快速排序在最坏情况下的时间复杂度和冒泡排序相同，但是快速排序的交换次数要比冒泡排序少得多，相对来说更快一些。此外，在平均情况下，快速排序的时间复杂度要比冒泡排序更小，因此快速排序是一种更加高效的排序算法。</p>
+<h2 id="时间复杂度是怎么计算的？"><a href="#时间复杂度是怎么计算的？" class="headerlink" title="时间复杂度是怎么计算的？"></a>时间复杂度是怎么计算的？</h2><p>计算算法的时间复杂度通常是通过分析算法中的基本操作次数来完成的，这些基本操作通常是循环、条件分支、加减乘除等简单的指令。我们针对输入规模 n，通过分析算法中所有基本操作执行的次数，得到一个关于 n 的函数 T(n)，就称之为算法的时间复杂度。</p>
+<p>在计算时间复杂度时，通常只关注最高阶项，因为它反映了算法的增长速度。比如，对于 T(n) &#x3D; 5n^2 + 3n + 2，我们只关心 n^2 这一项，而忽略其他项，因为当 n 足够大时，其他项相对于 n^2 来说会变得微不足道。</p>
+<p>常见的时间复杂度有：</p>
+<ul>
+<li>常数时间复杂度 O(1)</li>
+<li>对数时间复杂度 O(logn)</li>
+<li>线性时间复杂度 O(n)</li>
+<li>线性对数时间复杂度 O(nlogn)</li>
+<li>平方时间复杂度 O(n^2)</li>
+<li>指数时间复杂度 O(2^n)</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">#前端学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>知识点整理(15)</div>
+      <div>https://ustinians.github.io/2023/05/05/知识点整理-15/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>想躺在云上</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年5月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/05/04/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86-14/" title="知识点整理(14)">
+                        <span class="hidden-mobile">知识点整理(14)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
