@@ -24,7 +24,7 @@
 <meta property="og:description" content="知识点整理(16)什么是CSS层叠性？CSS的层叠性是指当多个CSS规则都应用到同一个HTML元素时，浏览器如何处理其样式属性的优先级和叠加顺序的规则。通俗一点地说，就是 CSS 样式的优先级以及如何在冲突时决定使用哪一个规则的机制。 按优先级从高到低排序：  !important规则 行内样式 ID选择器 类选择器、属性选择器、伪类选择器 元素选择器、伪元素选择器 通配符和继承的样式  按照上述">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-08T07:21:24.000Z">
-<meta property="article:modified_time" content="2023-05-08T07:21:54.864Z">
+<meta property="article:modified_time" content="2023-05-08T07:47:04.015Z">
 <meta property="article:author" content="想躺在云上">
 <meta property="article:tag" content="前端学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9k 字
+          10k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          76 分钟
+          85 分钟
         
       </span>
     
@@ -447,6 +447,16 @@
 <li>兼容性好：不需要依赖JavaScript来实现页面的渲染，所以兼容性较好。</li>
 </ol>
 <p>当然，SPA和MPA都有自己的缺点。例如，SPA可能存在对浏览器版本的兼容性要求较高，而MPA可能存在页面切换时的短暂空白等问题。选择哪种开发架构，需要根据具体业务需求和技术能力来决定。</p>
+<h2 id="什么是生成器？"><a href="#什么是生成器？" class="headerlink" title="什么是生成器？"></a>什么是生成器？</h2><p>在 JavaScript 中，可以使用生成器（Generator）来生成一个值序列，类似于 Python 中的生成器。在 ES6 中，引入了生成器语法，以实现更简单、更易于维护的异步编程。生成器可以用 yield 关键字定义，用于生成需要返回的值和暂停函数执行的位置。在需要时，可以从上次停止的位置继续执行并生成下一个值序列。</p>
+<p>下面是一个简单的 JavaScript 生成器的示例代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span>* <span class="hljs-title function_">generator</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">yield</span> <span class="hljs-number">2</span>;<br>  <span class="hljs-keyword">yield</span> <span class="hljs-number">3</span>;<br>&#125;<br><br><span class="hljs-keyword">const</span> g = <span class="hljs-title function_">generator</span>();<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(g.<span class="hljs-title function_">next</span>().<span class="hljs-property">value</span>); <span class="hljs-comment">// 输出 1</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(g.<span class="hljs-title function_">next</span>().<span class="hljs-property">value</span>); <span class="hljs-comment">// 输出 2</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(g.<span class="hljs-title function_">next</span>().<span class="hljs-property">value</span>); <span class="hljs-comment">// 输出 3</span><br></code></pre></td></tr></table></figure>
+
+<p>在该示例中，使用 function* 定义了一个生成器 generator()，并用 yield 语句生成一个从 1 到 3 的值序列。通过调用 generator()，可以生成一个迭代器对象 g，用于逐一迭代返回的序列中的值。每次调用 g.next()，生成器都会从 yield 语句处继续执行，输出下一个值。</p>
+<p>生成器的强大之处在于可以生成无穷序列，而不必真正生成它们，同样可以避免内存占用问题。同时，使用生成器还可以实现更易于维护的异步编程，如使用 yield 关键字暂停函数执行，等待异步操作完成，然后继续执行函数。</p>
+<h2 id="什么是协程？"><a href="#什么是协程？" class="headerlink" title="什么是协程？"></a>什么是协程？</h2><p>协程（coroutine）也称为对称协程，是一种运行在单线程中的、用户态的轻量级线程，可以避免多线程编写代码时出现的锁、死锁、状态同步等问题，并且可以在不同协程之间进行任意切换和交互，实现类似并发的效果。协程是一种比线程更加轻量级的并发模型，不需要操作系统的支持，可以在应用程序层面实现并发和并行执行。</p>
+<p>协程是一种特殊的函数，可以执行部分代码，暂停执行，等待外部信号或事件发生后再恢复执行，而不是中断整个线程。协程有自己的栈和指令指针，可以保存上下文，切换时可以快速恢复之前的状态，因此可以实现高并发、高吞吐量的效果。</p>
+<p>以 JavaScript 中的 Generator 为例，Generator 本质上也是一种协程，可以通过 yield 语句实现暂停和恢复执行。当 Generator 函数执行到 yield 语句时，函数会暂停执行，返回一个迭代器对象，通过调用迭代器对象的 next() 方法，可以恢复函数执行并从上一次执行的地方继续执行直到遇到下一个 yield 语句或函数结束。通过这种方式，可以实现类似并发的效果，在单线程中同时执行多个任务。</p>
+<p>协程的优点是可以避免线程切换的开销，可以更好地利用 CPU 和内存资源，同时可以避免竞态条件和死锁等问题。缺点是需要手动管理状态，编写复杂度较高。</p>
 
                 
               </div>
