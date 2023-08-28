@@ -1,0 +1,655 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="想躺在云上">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="快手二面请将下面类组件函数转换成函数组件123456789101112131415161718192021222324import React, &amp;#123; Component &amp;#125; from &amp;#x27;react&amp;#x27;export default class MyButton extends Component &amp;#123;    constructor(props) &amp;#12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="快手二面">
+<meta property="og:url" content="https://ustinians.github.io/2023/08/23/%E5%BF%AB%E6%89%8B%E4%BA%8C%E9%9D%A2/index.html">
+<meta property="og:site_name" content="想躺在云上 - In doing we learn.">
+<meta property="og:description" content="快手二面请将下面类组件函数转换成函数组件123456789101112131415161718192021222324import React, &amp;#123; Component &amp;#125; from &amp;#x27;react&amp;#x27;export default class MyButton extends Component &amp;#123;    constructor(props) &amp;#12">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-23T02:52:10.000Z">
+<meta property="article:modified_time" content="2023-08-28T13:56:34.304Z">
+<meta property="article:author" content="想躺在云上">
+<meta property="article:tag" content="前端|面经">
+<meta property="article:tag" content="Autumn Recruitment">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>快手二面 - 想躺在云上 - In doing we learn.</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ustinians.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>想躺在云上</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="快手二面"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-23 10:52" pubdate>
+          2023年8月23日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">快手二面</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="快手二面"><a href="#快手二面" class="headerlink" title="快手二面"></a>快手二面</h1><h2 id="请将下面类组件函数转换成函数组件"><a href="#请将下面类组件函数转换成函数组件" class="headerlink" title="请将下面类组件函数转换成函数组件"></a>请将下面类组件函数转换成函数组件</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; <span class="hljs-title class_">Component</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyButton</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Component</span> &#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">props</span>) &#123;<br>        <span class="hljs-variable language_">super</span>(props);<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> = &#123;<br>            <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Bob&#x27;</span>,<br>        &#125;<br>    &#125;<br>    <span class="hljs-title function_">componentDidMount</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">interval</span> = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">111</span>);<br>        &#125;, <span class="hljs-number">2000</span>);<br>    &#125;<br>    <span class="hljs-title function_">componentWillUnmount</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">interval</span> &amp;&amp; <span class="hljs-built_in">clearInterval</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">interval</span>);<br>    &#125;<br>    <span class="hljs-title function_">clickMe</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">interval</span> &amp;&amp; <span class="hljs-built_in">clearInterval</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">interval</span>);<br>    &#125;<br>    <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;this.clickMe&#125;</span>&gt;</span>My name is &#123;this.state.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="在MyButton组件的父组件发生变化时，这个函数会重新执行吗？重新执行后interval的值还正确吗？"><a href="#在MyButton组件的父组件发生变化时，这个函数会重新执行吗？重新执行后interval的值还正确吗？" class="headerlink" title="在MyButton组件的父组件发生变化时，这个函数会重新执行吗？重新执行后interval的值还正确吗？"></a>在MyButton组件的父组件发生变化时，这个函数会重新执行吗？重新执行后interval的值还正确吗？</h2><p>当父组件的值发生变化时，子组件不会重新执行，因为没有依赖项传递给<code>useEffect</code>。<code>useEffect</code>中使用一个空数组作为依赖项，表示该副作用函数只在组件挂载和卸载时执行一次。</p>
+<p>由于父组件的值的变化不会重新执行子组件，因此<code>interval</code>的值也不会发生变化。<code>interval</code>变量始终指向最初的定时器ID，即使父组件更新了多次也不会改变。</p>
+<h2 id="假设在2s内点击按钮触发clickMe函数，clearInterval会执行吗？"><a href="#假设在2s内点击按钮触发clickMe函数，clearInterval会执行吗？" class="headerlink" title="假设在2s内点击按钮触发clickMe函数，clearInterval会执行吗？"></a>假设在2s内点击按钮触发clickMe函数，clearInterval会执行吗？</h2><p>不会执行clearInterval。在constructor函数中，设置了this.state.name为’Bob’，并在componentDidMount函数中设置了一个interval，每隔2秒打印111。在clickMe函数中，通过this.interval &amp;&amp; clearInterval(this.interval)判断是否有interval存在，如果存在则清除interval。但是在clickMe函数中并没有绑定this，所以点击Button时，this会指向undefined，会报错，并且clearInterval不会执行。为了解决这个问题，可以在constructor中绑定this.clickMe函数，或者将clickMe函数转换为箭头函数。</p>
+<h2 id="如何让函数组件拥有相同的效果？"><a href="#如何让函数组件拥有相同的效果？" class="headerlink" title="如何让函数组件拥有相同的效果？"></a>如何让函数组件拥有相同的效果？</h2><p>（mark）</p>
+<h2 id="在clickMe函数中调用setName-‘Jhon’-会发生什么？框架内部做了什么？"><a href="#在clickMe函数中调用setName-‘Jhon’-会发生什么？框架内部做了什么？" class="headerlink" title="在clickMe函数中调用setName(‘Jhon’)会发生什么？框架内部做了什么？"></a>在clickMe函数中调用setName(‘Jhon’)会发生什么？框架内部做了什么？</h2><ol>
+<li>检查name状态的改变是否会引起组件的重新渲染。</li>
+<li>如果改变会引起重新渲染，React会创建一个新的name状态的值，并将其设置为’Jhon’。</li>
+<li>React会将新的name状态值与之前的值进行比较，以确定是否需要更新组件的视图。</li>
+<li>如果需要更新组件的视图，React会调用组件内部的render方法，并生成新的虚拟DOM树。</li>
+<li>React会比较新的虚拟DOM树与旧的虚拟DOM树之间的差异，并计算出最小的更新操作。</li>
+<li>React会将更新操作应用到实际的DOM树上，以更新组件的视图。</li>
+<li>最后，React会触发组件内部的生命周期方法，如componentDidUpdate，以完成重新渲染的过程。</li>
+</ol>
+<h2 id="为什么组件发生了重新渲染，拿到的值是Jhon，而不是被初始化为Blob？"><a href="#为什么组件发生了重新渲染，拿到的值是Jhon，而不是被初始化为Blob？" class="headerlink" title="为什么组件发生了重新渲染，拿到的值是Jhon，而不是被初始化为Blob？"></a>为什么组件发生了重新渲染，拿到的值是Jhon，而不是被初始化为Blob？</h2><p>在React中，当调用useState的时候，它返回一个状态值和一个更新该状态值的函数。当调用setName(‘Jhon’)时，React会将新的值’Jhon’传递给setName函数。然后React会更新组件的状态，并进行重新渲染。</p>
+<p>React中的函数组件是基于函数式编程的原则，它遵循了”不可变性”的思想。在React中，状态值是不可变的，每次更新状态时，React会创建一个新的状态值，而不是修改原来的状态值。</p>
+<p>所以，当执行setName(‘Jhon’)后，React会创建一个新的name状态值为’Jhon’，并将其更新到组件中。组件重新渲染时，会使用最新的状态值，即’Jhon’，而不是之前的初始化值’Bob’。</p>
+<p>这种方式可以确保组件的状态独立于其他状态，每个状态都是可控和可预测的。相比传统的可变状态，这种不可变的方式更易于追踪和调试，同时也提高了React的性能和效率。</p>
+<h2 id="对Webpack的了解？"><a href="#对Webpack的了解？" class="headerlink" title="对Webpack的了解？"></a>对Webpack的了解？</h2><h2 id="url-loader为什么要将文件转换成Data-Url的格式？"><a href="#url-loader为什么要将文件转换成Data-Url的格式？" class="headerlink" title="url-loader为什么要将文件转换成Data-Url的格式？"></a>url-loader为什么要将文件转换成Data-Url的格式？</h2><p>将文件转换为DataURL的格式可以将文件内容嵌入到生成的bundle.js文件中，而不是通过HTTP请求从服务器上获取文件。这样做有以下几个优点：</p>
+<ol>
+<li>减少HTTP请求次数：将文件内容嵌入到bundle.js中，可以减少页面加载时需要发送的HTTP请求次数。通常情况下，浏览器同时能够从同一域发送的HTTP请求是有限的，减少请求次数可以减少网络延迟，提高页面加载速度。</li>
+<li>加快文件加载速度：由于不再需要发送HTTP请求从服务器获取文件，因此文件加载速度会更快。尤其是对于一些较小的文件，将其转换为DataURL形式可以减少网络IO时间，提高加载速度。</li>
+<li>方便文件管理和维护：将文件内容嵌入到bundle.js中，可以方便地管理和维护项目文件。不再需要维护大量的外部文件，文件和代码可以集中在一起，减少了文件的分散和丢失的风险。</li>
+</ol>
+<p>需要注意的是，只有较小的文件适合转换为DataURL，因为DataURL会将文件内容编码为Base64字符串，而且会增加文件大小。对于较大的文件，仍然需要通过HTTP请求从服务器获取，不适合转换为DataURL。因此，在使用url-loader时需要根据文件的大小来灵活配置阈值，选择最佳的处理方式。</p>
+<p>算法题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/3sum/">三数之和</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF-%E9%9D%A2%E7%BB%8F/">#前端|面经</a>
+      
+        <a href="/tags/Autumn-Recruitment/">#Autumn Recruitment</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>快手二面</div>
+      <div>https://ustinians.github.io/2023/08/23/快手二面/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>想躺在云上</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/28/%E7%BE%8E%E5%9B%A2%E7%A7%8B%E6%8B%9B%E4%B8%80%E9%9D%A2/" title="美团秋招一面">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">美团秋招一面</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/15/%E5%BF%AB%E6%89%8B%E4%B8%80%E9%9D%A2/" title="快手一面">
+                        <span class="hidden-mobile">快手一面</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

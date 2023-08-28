@@ -1,0 +1,816 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="想躺在云上">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="知识点总结（1）数据循环的应用有哪些？ Vue nextTick React setState  setState为什么采用微任务而不是宏任务？ 优先级控制：微任务具有比宏任务更高的优先级。在一个事件循环中，宏任务会等待当前事件循环的所有同步代码执行完毕后才会执行，而微任务则会在当前宏任务执行完毕之后、事件循环进入下一个阶段之前立即执行。这就意味着，使用微任务可以确保在下一个宏任务之前更新界面，从">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识点总结（1）">
+<meta property="og:url" content="https://ustinians.github.io/2023/08/28/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%881%EF%BC%89/index.html">
+<meta property="og:site_name" content="想躺在云上 - In doing we learn.">
+<meta property="og:description" content="知识点总结（1）数据循环的应用有哪些？ Vue nextTick React setState  setState为什么采用微任务而不是宏任务？ 优先级控制：微任务具有比宏任务更高的优先级。在一个事件循环中，宏任务会等待当前事件循环的所有同步代码执行完毕后才会执行，而微任务则会在当前宏任务执行完毕之后、事件循环进入下一个阶段之前立即执行。这就意味着，使用微任务可以确保在下一个宏任务之前更新界面，从">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-28T13:58:17.000Z">
+<meta property="article:modified_time" content="2023-08-28T13:59:22.390Z">
+<meta property="article:author" content="想躺在云上">
+<meta property="article:tag" content="前端总结">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>知识点总结（1） - 想躺在云上 - In doing we learn.</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ustinians.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>想躺在云上</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="知识点总结（1）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-28 21:58" pubdate>
+          2023年8月28日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          68 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">知识点总结（1）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="知识点总结（1）"><a href="#知识点总结（1）" class="headerlink" title="知识点总结（1）"></a>知识点总结（1）</h1><h2 id="数据循环的应用有哪些？"><a href="#数据循环的应用有哪些？" class="headerlink" title="数据循环的应用有哪些？"></a>数据循环的应用有哪些？</h2><ul>
+<li>Vue nextTick</li>
+<li>React setState</li>
+</ul>
+<h2 id="setState为什么采用微任务而不是宏任务？"><a href="#setState为什么采用微任务而不是宏任务？" class="headerlink" title="setState为什么采用微任务而不是宏任务？"></a>setState为什么采用微任务而不是宏任务？</h2><ol>
+<li>优先级控制：微任务具有比宏任务更高的优先级。在一个事件循环中，宏任务会等待当前事件循环的所有同步代码执行完毕后才会执行，而微任务则会在当前宏任务执行完毕之后、事件循环进入下一个阶段之前立即执行。这就意味着，使用微任务可以确保在下一个宏任务之前更新界面，从而提供更好的用户体验。</li>
+<li>性能优化：使用微任务可以实现对连续的<code>setState</code>调用进行批处理，从而减少不必要的重复渲染。React会将多个连续的<code>setState</code>调用合并成一个更新操作，从而减少多次渲染造成的性能损耗。这也是React中常说的“批量更新”的原理。</li>
+<li>避免阻塞主线程：由于微任务在主线程空闲时执行，而宏任务则会在主线程上直接执行，使用微任务可以避免阻塞主线程。在一个用户交互频繁的应用中，如果使用宏任务进行更新操作，可能会导致应用无法响应用户操作，从而造成卡顿的问题。</li>
+</ol>
+<h2 id="实现函数：每次输出下一个质数"><a href="#实现函数：每次输出下一个质数" class="headerlink" title="实现函数：每次输出下一个质数"></a>实现函数：每次输出下一个质数</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">isPrime</span>(<span class="hljs-params">num</span>) &#123;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">2</span>; i &lt;= <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">sqrt</span>(num); i++) &#123;<br>    <span class="hljs-keyword">if</span> (num % i === <span class="hljs-number">0</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> num &gt; <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">getNextPrime</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">let</span> num = <span class="hljs-number">2</span>;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isPrime</span>(num)) &#123;<br>        <span class="hljs-keyword">const</span> prime = num;<br>        num++;<br>        <span class="hljs-keyword">return</span> prime;<br>      &#125;<br>      num++;<br>    &#125;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> getNext = <span class="hljs-title function_">getNextPrime</span>();<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">getNext</span>()); <span class="hljs-comment">// 输出下一个质数</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">getNext</span>());<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">getNext</span>());<br></code></pre></td></tr></table></figure>
+
+<h2 id="包的版本号遵循什么规范，是如何来管理的"><a href="#包的版本号遵循什么规范，是如何来管理的" class="headerlink" title="包的版本号遵循什么规范，是如何来管理的?"></a>包的版本号遵循什么规范，是如何来管理的?</h2><p>包的版本号遵循语义化版本规范(Semantic Versioning)，也称为SemVer。该规范定义了一套标准的版本号命名和管理规则，包括主版本号、次版本号和修订版本号。它的格式通常为<code>&lt;主版本号&gt;.&lt;次版本号&gt;.&lt;修订版本号&gt;</code>。</p>
+<p>具体规则如下：</p>
+<ul>
+<li>主版本号（major）：当进行不兼容的API修改时增加。这意味着原有的代码可能无法与新版本兼容。</li>
+<li>次版本号（minor）：当进行向下兼容的功能性新增时增加。这意味着原有的代码可以与新版本兼容。</li>
+<li>修订版本号（patch）：当进行向下兼容的问题修复时增加。这意味着原有的代码可以与新版本兼容。</li>
+</ul>
+<p>除了主版本号、次版本号和修订版本号之外，还可以在版本号后添加预发行版本号(pre-release)，以及构建版本号(build)。预发行版本号用于标识开发阶段的版本（如alpha、beta、rc等），而构建版本号用于标识构建过程中的不重要变更。</p>
+<p>版本管理通常在软件包管理器中进行。在Node.js中，通过<code>package.json</code>文件来管理包的版本号。在该文件中，可以指定依赖的精确版本或范围，以及支持的最低版本和最高版本。当执行<code>npm install</code>时，Node.js会根据这些规则下载和安装相应版本的包。</p>
+<h2 id="CommonJS和ESModule的区别？"><a href="#CommonJS和ESModule的区别？" class="headerlink" title="CommonJS和ESModule的区别？"></a>CommonJS和ESModule的区别？</h2><p>语法区别：</p>
+<ul>
+<li>CommonJS：使用<code>require()</code>函数来加载模块，使用<code>module.exports</code>或<code>exports</code>导出模块。</li>
+<li>ES Module：使用<code>import</code>语句来加载模块，使用<code>export</code>关键字导出模块。</li>
+</ul>
+<p>加载方式的异步与同步：</p>
+<ul>
+<li>CommonJS：模块加载是同步的，代码在运行时动态加载。</li>
+<li>ES Module：模块加载是异步的，在解析模块时进行静态分析，并在模块的依赖都加载完成后再执行后续代码。</li>
+</ul>
+<p>动态与静态：</p>
+<ul>
+<li>CommonJS：模块的导入和导出是运行时动态的。</li>
+<li>ES Module：模块的导入和导出是在静态编译阶段就确定的，使得编译器能够进行更好的优化和静态分析。</li>
+</ul>
+<p>作用域的差异：</p>
+<ul>
+<li>CommonJS：模块中的代码是在一个单独的作用域中执行，模块内部的变量对外部不可见。</li>
+<li>ES Module：模块中的代码默认是在严格模式下执行，每个模块拥有独立的作用域，通过<code>export</code>和<code>import</code>来共享值。</li>
+</ul>
+<p>浏览器支持：</p>
+<ul>
+<li>CommonJS：最初是为Node.js设计的，可以在Node.js环境下使用，但在浏览器环境下通常需要使用工具进行转换处理。</li>
+<li>ES Module：为了兼容浏览器环境，现代浏览器已经原生支持ES Module，无需额外转换处理。</li>
+</ul>
+<h2 id="CommonJS循环引用会出现哪些问题？"><a href="#CommonJS循环引用会出现哪些问题？" class="headerlink" title="CommonJS循环引用会出现哪些问题？"></a>CommonJS循环引用会出现哪些问题？</h2><p>在CommonJS模块系统中，循环引用可能导致以下问题：</p>
+<ol>
+<li>只有部分导出： 循环引用可能导致模块在被使用前还没有完全加载，因此导致被引用的模块只有部分已导出的内容可用，而其他内容可能为<code>undefined</code>。</li>
+<li>值为<code>undefined</code>： 循环引用时，存在一个模块A在加载模块B前，模块B又引用了模块A的情况。这种情况下，模块A首次被引用时，它的导出对象可能还没有完全初始化，因此模块B在引用模块A时，可能会得到一个值为<code>undefined</code>的对象。</li>
+<li>导出对象的“缓存”： CommonJS模块系统会缓存已加载的模块，这意味着当一个模块被循环引用时，它可能会返回被缓存的导出对象，而不重新执行模块的代码。这可能会导致模块在循环引用的情况下产生意外的行为。</li>
+</ol>
+<h2 id="首屏渲染速度有哪些指标？"><a href="#首屏渲染速度有哪些指标？" class="headerlink" title="首屏渲染速度有哪些指标？"></a>首屏渲染速度有哪些指标？</h2><p><strong>首屏是如何进行计算的？以哪个元素出现为标准？</strong></p>
+<p>首屏渲染速度是指用户访问网页的时候，从页面开始加载到呈现首个可见内容所需的时间。以下是一些常见的用于衡量首屏渲染速度的指标：</p>
+<ol>
+<li>First Paint (FP)：页面加载后首次渲染像素的时间点。它表示浏览器第一次将像素渲染到屏幕上的时间，但不一定是用户感知到的内容。</li>
+<li>First Contentful Paint (FCP)：页面加载后首个渲染出有意义内容的时间点。它表示浏览器首次渲染页面的内容，可以是文本、图像等可视元素。</li>
+<li>First Meaningful Paint (FMP)：页面加载后首个渲染出对用户有意义的内容的时间点。它表示用户可以开始与页面交互和理解页面内容的时间。</li>
+<li>Largest Contentful Paint (LCP)：页面加载过程中最大的可见元素渲染完成的时间点。它表示用户认为最重要的内容已渲染到屏幕上的时间。</li>
+</ol>
+<h2 id="如何分析首屏渲染速度呢？"><a href="#如何分析首屏渲染速度呢？" class="headerlink" title="如何分析首屏渲染速度呢？"></a>如何分析首屏渲染速度呢？</h2><p>要分析首屏渲染速度，可以采取以下几个步骤：</p>
+<ol>
+<li>使用网络工具来监测和分析网络请求。<ul>
+<li>使用浏览器的开发者工具中的”Network”选项卡，可以查看所有网络请求和其加载时间。</li>
+<li>根据请求的时间顺序和加载时间，确定首屏所需的关键资源。</li>
+</ul>
+</li>
+<li>使用性能分析工具来捕获和分析页面渲染性能。<ul>
+<li>工具如Lighthouse、WebPagetest、PageSpeed Insights可以评估页面性能，并提供渲染时间和性能指标。</li>
+<li>使用这些工具可以获取关于首屏渲染的详细数据，如首次绘制时间、DOMContentLoaded事件、白屏时间等。</li>
+</ul>
+</li>
+<li>检查HTML和CSS的优化。<ul>
+<li>检查HTML结构，确保使用语义化的标签和最小化的嵌套。</li>
+<li>优化CSS，合并和压缩CSS文件，并使用合适的选择器和样式规则。</li>
+</ul>
+</li>
+<li>考虑延迟加载和异步加载。<ul>
+<li>对于非关键资源，如图片或其他外部脚本，可以采用延迟加载或异步加载的方式。这样可以确保首屏内容更快地呈现给用户。</li>
+</ul>
+</li>
+<li>压缩和优化图片。<ul>
+<li>图片通常是页面加载时间的主要因素之一。优化和压缩图片文件大小，可以减少网络传输时间和首屏渲染时间。</li>
+<li>使用适当的图片格式，如JPEG、PNG或WebP，并使用合适的压缩率。</li>
+</ul>
+</li>
+<li>减少服务器响应时间。<ul>
+<li>优化后端代码和数据库查询，减少服务器响应时间。</li>
+<li>使用缓存机制，减少对动态内容的频繁访问和计算。</li>
+</ul>
+</li>
+</ol>
+<h2 id="图片转化为base64的格式一定能获得优化吗？"><a href="#图片转化为base64的格式一定能获得优化吗？" class="headerlink" title="图片转化为base64的格式一定能获得优化吗？"></a>图片转化为base64的格式一定能获得优化吗？</h2><p>将图片转化为Base64格式可以在一些特定情况下获得一定的优化效果，但并不是在所有情况下都能带来优化。</p>
+<p>使用Base64编码可以将图片数据包含在HTML、CSS或JavaScript中，而不需要额外的网络请求。这可以减少一次网络请求并提高网页加载速度，特别是对于小型的图片或使用频繁的小图标等。</p>
+<p>然而，将图片转化为Base64格式也有一些缺点：</p>
+<ol>
+<li>文件大小增加：Base64编码会增加图片文件的大小，通常约为原始二进制数据的1.3倍至1.8倍。这意味着在页面加载时，需要下载更多的数据量，可能会导致加载时间变长。</li>
+<li>缓存失效：由于Base64编码的图片数据被嵌入到HTML或CSS中，其本质上是作为文本来处理的。每次更改图片时，都需要重新生成Base64编码的字符串，这可能导致缓存失效，并增加服务器负载。</li>
+</ol>
+<h2 id="频繁的获取offsetTop会有什么问题吗？"><a href="#频繁的获取offsetTop会有什么问题吗？" class="headerlink" title="频繁的获取offsetTop会有什么问题吗？"></a>频繁的获取offsetTop会有什么问题吗？</h2><ol>
+<li>性能问题：获取元素的offsetTop是需要浏览器进行一系列计算的操作，如果频繁获取offsetTop，会消耗大量的资源和时间。特别是当页面中存在大量元素，并且需要频繁获取它们的offsetTop时，会导致页面的性能下降，出现卡顿或延迟的现象。</li>
+<li>重绘和回流：获取元素的offsetTop可能会导致浏览器发生重绘和回流。这是因为offsetTop的计算需要考虑元素的尺寸、位置和父元素的布局等因素，这些因素可能会触发浏览器重新计算页面的布局和样式。频繁的重绘和回流会降低页面的性能，导致页面的渲染速度变慢。</li>
+<li>不稳定性问题：获取元素的offsetTop可能受到其他因素的影响，如浏览器的缩放、滚动等操作。这些因素会改变元素的位置和尺寸，从而导致获取到的offsetTop值不稳定。如果在不稳定的情况下频繁获取offsetTop，可能会导致错误的结果或产生不可预测的行为。</li>
+</ol>
+<p>为了避免上述问题，可以采取以下优化措施：</p>
+<ol>
+<li>缓存offsetTop的值：在需要频繁获取offsetTop的场景下，可以将获取到的值缓存起来，避免重复计算。</li>
+<li>减少获取offsetTop的频率：只在必要的时候获取offsetTop，避免不必要的操作。</li>
+<li>使用更高效的方式获取元素位置：如果只是为了获取元素的位置信息，可以考虑使用其他性能更高的方法，如getBoundingClientRect()。</li>
+</ol>
+<h2 id="受控组件和非受控组件的区别？优缺点？"><a href="#受控组件和非受控组件的区别？优缺点？" class="headerlink" title="受控组件和非受控组件的区别？优缺点？"></a>受控组件和非受控组件的区别？优缺点？</h2><ol>
+<li>受控组件（Controlled Components）：<ul>
+<li>定义：受控组件是由React控制其状态的组件，其内部状态（表单值、组件的状态等）是通过props来管理的。</li>
+<li>工作原理：受控组件通过监听用户的输入或者其他事件触发状态变化，并将新值通过回调函数传递给父组件来更新状态。</li>
+<li>优点：<ul>
+<li>可以实现精确的状态控制，所有状态都通过props传递，易于追踪和debug；</li>
+<li>可以方便地实现组件之间的数据传递和共享。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>需要编写更多的代码，包括处理状态变化的逻辑和传递属性的回调函数；</li>
+<li>对于复杂的表单或组件，代码可能变得冗长和繁琐。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>非受控组件（Uncontrolled Components）：<ul>
+<li>定义：非受控组件是将表单值和组件的状态交给DOM自身来管理的，React无法直接控制和追踪其状态。</li>
+<li>工作原理：非受控组件中，组件的值通过DOM操作（如ref）来获取或设置，而不是通过组件的状态来管理。</li>
+<li>优点：<ul>
+<li>编写简洁，少了处理状态变化的逻辑和传递属性的回调函数；</li>
+<li>适用于简单的表单或组件，可以减少代码量。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>难以追踪和debug表单值的变化；</li>
+<li>难以在组件之间共享数据。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="React18-并发"><a href="#React18-并发" class="headerlink" title="React18 并发"></a>React18 并发</h2><p>React 18 引入了一种称为”并发模式”的新特性，它旨在提高React应用程序的性能和用户体验。并发模式允许React应用程序在多个渲染优先级的任务之间进行任务调度，以提供更流畅的用户交互和更快的响应速度。</p>
+<p>在React 18中，采用了新的渲染器，称为”Scheduler”，它是一个可配置的任务调度器，可以在不同的渲染优先级之间进行任务切换。Scheduler通过使用requestIdleCallback API，允许React应用程序根据用户设备的空闲时间分配任务。</p>
+<p>与此同时，React 18还引入了一种新的组件类型，称为”根暂停”（Root Suspense），它将React组件树的一部分标记为可暂停的任务单元，这意味着在组件树中当前可见的部分可以在后台执行，而不会影响用户界面的响应和互动。</p>
+<p>React 18的并发模式的优势包括：</p>
+<ul>
+<li>提高应用程序的性能和响应速度，特别是在复杂的用户界面中；</li>
+<li>增强用户体验，使应用程序更流畅和高度响应；</li>
+<li>实现任务的优先级调度，确保关键任务的优先处理；</li>
+<li>通过根暂停，实现更灵活、可控的任务执行和数据加载。</li>
+</ul>
+<p>然而，并发模式也需要开发者适应一些新的概念和编程模式，例如使用React Suspense和React.lazy来处理异步加载和代码分割，以及使用React.memo和React.useMemo来优化组件渲染等。</p>
+<h2 id="TCP-x2F-IP五层协议"><a href="#TCP-x2F-IP五层协议" class="headerlink" title="TCP&#x2F;IP五层协议"></a>TCP&#x2F;IP五层协议</h2><ol>
+<li>物理层（Physical Layer）：物理层负责传输数据的物理媒介，例如电缆、光纤等。它定义了电气和光学特性以及连接和传输介质的规范，确保数据可以通过物理媒介进行传输。</li>
+<li>数据链路层（Data Link Layer）：数据链路层负责将传输的数据划分为适当大小的数据包，称为帧。它还负责错误检测和纠正，以确保数据的可靠传输，同时处理数据包的发送和接收。</li>
+<li>网络层（Network Layer）：网络层负责通过IP地址进行数据包的路由选择和转发。它使用IP协议来确定数据包的最佳路径，同时负责分配和管理IP地址。</li>
+<li>传输层（Transport Layer）：传输层负责端到端的数据传输。它使用TCP（传输控制协议）或UDP（用户数据报协议）来提供可靠的或不可靠的数据传输服务。TCP负责可靠传输，确保数据的有序、完整和可靠接收，而UDP则提供无连接的数据传输，适用于不需要可靠性的实时数据传输。</li>
+<li>应用层（Application Layer）：应用层是最上层的层次，提供各种网络应用程序和服务，例如HTTP（超文本传输协议）、FTP（文件传输协议）、SMTP（简单邮件传输协议）等。它定义了数据的格式和规范，以便应用程序能够相互通信和交换数据。</li>
+</ol>
+<h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><p>HTTP（超文本传输协议）是一种用于传输超媒体文档（如HTML）的应用层协议。它是TCP&#x2F;IP五层协议中的应用层协议，用于客户端和服务器之间的通信。HTTP协议的主要功能是在Web浏览器和Web服务器之间传输数据，并规定了数据的格式和传输方式。</p>
+<p>HTTP协议的特点和工作原理如下：</p>
+<ol>
+<li>简单：HTTP协议采用简单的请求-响应模型。客户端向服务器发送请求，服务器接收请求并向客户端发送响应。</li>
+<li>无连接：每个HTTP请求都是独立的，客户端发送请求后即关闭连接，服务器响应后也会关闭连接。这种无连接的特性使得每个请求都是相互独立的，但也导致了每次请求都需要建立新的连接，增加了额外的开销。</li>
+<li>无状态：HTTP协议是无状态的，即服务器不会保存之前的会话状态。每个请求都是独立的，服务器不会记住之前的请求信息。为了解决这个问题，引入了Cookie和Session等机制来维护状态信息。</li>
+<li>文本协议：HTTP协议传输的数据是以文本形式进行的，数据使用ASCII码进行编码。</li>
+</ol>
+<p>HTTP协议的工作流程如下：</p>
+<ol>
+<li>客户端发起请求：客户端（例如Web浏览器）向服务器发送HTTP请求。请求由请求行、请求头和请求体组成。请求行包含请求方法（如GET、POST）、请求资源的路径和HTTP协议的版本。</li>
+<li>服务器响应请求：服务器接收到请求后，会解析请求，处理请求，并生成HTTP响应。响应由响应行、响应头和响应体组成。响应行包含响应状态码（如200表示成功，404表示资源未找到）和HTTP协议的版本。</li>
+<li>数据传输：服务器将生成的HTTP响应发送回客户端，客户端接收响应并解析响应。如果请求的资源是一个HTML页面，客户端会解析HTML并获取页面上的其他资源（如CSS、JavaScript等）。</li>
+<li>连接关闭：在响应发送完毕后，连接会被关闭，客户端和服务器会断开连接。</li>
+</ol>
+<p>HTTP协议还定义了一些常用的请求方法，例如GET、POST、PUT和DELETE。GET用于获取资源，POST用于提交数据，PUT用于更新资源，DELETE用于删除资源。此外，HTTP协议还定义了一些常用的响应状态码，如200表示成功，404表示资源未找到，500表示服务器内部错误等。</p>
+<h2 id="进程间通信方式有哪些？"><a href="#进程间通信方式有哪些？" class="headerlink" title="进程间通信方式有哪些？"></a>进程间通信方式有哪些？</h2><ol>
+<li>共享内存：多个线程共享一个内存空间，通过读写共享的内存数据进行通信。这种方式简单高效，但需要确保共享数据的一致性和并发访问的安全性。</li>
+<li>信号量：信号量是一种计数器，用于控制多个线程对共享资源的访问。线程在访问共享资源前先获取信号量，访问完成后释放信号量，其他等待线程可以获取信号量并继续访问资源。</li>
+<li>互斥锁：互斥锁（Mutex）用于保护共享资源的访问，只允许一个线程访问共享资源。线程在访问前先请求互斥锁，访问完成后释放互斥锁，其他等待线程可以获取锁并访问资源。</li>
+<li>条件变量：条件变量用于线程间的同步，允许线程等待某个特定条件的发生。线程在满足条件前等待在条件变量上，当条件满足时，其他线程可以通过发送信号或广播通知等方式唤醒等待的线程。</li>
+<li>管道和队列：管道和队列用于多个线程之间的数据交换。管道是一种简单的半双工通信机制，队列可以实现线程之间的异步通信。</li>
+<li>事件：事件（Event）用于线程之间的信号通知。线程可以阻塞在事件上等待信号的到达，其他线程可以通过发送信号来通知等待线程。</li>
+<li>排他锁：排他锁（Exclusion Lock）用于保证某段代码在同一时刻只能被一个线程访问。通过排他锁可以实现线程间的同步和互斥访问。</li>
+<li>信号量量子：信号量量子（Semaphore Quantum）用于传递数据信号。一个线程在传输数据时可以将信号量值设置为非零，另一个线程在接收数据时可以等待信号量为非零再进行读取。</li>
+</ol>
+<h2 id="进程、线程和协程的区别？"><a href="#进程、线程和协程的区别？" class="headerlink" title="进程、线程和协程的区别？"></a>进程、线程和协程的区别？</h2><ol>
+<li>进程：进程是操作系统中的一个独立执行单位。一个进程可以包含多个线程，每个进程有独立的内存空间，进程间通信需要使用特定的机制，如共享内存、管道等。每个进程都有独立的地址空间，因此多个进程间数据互不干扰。进程的切换开销较大。</li>
+<li>线程：线程是进程内的一个独立执行流。在同一个进程中的多个线程共享进程的资源和地址空间，线程间通信较为方便。由于线程共享内存，因此多个线程间的数据访问需要考虑并发访问的安全性。线程的切换开销相对较小。</li>
+<li>协程：协程是一种用户级的轻量级线程，可以在程序中进行切换而无需进行系统调度。协程通常是由程序员手动控制的，可以在代码执行过程中手动切换执行顺序。协程没有独立的地址空间，只有一个线程在执行。协程切换开销非常小。</li>
+</ol>
+<h2 id="请求的幂等性有什么应用？"><a href="#请求的幂等性有什么应用？" class="headerlink" title="请求的幂等性有什么应用？"></a>请求的幂等性有什么应用？</h2><ol>
+<li>幂等操作：幂等性在执行相同操作多次时产生的结果是相同的。这意味着在网络通信中，如果一个请求是幂等的，那么即使请求被重复发送，也不会对系统产生不一致的影响。例如，对于更新操作，重复的请求可以安全地执行，而不必担心重复修改数据。</li>
+<li>幂等接口设计：设计幂等的接口可以使系统更加健壮和安全。当客户端在进行请求时，可以避免重复的请求对系统造成不必要的压力或产生副作用。幂等的接口设计可以通过唯一标识符、版本号、资源状态等方式来实现。</li>
+<li>缓存：幂等操作可以有效地进行缓存。由于幂等操作的结果是可预测和可复现的，可以缓存结果，从而减少网络请求和系统资源的消耗。例如，对于相同的查询请求，可以将结果缓存起来，当下次相同的请求到来时，可以直接返回缓存中的结果而不需要重新计算。</li>
+<li>消息队列：在消息传递系统中，使用幂等性可以保证消息重复发送时不会重复处理。如果消息的处理是幂等的，那么无论消息重复投递多少次，都不会对系统产生错误结果。</li>
+</ol>
+<p>总结而言，请求的幂等性在分布式系统和Web开发中起到了重要的作用，它可以确保在重复请求的场景下系统的正确性和稳定性，并且有助于提高系统的性能和可靠性。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF%E6%80%BB%E7%BB%93/">#前端总结</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>知识点总结（1）</div>
+      <div>https://ustinians.github.io/2023/08/28/知识点总结（1）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>想躺在云上</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/28/%E7%BE%8E%E5%9B%A2%E7%A7%8B%E6%8B%9B%E4%B8%80%E9%9D%A2/" title="美团秋招一面">
+                        <span class="hidden-mobile">美团秋招一面</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
